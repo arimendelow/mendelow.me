@@ -4,7 +4,11 @@
   "description": "Created following the instructions in [this article](https://medium.com/@Preda/getting-started-on-building-a-personal-website-with-react-b44ee93b1710)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack -d --watch",
+    "start": "node ./sever/index.js",
+    "build": "webpack -p",
+    "react-dev": "webpack -d --watch",
+    "server-dev": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
