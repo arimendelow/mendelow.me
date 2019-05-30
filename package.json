@@ -1,0 +1,19 @@
+{
+  "name": "mendelow.me",
+  "version": "1.0.0",
+  "description": "Created following the instructions in [this article](https://medium.com/@Preda/getting-started-on-building-a-personal-website-with-react-b44ee93b1710)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arimendelow/mendelow.me.git"
+  },
+  "author": "Ari Mendelow",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arimendelow/mendelow.me/issues"
+  },
+  "homepage": "https://github.com/arimendelow/mendelow.me#readme"
+}
