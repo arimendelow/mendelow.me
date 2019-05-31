@@ -1,0 +1,40 @@
+{
+  "name": "mendelow.me",
+  "version": "1.0.0",
+  "description": "Created following the instructions in [this article](https://medium.com/@Preda/getting-started-on-building-a-personal-website-with-react-b44ee93b1710)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack -d --watch",
+    "start": "node ./sever/index.js",
+    "build": "webpack -p",
+    "react-dev": "webpack -d --watch",
+    "server-dev": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arimendelow/mendelow.me.git"
+  },
+  "author": "Ari Mendelow",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arimendelow/mendelow.me/issues"
+  },
+  "homepage": "https://github.com/arimendelow/mendelow.me#readme",
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "webpack": "^4.32.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.2"
+  }
+}
