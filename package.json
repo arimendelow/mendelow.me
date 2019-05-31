@@ -4,11 +4,12 @@
   "description": "Created following the instructions in [this article](https://medium.com/@Preda/getting-started-on-building-a-personal-website-with-react-b44ee93b1710)",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack -d --watch",
-    "start": "node ./sever/index.js",
-    "build": "webpack -p",
-    "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js"
+    "tailwind:css": "tailwind build react-client/src/css/tailwind.src.css -c tailwind.js -o react-client/src/css/tailwind.css",
+    "dev": "npm run tailwind:css && webpack -d --watch",
+    "start": "npm run tailwind:css && node ./server/index.js",
+    "build": "npm run tailwind:css && webpack -p",
+    "react-dev": "npm run tailwind:css && webpack -d --watch",
+    "server-dev": "npm run tailwind:css && nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -27,11 +28,13 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.19.0",
+    "css-loader": "^2.1.1",
     "express": "^4.17.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
+    "style-loader": "^0.23.1",
     "tailwindcss": "^1.0.2",
     "webpack": "^4.32.2"
   },
