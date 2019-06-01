@@ -4,15 +4,15 @@ const DIST_DIR = path.join(__dirname, '/react-client/dist');
 const webpack = require('webpack');
 
 module.exports = {
-	entry: `${SRC_DIR}/index.jsx`,
+	entry: `${SRC_DIR}/index.jsx`, // This is where bundling will begin
 	output: {
-	  path: DIST_DIR,
+	  path: DIST_DIR, // This is where the bundled result is dumped
 	  filename: 'bundle.js',
 	},
 	resolve: {
 	  extensions: ['.js', '.jsx', '.json', '.css']
 	},
-	module : {
+	module : { // This defines what loaders should be used during the bundling process
 	  rules : [
 		{
 		  test: /\.css$/,
