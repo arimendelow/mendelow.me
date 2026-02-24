@@ -1,8 +1,13 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getReadingTime } from '../utils/readingTime';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <!doctype html>
@@ -12,37 +17,59 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+		<main class="pb-10">
+			<section class="space-y-5 text-[1.05rem] leading-7 text-[#222]">
+				<p>
+					I&rsquo;m Ari Mendelow. I build software, write about product and engineering tradeoffs, and try to
+					ship useful things on the internet.
+				</p>
+				<p>
+					This site is my working notebook: notes from projects, decisions that went right or wrong, and
+					small lessons worth keeping.
+				</p>
+				<p class="text-[0.98rem] text-[#666]">
+					<a href="https://github.com/arimendelow" target="_blank" rel="noreferrer">GitHub</a>
+					<span aria-hidden="true"> · </span>
+					<a href="https://x.com/arimendelow" target="_blank" rel="noreferrer">Twitter/X</a>
+					<span aria-hidden="true"> · </span>
+					<a href="https://www.linkedin.com/in/arimendelow/" target="_blank" rel="noreferrer">LinkedIn</a>
+				</p>
+			</section>
+
+			<hr class="my-10" />
+
+			<section>
+				<ul class="space-y-10">
+					{
+						posts.map((post) => (
+							<li class="group space-y-2">
+								<a
+									href={`/blog/${post.id}/`}
+									class="text-[1.35rem] font-semibold leading-tight text-[#111] transition-colors hover:text-[#1f4a8a]"
+								>
+									{post.data.title}
+								</a>
+								<p class="text-sm text-[#666]">
+									<FormattedDate date={post.data.pubDate} /> <span aria-hidden="true">&middot;</span>{' '}
+									{getReadingTime(post.body)} min read
+								</p>
+								<p class="text-[0.98rem] text-[#666]">
+									{post.data.description}
+								</p>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+			{
+				posts.length === 0 && (
+					<section>
+						<p class="text-[#666]">
+							No posts yet. The first one should land soon.
+						</p>
+					</section>
+				)
+			}
 		</main>
 		<Footer />
 	</body>
