@@ -8,6 +8,8 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { getReadingTime } from '../utils/readingTime';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const bioSocialLinkClass =
+	'font-medium text-[#444] underline decoration-[#bcc4cf] underline-offset-3 transition-colors hover:text-[#D91C1C] hover:decoration-[#D91C1C]';
 ---
 
 <!doctype html>
@@ -17,26 +19,26 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 	</head>
 	<body>
 		<Header />
-		<main class="pb-10">
-			<section class="space-y-5 text-[1.05rem] leading-7 text-[#222]">
-				<p>
+		<main class="pb-20">
+			<section class="space-y-5 text-[0.95rem] leading-7 text-[#555]">
+				<p class="max-w-[40rem]">
 					I&rsquo;m Ari Mendelow. I build software, write about product and engineering tradeoffs, and try to
 					ship useful things on the internet.
 				</p>
-				<p>
+				<p class="max-w-[40rem]">
 					This site is my working notebook: notes from projects, decisions that went right or wrong, and
 					small lessons worth keeping.
 				</p>
-				<p class="text-[0.98rem] text-[#666]">
-					<a href="https://github.com/arimendelow" target="_blank" rel="noreferrer">GitHub</a>
+				<p class="text-[0.95rem] text-[#666]">
+					<a href="https://github.com/arimendelow" target="_blank" rel="noreferrer" class={bioSocialLinkClass}>GitHub</a>
 					<span aria-hidden="true"> · </span>
-					<a href="https://x.com/arimendelow" target="_blank" rel="noreferrer">Twitter/X</a>
+					<a href="https://x.com/arimendelow" target="_blank" rel="noreferrer" class={bioSocialLinkClass}>Twitter/X</a>
 					<span aria-hidden="true"> · </span>
-					<a href="https://www.linkedin.com/in/arimendelow/" target="_blank" rel="noreferrer">LinkedIn</a>
+					<a href="https://www.linkedin.com/in/arimendelow/" target="_blank" rel="noreferrer" class={bioSocialLinkClass}>LinkedIn</a>
 				</p>
 			</section>
 
-			<hr class="my-10" />
+			<hr class="my-20" />
 
 			<section>
 				<ul class="space-y-10">
@@ -45,7 +47,7 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 							<li class="group space-y-2">
 								<a
 									href={`/blog/${post.id}/`}
-									class="text-[1.35rem] font-semibold leading-tight text-[#111] transition-colors hover:text-[#D91C1C]"
+									class="text-[1.35rem] font-semibold leading-tight text-[#111] no-underline decoration-[#bcc4cf] underline-offset-3 transition-colors transition-[text-decoration-color] hover:text-[#D91C1C] hover:underline hover:decoration-[#D91C1C]"
 								>
 									{post.data.title}
 								</a>
