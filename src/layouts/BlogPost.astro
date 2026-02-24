@@ -20,11 +20,11 @@ const { title, description, pubDate, readingTime } = Astro.props;
 
 	<body>
 		<Header />
-		<main class="pb-12">
+		<main class="pb-16">
 			<article>
-				<header class="mb-8 border-b border-[#e8ecf3] pb-6 sm:mb-10">
-					<h1 class="text-[1.9rem] font-semibold leading-tight text-[#111] sm:text-[2.2rem]">{title}</h1>
-					<p class="mt-3 text-[0.9rem] text-[#667082]">
+				<header class="mb-8 sm:mb-10">
+					<h1 class="text-[1.5rem] font-semibold leading-tight text-[#111]">{title}</h1>
+					<p class="mt-1 text-[0.875rem] font-normal text-[#666]">
 						<FormattedDate date={pubDate} /> <span aria-hidden="true">&middot;</span> {readingTime} min read
 					</p>
 				</header>

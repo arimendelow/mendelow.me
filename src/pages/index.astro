@@ -17,37 +17,31 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 	</head>
 	<body>
 		<Header />
-		<main class="pb-10">
-			<section class="rounded-2xl border border-[#e8ecf3] bg-[#fafbfd] px-5 py-6 sm:px-6 sm:py-7">
-				<p class="max-w-[39rem] text-[1rem] leading-8 text-[#424b5a]">
+		<main class="pb-16">
+			<section>
+				<p class="max-w-[42rem] text-[1rem] font-normal leading-8 text-[#444]">
 					Mendelow Studio builds software and writes about the tradeoffs behind product and engineering
 					decisions. This is our working notebook: project notes, mistakes worth documenting, and small lessons
 					that compound over time.
 				</p>
 			</section>
 
-			<hr class="my-9 sm:my-10" />
-
-			<section>
-				<div class="mb-6 flex items-center gap-3">
-					<h2 class="text-[0.83rem] font-semibold uppercase tracking-[0.16em] text-[#768093]">Latest Posts</h2>
-					<span class="h-px flex-1 bg-[#d9dee7]"></span>
-				</div>
+			<section class="mt-10 sm:mt-12">
 				<ul class="space-y-8 sm:space-y-10">
 					{
 						posts.map((post) => (
-							<li class="group space-y-3 border-b border-[#edf1f6] pb-8 last:border-b-0 last:pb-0">
+							<li>
 								<a
 									href={`/blog/${post.slug}/`}
-									class="block min-h-11 text-[1.23rem] font-semibold leading-[1.24] text-[#111] no-underline decoration-[#bcc4cf] underline-offset-3 transition-colors transition-[text-decoration-color] hover:text-[#d91c1c] hover:underline hover:decoration-[#d91c1c] sm:text-[1.4rem]"
+									class="block min-h-11 text-[1.5rem] font-semibold leading-[1.25] text-[#111] underline decoration-transparent underline-offset-4 transition-[color,text-decoration-color] duration-[140ms] ease-in-out hover:text-[#d91c1c] hover:decoration-[#d91c1c]"
 								>
 									{post.data.title}
 								</a>
-								<p class="text-[0.88rem] text-[#667082] sm:text-[0.92rem]">
+								<p class="mt-1 text-[0.875rem] font-normal text-[#666]">
 									<FormattedDate date={post.data.pubDate} /> <span aria-hidden="true">&middot;</span>{' '}
 									{getReadingTime(post.body)} min read
 								</p>
-								<p class="text-[0.99rem] leading-7 text-[#4d5666]">
+								<p class="mt-2 text-[1rem] font-normal leading-7 text-[#555]">
 									{post.data.description}
 								</p>
 							</li>
@@ -57,8 +51,8 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 			</section>
 			{
 				posts.length === 0 && (
-					<section>
-						<p class="text-[#666]">
+					<section class="mt-10 sm:mt-12">
+						<p class="text-[1rem] text-[#666]">
 							No posts yet. The first one should land soon.
 						</p>
 					</section>
