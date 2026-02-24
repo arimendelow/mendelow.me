@@ -2,25 +2,21 @@
 const today = new Date();
 ---
 
-<footer class="border-t border-[#e6e6e6] px-5 pb-8 pt-8">
-	<div class="mx-auto w-full max-w-[42rem] space-y-3 text-sm text-[#888]">
-		<div class="flex flex-wrap items-center justify-between gap-4">
+<footer class="border-t border-[#e6e6e6] px-5 py-6">
+	<div class="mx-auto w-full max-w-[42rem] text-sm text-[#888]">
+		<div class="flex items-center justify-between">
 			<div class="flex items-center gap-4">
 				<a href="https://github.com/arimendelow" target="_blank" rel="noreferrer">GitHub</a>
 				<a href="https://x.com/arimendelow" target="_blank" rel="noreferrer">X</a>
 				<a href="/rss.xml">RSS</a>
 			</div>
-			<a href="https://www.mendelow.studio" target="_blank" rel="noreferrer" class="flex items-center gap-2 no-underline text-[#888] hover:text-[#666]">
-				<img
-					src="/mendelow-studio-mark.webp"
-					alt="Mendelow Studio"
-					loading="lazy"
-					decoding="async"
-					class="h-4 w-auto opacity-50"
-				/>
-				<span>mendelow.studio</span>
-			</a>
+			<div class="flex items-center gap-4">
+				<a href="https://www.mendelow.studio" target="_blank" rel="noreferrer" class="flex items-center gap-1.5 text-[#888] no-underline hover:text-[#666]">
+					<img src="/mendelow-studio-mark.webp" alt="Mendelow Studio" loading="lazy" decoding="async" class="h-4 w-auto opacity-50" />
+					<span>mendelow.studio</span>
+				</a>
+			</div>
 		</div>
-		<p class="text-[#aaa]">&copy; {today.getFullYear()} mendelow.studio</p>
+		<p class="mt-2 text-xs text-[#aaa]">&copy; {today.getFullYear()} mendelow.studio</p>
 	</div>
 </footer>
