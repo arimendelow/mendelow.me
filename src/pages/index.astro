@@ -8,8 +8,6 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { getReadingTime } from '../utils/readingTime';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const bioSocialLinkClass =
-	'font-medium text-[#444] underline decoration-[#bcc4cf] underline-offset-3 transition-colors hover:text-[#d91c1c] hover:decoration-[#d91c1c]';
 ---
 
 <!doctype html>
@@ -22,19 +20,9 @@ const bioSocialLinkClass =
 		<main class="pb-20">
 			<section class="space-y-5 text-[1rem] text-[#555]">
 				<p class="max-w-[40rem]">
-					I&rsquo;m Ari Mendelow. I build software and write about the tradeoffs behind product and engineering
-					decisions.
-				</p>
-				<p class="max-w-[40rem]">
-					This is my working notebook: project notes, mistakes worth documenting, and small lessons that
-					compound over time.
-				</p>
-				<p class="text-[0.95rem] text-[#666]">
-					<a href="https://github.com/arimendelow" target="_blank" rel="noreferrer" class={bioSocialLinkClass}>GitHub</a>
-					<span aria-hidden="true"> · </span>
-					<a href="https://x.com/arimendelow" target="_blank" rel="noreferrer" class={bioSocialLinkClass}>Twitter/X</a>
-					<span aria-hidden="true"> · </span>
-					<a href="https://www.linkedin.com/in/arimendelow/" target="_blank" rel="noreferrer" class={bioSocialLinkClass}>LinkedIn</a>
+					Mendelow Studio builds software and writes about the tradeoffs behind product and engineering
+					decisions. This is our working notebook: project notes, mistakes worth documenting, and small lessons
+					that compound over time.
 				</p>
 			</section>
 
