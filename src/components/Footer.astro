@@ -1,29 +1,11 @@
----
-const today = new Date();
----
-
-<footer class="border-t border-[#e6e6e6] px-5 py-8">
-	<div class="mx-auto w-full max-w-[42rem] space-y-4 text-sm text-[#888]">
+<footer class="border-t border-[#eceff4] px-5 py-7">
+	<div class="mx-auto flex w-full max-w-[42rem] flex-col gap-2.5 text-[#828a98] sm:flex-row sm:items-center sm:justify-between">
 		<a
-			href="https://www.mendelow.studio"
-			target="_blank"
-			rel="noreferrer"
-			class="flex items-center gap-1.5 text-[0.88rem] text-[#888] no-underline hover:text-[#666]"
+			href="/rss.xml"
+			class="inline-flex min-h-11 items-center text-[0.95rem] text-[#596273] no-underline underline-offset-4 decoration-[#b8c1cf] transition-colors transition-[text-decoration-color] hover:text-[#d91c1c] hover:underline hover:decoration-[#d91c1c]"
 		>
-			<img
-				src="/mendelow-studio-mark.webp"
-				alt="Mendelow Studio"
-				loading="lazy"
-				decoding="async"
-				width="539"
-				height="556"
-				class="h-5 w-auto opacity-70"
-			/>
-			<span>the official blog of mendelow.studio</span>
+			RSS
 		</a>
-		<div class="flex items-center gap-4 text-[0.95rem]">
-			<a href="/rss.xml">RSS</a>
-		</div>
-		<p class="text-xs text-[#aaa]">&copy; {today.getFullYear()} Mendelow Studio</p>
+		<p class="text-[0.82rem] text-[#9ca4b2]">&copy; 2026 Mendelow Studio</p>
 	</div>
 </footer>

@@ -17,33 +17,37 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 	</head>
 	<body>
 		<Header />
-		<main class="pb-20">
-			<section class="space-y-5 text-[1rem] text-[#555]">
-				<p class="max-w-[40rem]">
+		<main class="pb-10">
+			<section class="rounded-2xl border border-[#e8ecf3] bg-[#fafbfd] px-5 py-6 sm:px-6 sm:py-7">
+				<p class="max-w-[39rem] text-[1rem] leading-8 text-[#424b5a]">
 					Mendelow Studio builds software and writes about the tradeoffs behind product and engineering
 					decisions. This is our working notebook: project notes, mistakes worth documenting, and small lessons
 					that compound over time.
 				</p>
 			</section>
 
-			<hr class="my-20" />
+			<hr class="my-9 sm:my-10" />
 
 			<section>
-				<ul class="space-y-10">
+				<div class="mb-6 flex items-center gap-3">
+					<h2 class="text-[0.83rem] font-semibold uppercase tracking-[0.16em] text-[#768093]">Latest Posts</h2>
+					<span class="h-px flex-1 bg-[#d9dee7]"></span>
+				</div>
+				<ul class="space-y-8 sm:space-y-10">
 					{
 						posts.map((post) => (
-							<li class="group space-y-2">
+							<li class="group space-y-3 border-b border-[#edf1f6] pb-8 last:border-b-0 last:pb-0">
 								<a
 									href={`/blog/${post.slug}/`}
-									class="text-[1.32rem] font-semibold leading-tight text-[#111] no-underline decoration-[#bcc4cf] underline-offset-3 transition-colors transition-[text-decoration-color] hover:text-[#d91c1c] hover:underline hover:decoration-[#d91c1c]"
+									class="block min-h-11 text-[1.23rem] font-semibold leading-[1.24] text-[#111] no-underline decoration-[#bcc4cf] underline-offset-3 transition-colors transition-[text-decoration-color] hover:text-[#d91c1c] hover:underline hover:decoration-[#d91c1c] sm:text-[1.4rem]"
 								>
 									{post.data.title}
 								</a>
-								<p class="text-sm text-[#666]">
+								<p class="text-[0.88rem] text-[#667082] sm:text-[0.92rem]">
 									<FormattedDate date={post.data.pubDate} /> <span aria-hidden="true">&middot;</span>{' '}
 									{getReadingTime(post.body)} min read
 								</p>
-								<p class="text-[0.98rem] text-[#666]">
+								<p class="text-[0.99rem] leading-7 text-[#4d5666]">
 									{post.data.description}
 								</p>
 							</li>
