@@ -1,18 +1,11 @@
----
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
----
-
 <header class="px-5 pb-8 pt-12">
 	<nav class="mx-auto flex w-full max-w-[42rem] items-center justify-between text-[1rem]">
-		<a href="/" class="text-[1.08rem] font-semibold text-[#111] no-underline transition-colors hover:text-[#D91C1C]">
+		<a href="/" class="text-[1.08rem] font-semibold text-[#111] no-underline transition-colors hover:text-[#d91c1c]">
 			Ari Mendelow
 		</a>
 		<a
 			href="/about"
-			class:list={[
-				'text-[#555] no-underline underline-offset-3 decoration-[#bcc4cf] transition-colors transition-[text-decoration-color] hover:text-[#D91C1C] hover:underline hover:decoration-[#D91C1C]',
-				{ 'underline': pathname === '/about' },
-			]}
+			class="text-[#555] no-underline underline-offset-3 decoration-[#bcc4cf] transition-colors transition-[text-decoration-color] hover:text-[#d91c1c] hover:underline hover:decoration-[#d91c1c]"
 		>
 			About
 		</a>

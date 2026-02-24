@@ -9,7 +9,7 @@ import { getReadingTime } from '../utils/readingTime';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const bioSocialLinkClass =
-	'font-medium text-[#444] underline decoration-[#bcc4cf] underline-offset-3 transition-colors hover:text-[#D91C1C] hover:decoration-[#D91C1C]';
+	'font-medium text-[#444] underline decoration-[#bcc4cf] underline-offset-3 transition-colors hover:text-[#d91c1c] hover:decoration-[#d91c1c]';
 ---
 
 <!doctype html>
@@ -20,14 +20,14 @@ const bioSocialLinkClass =
 	<body>
 		<Header />
 		<main class="pb-20">
-			<section class="space-y-5 text-[0.95rem] leading-7 text-[#555]">
+			<section class="space-y-5 text-[1rem] text-[#555]">
 				<p class="max-w-[40rem]">
-					I&rsquo;m Ari Mendelow. I build software, write about product and engineering tradeoffs, and try to
-					ship useful things on the internet.
+					I&rsquo;m Ari Mendelow. I build software and write about the tradeoffs behind product and engineering
+					decisions.
 				</p>
 				<p class="max-w-[40rem]">
-					This site is my working notebook: notes from projects, decisions that went right or wrong, and
-					small lessons worth keeping.
+					This is my working notebook: project notes, mistakes worth documenting, and small lessons that
+					compound over time.
 				</p>
 				<p class="text-[0.95rem] text-[#666]">
 					<a href="https://github.com/arimendelow" target="_blank" rel="noreferrer" class={bioSocialLinkClass}>GitHub</a>
@@ -46,8 +46,8 @@ const bioSocialLinkClass =
 						posts.map((post) => (
 							<li class="group space-y-2">
 								<a
-									href={`/blog/${post.id}/`}
-									class="text-[1.35rem] font-semibold leading-tight text-[#111] no-underline decoration-[#bcc4cf] underline-offset-3 transition-colors transition-[text-decoration-color] hover:text-[#D91C1C] hover:underline hover:decoration-[#D91C1C]"
+									href={`/blog/${post.slug}/`}
+									class="text-[1.32rem] font-semibold leading-tight text-[#111] no-underline decoration-[#bcc4cf] underline-offset-3 transition-colors transition-[text-decoration-color] hover:text-[#d91c1c] hover:underline hover:decoration-[#d91c1c]"
 								>
 									{post.data.title}
 								</a>
