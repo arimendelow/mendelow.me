@@ -1,26 +1,28 @@
+---
+import logoSvgRaw from '../../public/mendelow-studio-mark.svg?raw';
+
+const logoSvg = logoSvgRaw
+	.replace(/<\?xml[\s\S]*?\?>\s*/i, '')
+	.replace(/<!DOCTYPE[\s\S]*?>\s*/i, '')
+	.replace('<svg', '<svg aria-hidden="true" focusable="false"');
+---
+
 <header class="px-5 pt-8 sm:pt-10">
 	<div class="mx-auto w-full max-w-[42rem]">
 		<a
 			href="/"
-			class="inline-flex items-center gap-3 text-[2.5rem] font-bold leading-none tracking-[-0.02em] text-[#111] no-underline"
+			class="inline-flex items-center gap-3 text-[2.5rem] font-bold leading-none tracking-[-0.02em] text-[#111] no-underline dark:text-[#e5e5e5]"
 		>
-			<img
-				src="/mendelow-studio-mark.svg"
-				alt=""
-				aria-hidden="true"
-				class="h-7 w-auto opacity-90 sm:h-8"
-				loading="eager"
-				decoding="async"
-			/>
+			<span class="inline-flex shrink-0 [&>svg]:h-7 [&>svg]:w-auto [&>svg]:opacity-90 sm:[&>svg]:h-8" set:html={logoSvg} />
 			<span>Mendelow Blog</span>
 		</a>
-		<p class="mt-2 text-[0.875rem] font-normal text-[var(--muted)]">
+		<p class="mt-2 text-[0.875rem] font-normal text-[var(--muted)] dark:text-[#888]">
 			the blog of
 			<a
 				href="https://www.mendelow.studio"
 				target="_blank"
 				rel="noreferrer"
-				class="font-semibold text-[var(--brand-teal)] transition-colors duration-[140ms] ease-in-out hover:text-[var(--brand-red)]"
+				class="font-semibold text-[var(--brand-teal)] transition-colors duration-[140ms] ease-in-out hover:text-[var(--brand-red)] dark:text-[#8faeb0]"
 			>
 				Mendelow.Studio
 			</a>
