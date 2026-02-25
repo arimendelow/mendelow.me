@@ -33,11 +33,11 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 							<li>
 								<a
 									href={`/blog/${post.slug}/`}
-									class="block min-h-11 text-[1.5rem] font-semibold leading-[1.25] text-[#111] underline decoration-transparent underline-offset-4 transition-[color,text-decoration-color] duration-[140ms] ease-in-out hover:text-[#d91c1c] hover:decoration-[#d91c1c]"
+									class="block min-h-11 text-[1.5rem] font-semibold leading-[1.25] text-[#111] underline decoration-transparent underline-offset-4 transition-[color,text-decoration-color] duration-[140ms] ease-in-out hover:text-[var(--brand-red)] hover:decoration-[var(--brand-red)]"
 								>
 									{post.data.title}
 								</a>
-								<p class="mt-1 text-[0.875rem] font-normal text-[#666]">
+								<p class="mt-1 text-[0.875rem] font-normal text-[var(--brand-teal-muted)]">
 									<FormattedDate date={post.data.pubDate} /> <span aria-hidden="true">&middot;</span>{' '}
 									{getReadingTime(post.body)} min read
 								</p>
@@ -52,7 +52,7 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 			{
 				posts.length === 0 && (
 					<section class="mt-10 sm:mt-12">
-						<p class="text-[1rem] text-[#666]">
+						<p class="text-[1rem] text-[var(--muted)]">
 							No posts yet. The first one should land soon.
 						</p>
 					</section>

@@ -4,8 +4,11 @@
 	--bg: #fff;
 	--text: #111;
 	--muted: #666;
+	--brand-red: #D9321C;
+	--brand-teal: #173B3D;
+	--brand-teal-muted: #4a6567;
 	--rule: #eee;
-	--link-hover: #d91c1c;
+	--link-hover: var(--brand-red);
 }
 
 *,
