@@ -33,7 +33,7 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 							<li>
 								<a
 									href={`/blog/${post.slug}/`}
-									class="block min-h-11 text-[1.5rem] font-semibold leading-[1.25] text-[#111] underline decoration-transparent underline-offset-4 transition-[color,text-decoration-color] duration-[140ms] ease-in-out hover:text-[var(--brand-red)] hover:decoration-[var(--brand-red)]"
+									class="block min-h-11 text-[1.5rem] font-semibold leading-[1.25] text-[#111] underline decoration-[rgba(217,50,28,0.3)] underline-offset-4 transition-[color,text-decoration-color] duration-[140ms] ease-in-out hover:text-[var(--brand-red)] hover:decoration-[var(--brand-red)]"
 								>
 									{post.data.title}
 								</a>

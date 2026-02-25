@@ -9,6 +9,7 @@
 	--brand-teal-muted: #4a6567;
 	--rule: #eee;
 	--link-hover: var(--brand-red);
+	--link-underline: rgba(217, 50, 28, 0.3);
 }
 
 *,
@@ -43,7 +44,7 @@ a {
 	color: var(--text);
 	text-decoration: underline;
 	text-underline-offset: 4px;
-	text-decoration-color: #d3d3d3;
+	text-decoration-color: var(--link-underline);
 	text-decoration-thickness: 1px;
 	transition: color 140ms ease, text-decoration-color 140ms ease;
 }
