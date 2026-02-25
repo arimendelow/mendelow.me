@@ -18,9 +18,9 @@ const { title, description, pubDate, readingTime } = Astro.props;
 		<BaseHead title={`${title} | ${SITE_TITLE}`} description={description} />
 	</head>
 
-	<body>
+	<body class="min-h-screen flex flex-col">
 		<Header />
-		<main class="pb-16">
+		<main class="flex-1 pb-16">
 			<article class="text-[var(--text)]">
 				<header class="mb-8 sm:mb-10">
 					<h1 class="text-[1.5rem] font-semibold leading-tight text-[#111] dark:text-[#f5f5f5]">{title}</h1>

@@ -15,9 +15,9 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body>
+	<body class="min-h-screen flex flex-col">
 		<Header />
-		<main class="pb-16">
+		<main class="flex-1 pb-16">
 			<section>
 				<p class="max-w-[42rem] text-[1rem] font-normal leading-8 text-[#444] dark:text-[#aaa]">
 					Mendelow Studio builds software and writes about the tradeoffs behind product and engineering
