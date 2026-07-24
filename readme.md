@@ -1,5 +1,5 @@
-# Setting up a react website/webapp from scratch
+# mendelow.me
 
-Created following the instructions in [this article](https://medium.com/@Preda/getting-started-on-building-a-personal-website-with-react-b44ee93b1710)
+Source for [mendelow.me](https://mendelow.me), a small, owned identity-and-proof hub.
 
-TailwindCSS setup using [these instructions](https://itnext.io/how-to-use-tailwind-css-with-react-16e9d478b8b1)
+Dependency-free static HTML and CSS, served from this repository via GitHub Pages. No build step, no framework, no package manager. Edit `index.html` and `styles.css` directly; images live in `assets/`.
