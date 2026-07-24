@@ -40,9 +40,8 @@ CARD_TMP=$(mktemp -d)
 # Right: photo cropped to fill PWxH, face kept high in frame
 magick "$A/ari-portrait-wide.jpg" -resize ${PW}x^ -gravity north -crop ${PW}x${H}+0+30 +repage "$CARD_TMP/photo.png"
 
-# Text blocks (rendered separately so nothing can clip)
-magick -background none -fill "$ACCENT" -font "$SERIF_I" -pointsize 46 label:'Hello!!'            "$CARD_TMP/eyebrow.png"
-
+# Text blocks (rendered separately so nothing can clip). No greeting eyebrow — a share
+# card leads with the name; the "Hello!!" hero device only works fused into "…I'm Ari."
 # H1 auto-fit: probe at 100pt, then scale down so the rendered width never exceeds the text budget.
 H1_MAXW=600
 probe_w=$(magick -background none -font "$SERIF_B" -pointsize 100 label:'Ari Mendelow' -format '%w' info:)
@@ -55,14 +54,13 @@ magick -background none -fill "$FOOT"   -font "$SERIF_I" -pointsize 30 label:'me
 
 echo "   H1 fitted to ${h1_ps}pt, width $(magick identify -format '%w' "$CARD_TMP/h1.png")px (budget ${H1_MAXW})"
 
-# Compose: cream canvas, photo on right, thin brand divider, text on left
+# Compose: cream canvas, photo on right, thin brand divider, name + tagline centered on left
 magick -size ${W}x${H} xc:"$BG" \
   \( "$CARD_TMP/photo.png" \) -gravity east -compose over -composite \
   -fill "$LINE" -draw "rectangle $((PANEL-2)),0 ${PANEL},${H}" \
-  "$CARD_TMP/eyebrow.png" -gravity northwest -geometry +80+118 -composite \
-  "$CARD_TMP/h1.png"      -gravity northwest -geometry +76+168 -composite \
-  "$CARD_TMP/lede.png"    -gravity northwest -geometry +80+300 -composite \
-  "$CARD_TMP/foot.png"    -gravity southwest -geometry +80+70  -composite \
+  "$CARD_TMP/h1.png"   -gravity northwest -geometry +76+205 -composite \
+  "$CARD_TMP/lede.png" -gravity northwest -geometry +80+340 -composite \
+  "$CARD_TMP/foot.png" -gravity southwest -geometry +80+70  -composite \
   -strip "$A/social-card.png"
 
 rm -rf "$CARD_TMP"
