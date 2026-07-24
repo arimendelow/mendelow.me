@@ -48,8 +48,8 @@ probe_w=$(magick -background none -font "$SERIF_B" -pointsize 100 label:'Ari Men
 h1_ps=$(python3 -c "print(min(100, int(100*$H1_MAXW/$probe_w)))")
 magick -background none -fill "$INK"    -font "$SERIF_B" -pointsize "$h1_ps" label:'Ari Mendelow'  "$CARD_TMP/h1.png"
 
-magick -background none -fill "$LEDE"   -font "$SERIF"   -pointsize 40 -size 560x \
-       caption:'Building products for humans + agents.'                                            "$CARD_TMP/lede.png"
+magick -background none -fill "$LEDE"   -font "$SERIF"   -pointsize 40 -size 600x \
+       caption:$'Building products for\nhumans + agents.'                                          "$CARD_TMP/lede.png"
 magick -background none -fill "$FOOT"   -font "$SERIF_I" -pointsize 30 label:'mendelow.me'          "$CARD_TMP/foot.png"
 
 echo "   H1 fitted to ${h1_ps}pt, width $(magick identify -format '%w' "$CARD_TMP/h1.png")px (budget ${H1_MAXW})"
