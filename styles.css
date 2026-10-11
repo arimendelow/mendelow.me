@@ -15,6 +15,11 @@
   --maxw: 72rem;
   --prose: 44rem;
   --gutter: 1.25rem;
+  /* The desktop layout grid, shared with ouroboros.bot: a split section puts
+     the heading in about 5/12 of the container and the body in about 7/12. */
+  --split-cols: minmax(0, 5fr) minmax(0, 7fr);
+  --split-cols-wide: minmax(0, 7fr) minmax(0, 5fr);
+  --split-gap: 4rem;
   --serif: "Charter", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -156,6 +161,16 @@ p, li, figcaption { text-wrap: pretty; }
 .prose p { font-size: 1.2rem; margin: 0 0 1.1rem; }
 .prose p:last-child { margin-bottom: 0; }
 
+/* ── Desktop layout: every section composes across the full container ──
+   Split section: the heading (with any intro) on the left, the body on the
+   right. Below 1024px the columns stack as before. */
+@media (min-width: 1024px) {
+  .split { display: grid; grid-template-columns: var(--split-cols); column-gap: var(--split-gap); align-items: start; }
+  .split > .split-head { grid-column: 1; }
+  .split > .split-body { grid-column: 2; margin-top: 0; max-width: none; }
+  .split > .heading-section.split-head { padding-top: 0.1em; }
+}
+
 /* ── Hero ── */
 .hero { padding: 2.5rem 0 3rem; }
 @media (min-width: 768px) { .hero { padding: 5rem 0 5rem; } }
@@ -174,16 +189,30 @@ p, li, figcaption { text-wrap: pretty; }
   .hero-sub { font-size: 1.4rem; }
   .hero-pic { width: 15rem; }
 }
-@media (min-width: 1024px) { .hero-pic { width: 17rem; } }
+@media (min-width: 1024px) {
+  .hero-pic { width: 17rem; justify-self: end; }
+  .hero-sub { max-width: 48ch; }
+}
+/* A wider desktop gives the portrait the room the headline doesn't need. */
+@media (min-width: 1240px) { .hero-pic { width: 21rem; } }
 .eyebrow { font-family: var(--serif); font-style: italic; color: var(--accent); font-size: 1.25rem; margin: 0 0 0.5rem; }
 @media (min-width: 768px) { .eyebrow { font-size: 1.5rem; } }
 .nowrap { white-space: nowrap; }
 .hero h1 { font-size: clamp(1.9rem, 10vw, 2.5rem); line-height: 1.02; letter-spacing: -0.02em; margin: 0; }
 @media (min-width: 640px) { .hero h1 { font-size: 3.25rem; } }
 @media (min-width: 768px) { .hero h1 { font-size: 4rem; } }
-@media (min-width: 1024px) { .hero h1 { font-size: 5rem; } }
+/* Scaled with the viewport up to 5rem, so "humans + agents." never runs into the portrait. */
+@media (min-width: 1024px) { .hero h1 { font-size: clamp(4rem, 6.6vw, 5rem); } }
 /* A hero without a grid (the 404 page). */
-.hero-solo > h1 + *, .hero-solo > .hero-sub + * { margin-top: 1.5rem; }
+.hero-solo > h1 + *, .hero-solo > .hero-title + *, .hero-solo > .hero-sub + * { margin-top: 1.5rem; }
+/* On a desktop the 404 title takes the wide left column and the note and
+   button sit beside it, so the hero spans the container like the home hero. */
+@media (min-width: 1024px) {
+  .hero-solo { display: grid; grid-template-columns: var(--split-cols-wide); column-gap: var(--split-gap); align-items: end; }
+  .hero-solo > .hero-title { grid-column: 1; grid-row: 1 / span 2; }
+  .hero-solo > .hero-sub { grid-column: 2; grid-row: 1; margin-top: 0; }
+  .hero-solo > .cta-row { grid-column: 2; grid-row: 2; margin-top: 1.5rem; }
+}
 .portrait-img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 1rem; border: 1px solid var(--line); }
 
 /* ── Buttons ── */
@@ -209,7 +238,10 @@ p, li, figcaption { text-wrap: pretty; }
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .card:not(.card-wide) { grid-row: span 4; grid-template-rows: subgrid; row-gap: 0.9rem; }
   .card-wide { grid-column: 1 / -1; }
-  .card-wide.card-text .card-body { max-width: 48rem; }
+  /* A wide text card is a split: the title on the left, the body on the right. */
+  .card-wide.card-text { grid-template-columns: var(--split-cols); grid-template-rows: auto 1fr; column-gap: var(--split-gap); padding: 2rem; }
+  .card-wide.card-text > .card-title { grid-column: 1; grid-row: 1 / span 2; }
+  .card-wide.card-text > :not(.card-title) { grid-column: 2; }
   .card-figure { display: flex; flex-direction: column; }
   .card-media { flex: 1 1 auto; }
   .card-split { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: auto 1fr auto; column-gap: 2rem; }
@@ -256,7 +288,7 @@ p, li, figcaption { text-wrap: pretty; }
   .story-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 3rem; align-items: start; }
   .story-intro { position: sticky; top: 6rem; }
 }
-@media (min-width: 1024px) { .story-grid { gap: 4rem; } }
+@media (min-width: 1024px) { .story-grid { grid-template-columns: var(--split-cols); gap: var(--split-gap); } }
 .story-link { margin: 2.5rem 0 0; padding-left: calc(7px + 1.75rem); }
 .timeline { list-style: none; margin: 0; padding: 0 0 0 7px; }
 .beat { position: relative; padding: 0 0 2rem 1.75rem; border-left: 2px solid color-mix(in srgb, var(--accent) 45%, transparent); }
@@ -271,6 +303,15 @@ p, li, figcaption { text-wrap: pretty; }
 .about-figure { margin: 0; }
 .about-figure img, .video-play img { aspect-ratio: 16 / 9; object-fit: cover; }
 .figure-links { margin-top: 1.5rem; }
+/* On a desktop the RAPID story sits beside its photo and video, stacked,
+   with the RAPID links under them. */
+@media (min-width: 1024px) {
+  .about-grid { display: grid; grid-template-columns: var(--split-cols-wide); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); align-items: start; }
+  .about-grid > .heading-section { grid-column: 1; grid-row: 1; }
+  .about-grid > .prose { grid-column: 1; grid-row: 2 / span 2; }
+  .about-grid > .about-media { grid-column: 2; grid-row: 1 / span 2; grid-template-columns: minmax(0, 1fr); margin-top: 0; }
+  .about-grid > .figure-links { grid-column: 2; grid-row: 3; }
+}
 
 /* Video facade */
 .video { margin: 0; }
@@ -293,6 +334,7 @@ p, li, figcaption { text-wrap: pretty; }
 /* ── Contact ── */
 .contact { background: var(--panel); }
 .contact-line { font-size: 1.25rem; margin: 1.25rem 0 1.3rem; }
+@media (min-width: 1024px) { .contact .split-body { align-self: end; } .contact-line { margin-top: 0; } }
 .contact-links { gap: 0.5rem 1.5rem; }
 
 /* ── Footer ── */
@@ -303,6 +345,11 @@ p, li, figcaption { text-wrap: pretty; }
 .footer-line span { display: inline-block; }
 .footer-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 0.35rem 0.6rem; margin: 1.5rem 0 0; font-size: 0.875rem; color: var(--muted); }
 .footer-sep { color: var(--muted); }
+/* On a desktop the line and the links share one row across the container. */
+@media (min-width: 1024px) {
+  .footer-inner { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem var(--split-gap); text-align: left; }
+  .footer-row { flex: none; margin: 0; justify-content: flex-end; }
+}
 .footer-row a { color: var(--muted); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--muted) 50%, transparent); text-underline-offset: 4px; }
 .footer-row a:hover { color: var(--ink); }
 /* On a phone the copyright takes its own line, so no line starts with a separator. */
