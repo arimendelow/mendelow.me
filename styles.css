@@ -187,7 +187,7 @@ p, li, figcaption { text-wrap: pretty; }
 @media (min-width: 768px) {
   .hero-grid { grid-template-areas: "title pic" "sub pic" "cta pic"; column-gap: 3rem; align-items: center; }
   .hero-sub { font-size: 1.4rem; }
-  .hero-pic { width: 15rem; }
+  .hero-pic { width: 12rem; }
 }
 @media (min-width: 1024px) {
   .hero-pic { width: 17rem; justify-self: end; }
@@ -200,7 +200,7 @@ p, li, figcaption { text-wrap: pretty; }
 .nowrap { white-space: nowrap; }
 .hero h1 { font-size: clamp(1.9rem, 10vw, 2.5rem); line-height: 1.02; letter-spacing: -0.02em; margin: 0; }
 @media (min-width: 640px) { .hero h1 { font-size: 3.25rem; } }
-@media (min-width: 768px) { .hero h1 { font-size: 4rem; } }
+@media (min-width: 768px) { .hero h1 { font-size: clamp(2.5rem, 5.3vw, 4rem); } }
 /* Scaled with the viewport up to 5rem, so "humans + agents." never runs into the portrait. */
 @media (min-width: 1024px) { .hero h1 { font-size: clamp(4rem, 6.6vw, 5rem); } }
 /* A hero without a grid (the 404 page). */
@@ -363,3 +363,11 @@ p, li, figcaption { text-wrap: pretty; }
   body { font-size: 1.06rem; }
   .prose p { font-size: 1.1rem; }
 }
+
+/* Spoonjoy card: the recipe capture is cut to the card's shape, so it fills the box from the top. */
+#spoonjoy .card-media.media-shot { aspect-ratio: 6 / 5; }
+#spoonjoy .card-media.media-shot img { object-fit: cover; object-position: center top; }
+
+/* The 2023 Redwood figure rides with the sticky timeline intro. */
+.story-figure { margin: 2rem 0 0; max-width: 19rem; }
+@media (max-width: 760px) { .story-figure { max-width: 14rem; } }
