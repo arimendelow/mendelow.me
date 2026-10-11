@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f6f2ea">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f2ea">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1714">
+<meta name="color-scheme" content="light dark">
 <title>Ari Mendelow | Building products for humans + agents</title>
 <meta name="description" content="Ari Mendelow builds products at Microsoft Teams and in public through Spoonjoy and Ouroboros, with a focus on the handoff between people, agents, and the systems around them.">
 <link rel="canonical" href="https://mendelow.me/">
@@ -26,6 +28,7 @@
 <link rel="icon" href="/assets/favicon-16.png" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="stylesheet" href="/styles.css">
+<script>document.documentElement.classList.add("js");</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -58,116 +61,147 @@
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header">
+<header class="site-header" id="site-header">
   <div class="wrap header-inner">
     <a class="wordmark" href="/">Ari Mendelow</a>
-    <nav class="site-nav" aria-label="Primary">
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
+      <svg class="menu-icon-open" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg class="menu-icon-close" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
       <a href="#work">Work</a>
       <a href="#about">About</a>
       <a href="#earlier">Earlier</a>
       <a href="#contact">Contact</a>
       <a href="https://github.com/arimendelow">GitHub</a>
       <a href="https://www.linkedin.com/in/arimendelow">LinkedIn</a>
+      <a class="sister-link" href="https://ouroboros.bot">How I build with agents&nbsp;&#8599;</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
 
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <div class="hero-text">
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="wrap hero-grid">
+      <div class="hero-title">
         <p class="eyebrow">Hello!! I'm Ari.</p>
-        <h1>I build products for humans&nbsp;+&nbsp;agents.</h1>
-        <p class="lede">Right now that is <a href="https://teams.microsoft.com">Microsoft Teams</a>, <a href="https://spoonjoy.app">Spoonjoy</a>, and <a href="https://ouroboros.bot">Ouroboros</a>. The same thing bugs me across all three. People keep ending up as <a href="https://ouroboros.bot/blog/stop-being-the-glue/">the glue</a> between half-smart tools, copying out of one and pasting into the next. The software should carry that context so you do not have to.</p>
-        <div class="cta-row">
-          <a class="btn" href="#work">See the work</a>
-          <a class="btn btn-ghost" href="#contact">Say hello</a>
-        </div>
+        <h1 id="hero-heading">I build products for humans&nbsp;+&nbsp;agents.</h1>
       </div>
-      <figure class="hero-portrait">
-        <img src="/assets/ari-portrait.jpg" width="1200" height="1648" alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge." fetchpriority="high">
+      <p class="hero-sub">Right now that's <a href="https://teams.microsoft.com">Microsoft Teams</a>, <a href="https://spoonjoy.app">Spoonjoy</a>, and <a href="https://ouroboros.bot">Ouroboros</a>. The same thing bugs me across all three. Humans keep ending up as <a href="https://ouroboros.bot/blog/stop-being-the-glue/">the glue</a> between half-smart tools, copying out of one and pasting into the next. The software should carry that context so you don't have to.</p>
+      <figure class="hero-pic">
+        <img class="portrait-img" src="/assets/ari-portrait.jpg" width="1200" height="1648" alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge." fetchpriority="high">
       </figure>
+      <div class="cta-row hero-cta">
+        <a class="btn btn-primary" href="#work">See the work</a>
+        <a class="btn btn-ghost" href="#contact">Say hello</a>
+      </div>
     </div>
   </section>
 
-  <section class="now" aria-labelledby="now-label">
-    <div class="wrap narrow">
-      <p class="section-label" id="now-label">Now</p>
-      <p>I'm a Senior Software Engineer on <a href="https://teams.microsoft.com">Microsoft Teams</a> Platform, building products that help people and agents work together. I work directly with the businesses that use them to understand the work worth changing and decide what to build. That habit goes back to <a href="https://www.nsf.gov/funding/initiatives/i-corps">NSF I-Corps</a> with <a href="#sulis">Sulis</a>. Ask about the pain before the technology, do not put words in people's mouths, and keep digging past the first answer.</p>
-      <p>The agent part is still wide open, especially outside coding. As agents take on more of the work, I spend a lot of time figuring out how to help them stay oriented, organize the work around them, and measure whether the new way of working is better.</p>
-    </div>
-  </section>
-
-  <section class="work" id="work" aria-labelledby="work-label">
+  <section class="section now" aria-labelledby="now-heading">
     <div class="wrap">
-      <h2 class="section-label" id="work-label">Selected work</h2>
+      <h2 class="heading-section" id="now-heading">Now</h2>
+      <div class="prose">
+        <p>I'm a Senior Software Engineer on <a href="https://teams.microsoft.com">Microsoft Teams</a> Platform, building products that help humans and agents work together. I work directly with the businesses that use them to understand the work worth changing and decide what to build. That habit goes back to <a href="https://www.nsf.gov/funding/initiatives/i-corps">NSF I-Corps</a> with <a href="#sulis">Sulis</a>: ask about the pain before the technology, don't put words in anyone's mouth, and keep digging past the first answer.</p>
+        <p>The agent part is still wide open, especially outside coding. As agents take on more of the work, I spend a lot of time figuring out how to help them stay oriented, organize the work around them, and measure whether the new way of working is better. I share how I do it at <a href="https://ouroboros.bot">ouroboros.bot</a>.</p>
+      </div>
+    </div>
+  </section>
 
-      <article class="proof">
-        <div class="proof-media">
-          <img src="/assets/agent-experience.png" width="1200" height="630" loading="lazy" alt="The title card for the essay What is Agent Experience?, set in Ouroboros site typography.">
-        </div>
-        <div class="proof-body">
-          <p class="descriptor">Writing + design practice</p>
-          <h3>Agent Experience</h3>
-          <p>Agent Experience is a framing I arrived at on my own and have kept developing: look at a system from the agent's side. Can it stay oriented to itself, its people, and work that lasts longer than one session? I call it agent ergonomics. I studied <a href="https://ise.rutgers.edu/">industrial and systems engineering</a>, and my favorite class was Work Design and Ergonomics: designing the work around the worker instead of making the worker absorb the friction. Agent Experience is that idea, pointed at the agent.</p>
-          <p class="proof-links">
+  <section class="section work" id="work" aria-labelledby="work-heading">
+    <div class="wrap">
+      <h2 class="heading-section" id="work-heading">Selected work</h2>
+
+      <div class="cards">
+        <article class="card">
+          <figure class="card-figure">
+            <div class="card-media"><img src="/assets/agent-experience.png" width="1200" height="630" loading="lazy" decoding="async" alt="The title card for the essay What is Agent Experience?, set in Ouroboros site typography."></div>
+          </figure>
+          <div class="card-head">
+            <p class="descriptor">Writing + design practice</p>
+            <h3 class="card-title">Agent Experience</h3>
+          </div>
+          <p class="card-body">Agent Experience is a framing I arrived at on my own and have kept developing: look at a system from the agent's side. Can it stay oriented to itself, its humans, and work that lasts longer than one session? I call it agent ergonomics. I studied <a href="https://ise.rutgers.edu/">industrial and systems engineering</a>, and my favorite class was Work Design and Ergonomics, which is about designing the work around the worker. Applied to agents, that idea becomes Agent Experience design.</p>
+          <p class="card-links">
             <a href="https://ouroboros.bot/blog/what-is-agent-experience/">Read What is Agent Experience?</a>
+            <a href="https://ouroboros.bot">How I build with agents&nbsp;&#8599;</a>
           </p>
-        </div>
-      </article>
+        </article>
 
-      <article class="proof proof-reverse">
-        <div class="proof-media">
-          <img src="/assets/spoonjoy.png" width="1200" height="630" loading="lazy" alt="The Spoonjoy home card showing a photo-first grid of real home-cooked recipes.">
-        </div>
-        <div class="proof-body">
-          <p class="descriptor">Product</p>
-          <h3>Spoonjoy</h3>
-          <p>Spoonjoy is a photo-first kitchen for the recipes you actually cook. The everyday things stay in the app. The <a href="https://github.com/spoonjoy/spoonjoy-v2/blob/main/app/lib/spoonjoy-api.server.ts">same operations</a> that power the app are also exposed to an agent, so you can tell it to import a recipe from a messy webpage, add the ingredients to your shopping list, tidy a cookbook, or log what you cooked, and it does the work through the exact same surface you would use by hand.</p>
-          <p class="proof-links">
+        <article class="card">
+          <figure class="card-figure">
+            <div class="card-media"><img src="/assets/spoonjoy.png" width="1200" height="630" loading="lazy" decoding="async" alt="The Spoonjoy home card showing a photo-first grid of real home-cooked recipes."></div>
+          </figure>
+          <div class="card-head">
+            <p class="descriptor">Product</p>
+            <h3 class="card-title">Spoonjoy</h3>
+          </div>
+          <p class="card-body">Spoonjoy is my recipe app, and it's followed my whole software journey. It's a photo-first kitchen for the recipes you actually cook. The everyday things stay in the app. Anything complicated, like importing a recipe from a messy webpage, adding the ingredients to your shopping list, or tidying a cookbook, you hand to an agent, which works through the <a href="https://github.com/spoonjoy/spoonjoy-v2/blob/main/app/lib/spoonjoy-api.server.ts">same operations</a> the app uses.</p>
+          <p class="card-links">
             <a href="https://spoonjoy.app">Open Spoonjoy</a>
+            <a href="#spoonjoy-story">The whole story&nbsp;&#8595;</a>
             <a href="https://github.com/spoonjoy/spoonjoy-v2">View the repository</a>
           </p>
-        </div>
-      </article>
+        </article>
 
-      <article class="proof">
-        <div class="proof-media">
-          <img src="/assets/ouroboros.png" width="1200" height="630" loading="lazy" alt="The Ouroboros home card for the open-source personal-agent harness.">
-        </div>
-        <div class="proof-body">
-          <p class="descriptor">Agent harness</p>
-          <h3>Ouroboros</h3>
-          <p>Ouroboros is an <a href="https://github.com/ourostack/ouroboros">open-source</a> TypeScript harness for personal agents that need an identity, durable state, real tools, and a place to live across the channels you already use. It started as a from-scratch agent loop and became my playground for continuity and Agent Experience. It is where the agent-ergonomics idea gets tested in practice. In a September 2026 comparison, <a href="https://ouroboros.bot/model-reviews">every frontier model we tested independently chose Ouroboros from eleven harnesses</a> as the one it would most want to wake up in. Their explanations centered on identity, continuity, trust, and orientation, the same questions behind the AX work.</p>
-          <p class="proof-links">
+        <article class="card">
+          <figure class="card-figure">
+            <div class="card-media"><img src="/assets/ouroboros.png" width="1200" height="630" loading="lazy" decoding="async" alt="The Ouroboros home card for the open-source personal-agent harness."></div>
+          </figure>
+          <div class="card-head">
+            <p class="descriptor">Agent harness</p>
+            <h3 class="card-title">Ouroboros</h3>
+          </div>
+          <p class="card-body">Ouroboros is an <a href="https://github.com/ourostack/ouroboros">open-source</a> TypeScript harness for personal agents that need an identity, durable state, real tools, and a place to live across the channels you already use. It started as a from-scratch agent loop and became my playground for continuity and Agent Experience. It is where the agent-ergonomics idea gets tested in practice. In a September 2026 comparison, <a href="https://ouroboros.bot/model-reviews">every frontier model we tested independently chose Ouroboros from eleven harnesses</a> as the one it would most want to wake up in. Their explanations centered on identity, continuity, trust, and orientation, the same questions behind the AX work.</p>
+          <p class="card-links">
             <a href="https://ouroboros.bot">Explore Ouroboros</a>
-            <a href="https://ouroboros.bot">How I build with agents</a>
             <a href="https://github.com/ourostack/ouroboros">View the repository</a>
           </p>
-        </div>
-      </article>
+        </article>
+      </div>
     </div>
   </section>
 
-  <section class="about" id="about" aria-labelledby="about-heading">
-    <div class="wrap narrow">
-      <h2 id="about-heading">I have always liked building things that do something.</h2>
-      <p>I started with Lego stop-motion, homemade rockets, Photoshop, and whatever I could convince a computer to do. Photography, branding, and product design came next, along with the frustration of watching good ideas stop at the mockup. So I started learning to build them myself.</p>
-      <p>Part of that was <a href="https://github.com/arimendelow/automated-pipeline-inspector">RAPID</a>, the semi-autonomous pipeline-inspection robot my four-person capstone team built at Rutgers. I led the team and owned the branding, circuitry, and software, mostly getting comfortable with code along the way. I was not a software engineer yet, so I made a bet: if I could not get it fully autonomous, I could at least make the <a href="https://www.youtube.com/watch?v=hC0A2Tu9k94">demo</a> convincing and beautiful. And yes, I put our logo on the chassis, because branding is part of how a thing gets perceived, even a robot.</p>
-    </div>
-    <div class="wrap">
-      <figure class="about-figure">
-        <img src="/assets/rapid.jpg" width="1600" height="1067" loading="lazy" alt="A close-up of RAPID's electronics: the Arduino boards, wiring, and connectors I built for the robot.">
-        <figcaption>The electronics I built for RAPID, our Rutgers pipeline-inspection robot.</figcaption>
-      </figure>
-      <div class="video" data-video="hC0A2Tu9k94">
-        <button class="video-play" type="button" aria-label="Play the RAPID demo video">
-          <img src="/assets/rapid-video-poster.jpg" width="1280" height="720" loading="lazy" alt="Title frame of the RAPID demo video, close on the robot with its logo.">
-          <span class="video-play-badge" aria-hidden="true">&#9658; Play</span>
-        </button>
+  <section class="section story" id="spoonjoy-story" aria-labelledby="story-heading">
+    <div class="wrap story-grid">
+      <div class="story-intro">
+        <h2 class="heading-section" id="story-heading">Spoonjoy, from the start</h2>
+        <p class="dek">Every time I learned something new about building software, I rebuilt Spoonjoy with it.</p>
+        <p class="story-link"><a class="btn btn-ghost" href="https://ouroboros.bot">How I build with agents now&nbsp;&#8599;</a></p>
       </div>
-      <p class="figure-links">
+      <ol class="timeline">
+        <li class="beat"><h3 class="beat-when">2019, Philly.</h3><p>Two friends and I spent a weekend on a &ldquo;codecation&rdquo; to build a recipe app. It turned out only one of us could code, so he spent the weekend teaching the other two of us React and Express.</p></li>
+        <li class="beat"><h3 class="beat-when">The Rails version.</h3><p>I genuinely wanted Spoonjoy to exist, so I tried again in Rails. I scoped so much up front that I burned out before it ever shipped.</p></li>
+        <li class="beat"><h3 class="beat-when">The kitchen.</h3><p>Meanwhile I'd gotten really into cooking, and formed real opinions about how a recipe should be structured so it's easy to follow.</p></li>
+        <li class="beat"><h3 class="beat-when">RedwoodJS.</h3><p>I wanted Rails for JavaScript, found RedwoodJS, and found a community I loved along with it. I'd finally learned enough about shipping software to ship something, and Spoonjoy went live.</p></li>
+        <li class="beat"><h3 class="beat-when">Quiet.</h3><p>Redwood wound down, and Spoonjoy sat unmaintained.</p></li>
+        <li class="beat"><h3 class="beat-when">January 2026.</h3><p>One of the first things I tried with my new agent was handing it the whole rebuild. It researched which framework an agent would work best in, rebuilt Spoonjoy on React Router and Cloudflare, and shipped it. I still haven't read a single line of the new code.</p></li>
+        <li class="beat"><h3 class="beat-when">The gradient.</h3><p>The recipe form I'd handbuilt on Redwood didn't make sense anymore. Anything complicated should just go to an agent, so Spoonjoy got an MCP server that Claude or ChatGPT can drive. It became my first real playground for working with agents on long-running work, and for the gradient between UI and agent: the UI serves the easy actions, the agent handles everything more complex, and I believe generative UI eventually fills the middle.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section about" id="about" aria-labelledby="about-heading">
+    <div class="wrap">
+      <h2 class="heading-section" id="about-heading">I have always liked building things that do something.</h2>
+      <div class="prose">
+        <p>I started with Lego stop-motion, homemade rockets, Photoshop, and whatever I could convince a computer to do. Photography, branding, and product design came next, along with the frustration of watching good ideas stop at the mockup. So I started learning to build them myself.</p>
+        <p>Part of that was <a href="https://github.com/arimendelow/automated-pipeline-inspector">RAPID</a>, the semi-autonomous pipeline-inspection robot my four-person capstone team built at Rutgers. I led the team and owned the branding, circuitry, and software, mostly getting comfortable with code along the way. I was not a software engineer yet, so I made a bet: if I could not get it fully autonomous, I could at least make the <a href="https://www.youtube.com/watch?v=hC0A2Tu9k94">demo</a> convincing and beautiful. And yes, I put our logo on the chassis, because branding is part of how a thing gets perceived, even a robot.</p>
+      </div>
+      <div class="about-media">
+        <figure class="card-figure about-figure">
+          <div class="card-media media-natural"><img src="/assets/rapid.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="A close-up of RAPID's electronics: the Arduino boards, wiring, and connectors I built for the robot."></div>
+          <figcaption class="card-caption">The electronics I built for RAPID, our Rutgers pipeline-inspection robot.</figcaption>
+        </figure>
+        <div class="video" data-video="hC0A2Tu9k94">
+          <button class="video-play" type="button" aria-label="Play the RAPID demo video">
+            <img src="/assets/rapid-video-poster.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="Title frame of the RAPID demo video, close on the robot with its logo.">
+            <span class="video-play-badge" aria-hidden="true">&#9658; Play</span>
+          </button>
+        </div>
+      </div>
+      <p class="card-links figure-links">
         <a href="https://www.youtube.com/watch?v=hC0A2Tu9k94">Watch the demo</a>
         <a href="https://drive.google.com/file/d/1DcVai4OrULD5apH2o4PJoPr57udDIxd-/view">Read the final report</a>
         <a href="https://github.com/arimendelow/automated-pipeline-inspector">View the repository</a>
@@ -175,22 +209,23 @@
     </div>
   </section>
 
-  <section class="earlier" id="earlier" aria-labelledby="earlier-label">
+  <section class="section earlier" id="earlier" aria-labelledby="earlier-heading">
     <div class="wrap">
-      <h2 class="section-label" id="earlier-label">Earlier</h2>
+      <h2 class="heading-section" id="earlier-heading">Earlier</h2>
       <div class="earlier-grid">
 
         <article class="earlier-item">
-          <h3>RedwoodJS</h3>
-          <p>I served on the <a href="https://community.redwoodjs.com/t/the-future-of-redwood-launches-today/7938">RedwoodJS Core Team</a>. I moderated the community, shipped the <a href="https://github.com/redwoodjs/graphql/pull/10064">framework package that moved Storybook onto Vite</a> in <a href="https://community.redwoodjs.com/t/storybook-in-redwood-is-moving-to-vite/7212">version 7.7</a>, and built a <a href="https://github.com/spoonjoy/redwoodjs-dbauth-oauth">dbAuth OAuth plugin</a>, among other things. The moderation is the part I point to first. Keeping other builders unstuck in the forum is its own kind of product work.</p>
+          <h3 class="card-title">RedwoodJS</h3>
+          <p>RedwoodJS was where I learned to ship, and where I found out how much I love building with a community. My first forum thread was a WebAuthn question, and Rob, the cofounder who built dbAuth, showed up to help along with the author of the WebAuthn library. I was hooked. I got active on the forum, entered Redwood's build competition with a project called Yurtle and made the finals, and started RedwoodUI, a component library native to Redwood. That led David Price, another cofounder, to invite me to Core Team meetings, and I joined the <a href="https://community.redwoodjs.com/t/the-future-of-redwood-launches-today/7938">Core Team</a>.</p>
+          <p>On the team I moderated the community, shipped the <a href="https://github.com/redwoodjs/graphql/pull/10064">framework package that moved Storybook onto Vite</a> in <a href="https://community.redwoodjs.com/t/storybook-in-redwood-is-moving-to-vite/7212">version 7.7</a>, and built a <a href="https://github.com/spoonjoy/redwoodjs-dbauth-oauth">dbAuth OAuth plugin</a>, among other things. The moderation is the part I point to first. Keeping other builders unstuck in the forum is its own kind of product work.</p>
         </article>
 
         <article class="earlier-item" id="sulis">
-          <h3>Sulis</h3>
+          <h3 class="card-title">Sulis</h3>
           <p>I co-founded Sulis as its Chief Design Officer, working across branding, CAD, manufacturing, and product design for a solar water-sanitization device. We <a href="https://www.rutgers.edu/news/rutgers-teams-advance-hult-prize-competition-after-regional-victories">won the 2018 Hult Prize Boston Regional</a> and spent six weeks at its <a href="https://honorscollege.rutgers.edu/features/team-sulis-shares-india-pilot-progress-and-finishes-first-week-hult-prize-accelerator-program">accelerator in the UK</a>. The work took us to <a href="https://honorscollege.rutgers.edu/features/team-sulis-shares-india-pilot-progress-and-finishes-first-week-hult-prize-accelerator-program">India for customer discovery and prototype testing</a>, and eventually to <a href="https://patents.google.com/patent/US11643340B2/en">US Patent 11,643,340</a>.</p>
-          <figure class="sulis-figure">
-            <img src="/assets/sulis.png" width="1200" height="495" loading="lazy" alt="A render of the Sulis solar water-sanitization device beside line drawings from its US patent.">
-            <figcaption>The Sulis device, in CAD and in <a href="https://patents.google.com/patent/US11643340B2/en">US Patent 11,643,340</a>.</figcaption>
+          <figure class="card-figure sulis-figure">
+            <div class="card-media media-natural media-white"><img src="/assets/sulis.png" width="1200" height="495" loading="lazy" decoding="async" alt="A render of the Sulis solar water-sanitization device beside line drawings from its US patent."></div>
+            <figcaption class="card-caption">The Sulis device, in CAD and in <a href="https://patents.google.com/patent/US11643340B2/en">US Patent 11,643,340</a>.</figcaption>
           </figure>
         </article>
 
@@ -198,11 +233,11 @@
     </div>
   </section>
 
-  <section class="contact" id="contact" aria-labelledby="contact-heading">
-    <div class="wrap narrow">
-      <h2 id="contact-heading">Say hello!</h2>
+  <section class="section contact" id="contact" aria-labelledby="contact-heading">
+    <div class="wrap">
+      <h2 class="heading-section" id="contact-heading">Say hello!</h2>
       <p class="contact-line">If any of this overlaps with what you are working on, <a href="mailto:hello@mendelow.me">reach out</a>.</p>
-      <p class="contact-links">
+      <p class="card-links contact-links">
         <a href="mailto:hello@mendelow.me">hello@mendelow.me</a>
         <a href="https://github.com/arimendelow">GitHub</a>
         <a href="https://www.linkedin.com/in/arimendelow">LinkedIn</a>
@@ -214,8 +249,10 @@
 
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <span>&copy; <span id="year">2026</span> Ari Mendelow</span>
-    <nav aria-label="Footer">
+    <p class="footer-line">You bring judgment. Your agents bring the rest.</p>
+    <nav class="footer-row" aria-label="Footer">
+      <span>&copy; 2026 Ari Mendelow</span>
+      <a href="https://ouroboros.bot">ouroboros.bot</a>
       <a href="https://github.com/arimendelow">GitHub</a>
       <a href="https://www.linkedin.com/in/arimendelow">LinkedIn</a>
     </nav>
@@ -223,8 +260,28 @@
 </footer>
 
 <script>
-  // Footer year, no dependency.
-  document.getElementById('year').textContent = new Date().getFullYear();
+  // Nav glass: the header is glass by default (so it stays readable without JS)
+  // and turns clear only while the page sits at the very top.
+  (function () {
+    var header = document.getElementById('site-header');
+    if (!header) return;
+    function update() { header.classList.toggle('at-top', window.scrollY < 1); }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+
+    // Mobile menu. Without JS the links simply wrap in the header.
+    var toggle = document.getElementById('menu-toggle');
+    if (!toggle) return;
+    function setOpen(open) {
+      header.classList.toggle('menu-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    toggle.addEventListener('click', function () { setOpen(!header.classList.contains('menu-open')); });
+    header.querySelectorAll('.site-nav a').forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    window.matchMedia('(min-width: 960px)').addEventListener('change', function () { setOpen(false); });
+  })();
   // Click-to-play video facade: no third-party JS or autoplay until the visitor asks.
   document.querySelectorAll('.video').forEach(function (box) {
     var btn = box.querySelector('.video-play');
