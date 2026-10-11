@@ -207,8 +207,11 @@ p, li, figcaption { text-wrap: pretty; }
    the row, and a split card puts its media beside the text. */
 @media (min-width: 1024px) {
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .card-text { grid-row: span 3; grid-template-rows: subgrid; row-gap: 0.9rem; }
+  .card:not(.card-wide) { grid-row: span 4; grid-template-rows: subgrid; row-gap: 0.9rem; }
   .card-wide { grid-column: 1 / -1; }
+  .card-wide.card-text .card-body { max-width: 48rem; }
+  .card-figure { display: flex; flex-direction: column; }
+  .card-media { flex: 1 1 auto; }
   .card-split { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: auto 1fr auto; column-gap: 2rem; }
   .card-split .card-figure { grid-row: 1 / span 3; margin: 0; }
   .card-split > :not(.card-figure) { grid-column: 2; }
@@ -216,6 +219,9 @@ p, li, figcaption { text-wrap: pretty; }
 .card-figure { margin: 0 0 0.25rem; border-radius: 0.9rem; overflow: hidden; border: 1px solid var(--line); background: var(--panel); }
 .card-media { aspect-ratio: 1200 / 630; overflow: hidden; }
 .card-media img { width: 100%; height: 100%; object-fit: cover; }
+.card-media.media-shot { aspect-ratio: 1280 / 800; background: #fbf9f4; }
+.card-media.media-shot a { display: block; height: 100%; }
+.card-media.media-shot img { object-fit: contain; object-position: center top; }
 .card-media.media-natural { aspect-ratio: auto; }
 .card-media.media-terminal { aspect-ratio: auto; background: var(--panel); height: 100%; }
 .card-media.media-natural img { height: auto; }
