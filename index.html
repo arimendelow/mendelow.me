@@ -86,11 +86,11 @@
     <div class="wrap hero-grid">
       <div class="hero-title">
         <p class="eyebrow">Hello!! I'm Ari.</p>
-        <h1 id="hero-heading">I build products for humans&nbsp;+&nbsp;agents.</h1>
+        <h1 id="hero-heading">I build products for <span class="nowrap">humans + agents.</span></h1>
       </div>
       <p class="hero-sub">Right now that's <a href="https://teams.microsoft.com">Microsoft Teams</a>, <a href="https://spoonjoy.app">Spoonjoy</a>, and <a href="https://ouroboros.bot">Ouroboros</a>. The same thing bugs me across all three. Humans keep ending up as <a href="https://ouroboros.bot/blog/stop-being-the-glue/">the glue</a> between half-smart tools, copying out of one and pasting into the next. The software should carry that context so you don't have to.</p>
       <figure class="hero-pic">
-        <img class="portrait-img" src="/assets/ari-portrait.jpg" width="1200" height="1648" alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge." fetchpriority="high">
+        <img class="portrait-img" src="/assets/ari-portrait.jpg" srcset="/assets/ari-portrait-600.jpg 600w, /assets/ari-portrait.jpg 1200w" sizes="(min-width: 1024px) 17rem, (min-width: 768px) 15rem, 6.5rem" width="1200" height="1648" alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge." fetchpriority="high">
       </figure>
       <div class="cta-row hero-cta">
         <a class="btn btn-primary" href="#work">See the work</a>
@@ -249,7 +249,7 @@
 
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <p class="footer-line">You bring judgment. Your agents bring the rest.</p>
+    <p class="footer-line"><span>You bring judgment.</span> <span>Your agents bring the rest.</span></p>
     <nav class="footer-row" aria-label="Footer">
       <span>&copy; 2026 Ari Mendelow</span>
       <a href="https://ouroboros.bot">ouroboros.bot</a>
@@ -272,15 +272,21 @@
     // Mobile menu. Without JS the links simply wrap in the header.
     var toggle = document.getElementById('menu-toggle');
     if (!toggle) return;
+    var outside = [document.getElementById('main'), document.querySelector('.site-footer'), document.querySelector('.skip-link')];
+    function isOpen() { return header.classList.contains('menu-open'); }
     function setOpen(open) {
       header.classList.toggle('menu-open', open);
       toggle.setAttribute('aria-expanded', String(open));
       document.body.style.overflow = open ? 'hidden' : '';
+      // While the sheet covers the page, keep keyboard focus inside the header.
+      outside.forEach(function (el) { if (el) el.inert = open; });
     }
-    toggle.addEventListener('click', function () { setOpen(!header.classList.contains('menu-open')); });
+    toggle.addEventListener('click', function () { setOpen(!isOpen()); });
     header.querySelectorAll('.site-nav a').forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
-    window.matchMedia('(min-width: 960px)').addEventListener('change', function () { setOpen(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen()) { setOpen(false); toggle.focus(); }
+    });
+    window.matchMedia('(min-width: 960px)').addEventListener('change', function () { if (isOpen()) setOpen(false); });
   })();
   // Click-to-play video facade: no third-party JS or autoplay until the visitor asks.
   document.querySelectorAll('.video').forEach(function (box) {
