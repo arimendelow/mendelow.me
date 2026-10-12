@@ -255,7 +255,8 @@ p, li, figcaption { text-wrap: pretty; }
 .card-media.media-shot a { display: block; height: 100%; }
 .card-media.media-shot img { object-fit: contain; object-position: center top; }
 .card-media.media-natural { aspect-ratio: auto; }
-.card-media.media-terminal { aspect-ratio: auto; background: var(--panel); height: 100%; }
+/* The terminal pane sizes to its content, so a phone shows no blank rows under the tree and its caption stays in view; from 1024px the flex column stretches it to its neighbor (root misses ruling 8.11). */
+.card-media.media-terminal { aspect-ratio: auto; background: var(--panel); }
 .card-media.media-natural img { height: auto; }
 .card-media.media-white { background: #ffffff; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .card-media.media-white img { filter: brightness(0.88); } }
@@ -317,11 +318,13 @@ p, li, figcaption { text-wrap: pretty; }
 .video { margin: 0; }
 .video-play { display: block; position: relative; width: 100%; padding: 0; border: 1px solid var(--line); background: none; cursor: pointer; border-radius: 0.9rem; overflow: hidden; }
 .video-play img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+/* The badge sits in a bottom corner, clear of the logo in the middle of the poster (root misses ruling 8.9). */
 .video-play-badge {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  position: absolute; right: 0.9rem; bottom: 0.9rem;
   background: rgba(20, 16, 12, 0.78); color: #fff; padding: 0.7rem 1.4rem; border-radius: 999px; font-weight: 600; font-size: 1.05rem;
 }
 .video-play:hover .video-play-badge { background: #a8431f; }
+@media (max-width: 640px) { .video-play-badge { right: 0.5rem; bottom: 0.5rem; padding: 0.35rem 0.8rem; font-size: 0.85rem; } }
 .video iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 0.9rem; display: block; }
 
 /* ── Earlier ── */
