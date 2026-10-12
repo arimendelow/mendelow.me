@@ -371,6 +371,5 @@ p, li, figcaption { text-wrap: pretty; }
 #spoonjoy .card-media.media-shot { aspect-ratio: 6 / 5; }
 #spoonjoy .card-media.media-shot img { object-fit: cover; object-position: center top; }
 
-/* The 2023 Redwood figure rides with the sticky timeline intro. */
-.story-figure { margin: 2rem 0 0; max-width: 19rem; }
-@media (max-width: 760px) { .story-figure { max-width: 14rem; } }
+/* Each era of Spoonjoy shows its own screen, running again from its old code. */
+.beat-figure { margin: 1rem 0 0; }
