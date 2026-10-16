@@ -397,3 +397,15 @@ p, li, figcaption { text-wrap: pretty; }
 
 /* Each era of Spoonjoy shows its own screen, running again from its old code. */
 .beat-figure { margin: 1rem 0 0; }
+
+/* Ouro card: the tools in the workshop, each with its approved mark. */
+.ouro-shelf { display: flex; align-items: center; justify-content: center; }
+.ouro-shelf ul { width: 100%; }
+.ouro-shelf ul { list-style: none; margin: 0; padding: 1rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+@media (min-width: 640px) { .ouro-shelf ul { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.ouro-shelf a { display: grid; justify-items: center; gap: 0.15rem; padding: 0.8rem 0.4rem; border-radius: 0.7rem; text-align: center; text-decoration: none; color: var(--ink); }
+.ouro-shelf a:hover, .ouro-shelf a:focus-visible { background: color-mix(in srgb, var(--line) 45%, transparent); }
+.ouro-shelf img { width: 56px; height: 56px; object-fit: contain; margin-bottom: 0.35rem; }
+.ouro-shelf img.shelf-tile { width: 48px; height: 48px; margin: 4px 4px calc(0.35rem + 4px); border-radius: 11px; }
+.ouro-shelf .shelf-name { font-weight: 600; font-size: 0.95rem; }
+.ouro-shelf .shelf-sub { font-size: 0.8rem; color: var(--muted); }
