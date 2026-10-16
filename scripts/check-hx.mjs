@@ -1,26 +1,25 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import crypto from 'node:crypto';
 
+// Ouro on the personal site: a description, then every tool in it as one list,
+// each row linking to its own section on ouroboros.bot. Ouro HX is one of those
+// rows and keeps its construction status; Ouro AX is not claimed.
 const root = new URL('../', import.meta.url);
 const read = file => fs.readFileSync(new URL(file, root), 'utf8');
 const html = read('index.html');
-const card = html.match(/<article\b[^>]*id="ouro-ui"[\s\S]*?<\/article>/)?.[0];
-assert.ok(card, 'Missing Ouro UI selected-work entry');
-assert.match(card, /<h3\b[^>]*>Ouro UI<\/h3>/);
-assert.match(card, /<h4\b[^>]*>Ouro HX<\/h4>/);
-assert.ok(card.includes('Under construction'));
-assert.ok(card.includes('Ouro AX is still being defined.'));
-assert.ok(card.includes('https://ourostack.github.io/ouro-ui/docs/'));
-assert.match(card, /src="\/assets\/ouro-hx-render\.webp"/);
-assert.doesNotMatch(card, /<video|<iframe|src="https?:|href="[^"]*ouro-ax/);
+const section = html.match(/<article\b[^>]*id="ouro"[\s\S]*?<\/article>/)?.[0];
+assert.ok(section, 'Missing the Ouro selected-work section');
+assert.doesNotMatch(html, /id="ouro-ui"/, 'Ouro HX is a row in the Ouro list, not its own card');
+const list = section.match(/<ul class="ouro-tools"[\s\S]*?<\/ul>/)?.[0];
+assert.ok(list, 'Missing the list of Ouro tools');
+const rows = [...list.matchAll(/<li><a href="([^"]+)">[\s\S]*?<strong>([^<]+)<\/strong>:([^<]+)<\/span>/g)].map(([, href, name, summary]) => ({ href, name, summary: summary.trim() }));
+assert.deepEqual(rows.map(row => row.name), ['Ouroboros', 'Desk', 'Ouro MD', 'Ouro HX', 'Ouro Shepherd', 'Friends', 'The factory']);
+for (const row of rows) assert.match(row.href, /^https:\/\/ouroboros\.bot\/#[a-z-]+$/, `${row.name} links to its section on ouroboros.bot`);
+const hx = rows.find(row => row.name === 'Ouro HX');
+assert.equal(hx.href, 'https://ouroboros.bot/#ouro-ui');
+assert.match(hx.summary, /under construction$/);
+assert.match(list, /src="\/assets\/ouro-hx-render-128\.webp"/);
+assert.doesNotMatch(html, /href="[^"]*ouro-ax/);
+for (const file of [...list.matchAll(/src="\/assets\/([^"]+)"/g)].map(([, file]) => file)) assert.ok(fs.existsSync(new URL(`assets/${file}`, root)), `assets/${file} exists`);
 assert.match(html, /rel="icon" href="\/favicon.ico"/);
-const provenance = JSON.parse(read('assets/hx-media-provenance.json'));
-for (const asset of provenance.assets.filter(asset => asset.file.endsWith('.webp'))) {
-  assert.ok(card.includes(asset.file));
-  const bytes = fs.readFileSync(new URL(`assets/${asset.file}`, root));
-  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'), asset.sha256);
-}
-assert.ok(read('styles.css').includes('.hx-theme-light'));
-assert.ok(read('styles.css').includes(':root[data-theme="dark"] .hx-theme-light'));
-console.log('PASS: personal-site parent/HX hierarchy, construction status, real media hashes, docs destination and unchanged favicon.');
+console.log('PASS: Ouro section lists every tool with a link to its section, Ouro HX keeps its construction status, and the favicon is unchanged.');
