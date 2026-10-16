@@ -1,0 +1,54 @@
+name: Pages
+
+# Builds the site (generating the social card from the page), checks it, and
+# deploys master to GitHub Pages. Pull requests build and check only.
+# Requires Settings → Pages → Source: "GitHub Actions".
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Charis SIL is Charter's open-licence twin, so the card matches the site's serif.
+      - name: Install the card font
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-sil-charis
+      - name: Check the Ouro UI entry
+        run: node scripts/check-hx.mjs
+      - name: Build, generate the social card and check share metadata
+        run: node scripts/build-site.mjs _site
+      - uses: actions/upload-artifact@v4
+        with:
+          name: social-card
+          path: _site/assets/social-card.png
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
