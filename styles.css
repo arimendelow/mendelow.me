@@ -45,6 +45,13 @@
 * { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+/* Wide screens: from 1600px the root size grows with the viewport, so the 72rem
+   container, the type and the spacing scale together instead of leaving a narrow
+   strip in the middle of a large display. 16px at 1600px, about 20px at 2560px,
+   capped at 24px (a 4K display at 1x). Shared with ouroboros.bot and mendelow.me. */
+@media (min-width: 1600px) { html { font-size: min(calc(0.45vw + 8.8px), 24px); } }
+/* And from 2000px the container grows from 72rem to 84rem, so a 4K display holds about half its width in content, not a third. */
+@media (min-width: 2000px) { :root { --maxw: 84rem; } }
 
 body {
   margin: 0;
@@ -174,26 +181,29 @@ p, li, figcaption { text-wrap: pretty; }
 /* ── Hero ── */
 .hero { padding: 2.5rem 0 3rem; }
 @media (min-width: 768px) { .hero { padding: 4rem 0 3.5rem; } }
+/* The hero layout is shared with ouroboros.bot's (src/pages/index.astro there): keep the two identical.
+   On a phone the headline spans the width, then the intro and the portrait sit side by side, centered
+   against each other. From 768px the copy is one block, centered beside the portrait, so the photo's
+   height never opens gaps inside the copy. */
 .hero-grid {
   display: grid; gap: 1.5rem 1.25rem;
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas: "title title" "sub pic" "cta cta";
-  align-items: start;
+  align-items: center;
 }
+.hero-copy { display: contents; }
 .hero-title { grid-area: title; }
 .hero-sub { grid-area: sub; margin: 0; font-size: 1.125rem; line-height: 1.5; color: var(--ink-soft); max-width: 38ch; }
 .hero-pic { grid-area: pic; margin: 0; width: 6.5rem; }
 .hero-cta { grid-area: cta; }
 @media (min-width: 768px) {
-  .hero-grid { grid-template-areas: "title pic" "sub pic" "cta pic"; column-gap: 3rem; align-items: center; }
-  .hero-sub { font-size: 1.4rem; }
+  .hero-grid { grid-template-areas: "copy pic"; column-gap: 3rem; }
+  .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
+  .hero-copy > .hero-title, .hero-copy > .hero-sub, .hero-copy > .hero-cta { grid-area: auto; }
+  .hero-sub { font-size: 1.4rem; max-width: 56ch; }
   .hero-pic { width: 12rem; }
 }
-@media (min-width: 1024px) {
-  .hero-pic { width: 17rem; justify-self: end; }
-  .hero-sub { max-width: 48ch; }
-}
-/* A wider desktop gives the portrait the room the headline doesn't need. */
+@media (min-width: 1024px) { .hero-pic { width: 17rem; } }
 @media (min-width: 1240px) { .hero-pic { width: 21rem; } }
 .eyebrow { font-family: var(--serif); font-style: italic; color: var(--accent); font-size: 1.25rem; margin: 0 0 0.5rem; }
 @media (min-width: 768px) { .eyebrow { font-size: 1.5rem; } }
@@ -220,12 +230,12 @@ p, li, figcaption { text-wrap: pretty; }
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent-ink); }
 
 /* ── Card (the ouroboros.bot .product card) ── */
-.cards { display: grid; gap: 1.5rem; margin-top: 2.5rem; }
+/* Open sections, not boxes: each piece of work sits under a rule, on the same split grid as the rest of the page. */
+.cards { display: grid; gap: 3rem; margin-top: 2.5rem; }
 @media (min-width: 768px) { .cards { margin-top: 3rem; } }
 .card {
   display: grid; grid-template-rows: auto auto 1fr auto; gap: 0.9rem; align-content: start;
-  padding: 1.25rem; border-radius: 1.25rem; border: 1px solid var(--line);
-  background: color-mix(in srgb, var(--panel) 75%, transparent); min-width: 0;
+  padding: 2rem 0 0; border-top: 1px solid var(--line); min-width: 0;
 }
 .card-text { grid-template-rows: auto 1fr auto; }
 /* From 1024px the cards sit in pairs, lined up by subgrid; a wide card spans
@@ -235,13 +245,13 @@ p, li, figcaption { text-wrap: pretty; }
   .card:not(.card-wide) { grid-row: span 4; grid-template-rows: subgrid; row-gap: 0.9rem; }
   .card-wide { grid-column: 1 / -1; }
   /* A wide text card is a split: the title on the left, the body on the right. */
-  .card-wide.card-text { grid-template-columns: var(--split-cols); grid-template-rows: auto 1fr; column-gap: var(--split-gap); padding: 2rem; }
+  .card-wide.card-text { grid-template-columns: var(--split-cols); grid-template-rows: auto 1fr; column-gap: var(--split-gap); }
   .card-wide.card-text > .card-title { grid-column: 1; grid-row: 1 / span 2; }
   .card-wide.card-text > :not(.card-title) { grid-column: 2; }
   .card-figure { display: flex; flex-direction: column; }
   .card-media { flex: 1 1 auto; }
-  .card-split { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: auto 1fr auto; column-gap: 2rem; }
-  .card-split .card-figure { grid-row: 1 / span 3; margin: 0; }
+  .card-split { grid-template-columns: var(--split-cols-wide); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); }
+  .card-split .card-figure { grid-row: 1 / span 3; margin: 0; align-self: start; }
   .card-split > :not(.card-figure) { grid-column: 2; }
 }
 .card-figure { margin: 0 0 0.25rem; border-radius: 0.9rem; overflow: hidden; border: 1px solid var(--line); background: var(--panel); }
@@ -376,7 +386,7 @@ p, li, figcaption { text-wrap: pretty; }
 .tool-text strong { color: var(--ink); font-weight: 600; }
 .tool-arrow { color: var(--muted); }
 @media (min-width: 1024px) {
-  .card-wide.ouro-section { grid-template-columns: var(--split-cols); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); padding: 2rem; }
+  .card-wide.ouro-section { grid-template-columns: var(--split-cols); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); }
   .ouro-section > :not(.ouro-tools) { grid-column: 1; }
   .ouro-section > .ouro-tools { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
 }
