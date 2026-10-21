@@ -13,7 +13,7 @@ assert.doesNotMatch(html, /id="ouro-ui"/, 'Ouro HX is a row in the Ouro list, no
 const list = section.match(/<ul class="ouro-tools"[\s\S]*?<\/ul>/)?.[0];
 assert.ok(list, 'Missing the list of Ouro tools');
 const rows = [...list.matchAll(/<li><a href="([^"]+)">[\s\S]*?<strong>([^<]+)<\/strong>:([^<]+)<\/span>/g)].map(([, href, name, summary]) => ({ href, name, summary: summary.trim() }));
-assert.deepEqual(rows.map(row => row.name), ['Ouroboros', 'Desk', 'Ouro MD', 'Ouro HX', 'Ouro Shepherd', 'Friends', 'The factory']);
+assert.deepEqual(rows.map(row => row.name), ['Ouroboros', 'Desk', 'Ouro MD', 'Ouro HX', 'Ouro Shepherd', 'Ouro Butler', 'Friends', 'The factory']);
 for (const row of rows) assert.match(row.href, /^https:\/\/ouroboros\.bot\/#[a-z-]+$/, `${row.name} links to its section on ouroboros.bot`);
 const hx = rows.find(row => row.name === 'Ouro HX');
 assert.equal(hx.href, 'https://ouroboros.bot/#ouro-ui');
