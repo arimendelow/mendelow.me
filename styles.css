@@ -171,15 +171,12 @@ p, li, figcaption { text-wrap: pretty; }
 .prose p { font-size: 1.2rem; margin: 0 0 1.1rem; }
 .prose p:last-child { margin-bottom: 0; }
 
-/* ── Desktop layout: every section composes across the full container ──
-   Split section: the heading (with any intro) on the left, the body on the
-   right. Below 1024px the columns stack as before. */
-@media (min-width: 1024px) {
-  .split { display: grid; grid-template-columns: var(--split-cols); column-gap: var(--split-gap); align-items: start; }
-  .split > .split-head { grid-column: 1; }
-  .split > .split-body { grid-column: 2; margin-top: 0; max-width: none; }
-  .split > .heading-section.split-head { padding-top: 0.1em; }
-}
+/* ── Reading order: every section reads top to bottom ──
+   A heading sits directly above its body at every width and the body fills
+   the container; no heading-left/body-right columns (Ari, 2026-10-20). The
+   only side-by-side layouts are copy beside its own pictures: the hero
+   photo, the Spoonjoy screenshot and the RAPID photo and video. .split,
+   .split-head and .split-body stay as hooks and make no columns. */
 
 /* ── Hero ── */
 .hero { padding: 2.5rem 0 3rem; }
@@ -216,14 +213,6 @@ p, li, figcaption { text-wrap: pretty; }
 .hero h1 { font-size: clamp(2.1rem, 1.3rem + 2.8vw, 4rem); line-height: 1.02; letter-spacing: -0.02em; margin: 0; }
 /* A hero without a grid (the 404 page). */
 .hero-solo > h1 + *, .hero-solo > .hero-title + *, .hero-solo > .hero-sub + * { margin-top: 1.5rem; }
-/* On a desktop the 404 title takes the wide left column and the note and
-   button sit beside it, so the hero spans the container like the home hero. */
-@media (min-width: 1024px) {
-  .hero-solo { display: grid; grid-template-columns: var(--split-cols-wide); column-gap: var(--split-gap); align-items: end; }
-  .hero-solo > .hero-title { grid-column: 1; grid-row: 1 / span 2; }
-  .hero-solo > .hero-sub { grid-column: 2; grid-row: 1; margin-top: 0; }
-  .hero-solo > .cta-row { grid-column: 2; grid-row: 2; margin-top: 1.5rem; }
-}
 .portrait-img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 1rem; border: 1px solid var(--line); }
 
 /* ── Buttons ── */
@@ -244,15 +233,11 @@ p, li, figcaption { text-wrap: pretty; }
 }
 .card-text { grid-template-rows: auto 1fr auto; }
 /* From 1024px the cards sit in pairs, lined up by subgrid; a wide card spans
-   the row, and a split card puts its media beside the text. */
+   the row and reads top to bottom, and a split card puts its picture beside the text. */
 @media (min-width: 1024px) {
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .card:not(.card-wide) { grid-row: span 4; grid-template-rows: subgrid; row-gap: 0.9rem; }
   .card-wide { grid-column: 1 / -1; }
-  /* A wide text card is a split: the title on the left, the body on the right. */
-  .card-wide.card-text { grid-template-columns: var(--split-cols); grid-template-rows: auto 1fr; column-gap: var(--split-gap); }
-  .card-wide.card-text > .card-title { grid-column: 1; grid-row: 1 / span 2; }
-  .card-wide.card-text > :not(.card-title) { grid-column: 2; }
   .card-figure { display: flex; flex-direction: column; }
   .card-media { flex: 1 1 auto; }
   .card-split { grid-template-columns: var(--split-cols-wide); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); }
@@ -290,12 +275,7 @@ p, li, figcaption { text-wrap: pretty; }
 
 /* ── Timeline (the ouroboros.bot .beat) ── */
 .story-grid { display: grid; gap: 2.5rem; }
-/* Beside the timeline the intro stays with the reader, clear of the 4rem nav. */
-@media (min-width: 761px) {
-  .story-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 3rem; align-items: start; }
-  .story-intro { position: sticky; top: 6rem; }
-}
-@media (min-width: 1024px) { .story-grid { grid-template-columns: var(--split-cols); gap: var(--split-gap); } }
+/* The intro sits above the timeline, and the timeline fills the container. */
 .story-link { margin: 2.5rem 0 0; padding-left: calc(7px + 1.75rem); }
 .timeline { list-style: none; margin: 0; padding: 0 0 0 7px; }
 .beat { position: relative; padding: 0 0 2rem 1.75rem; border-left: 2px solid color-mix(in srgb, var(--accent) 45%, transparent); }
@@ -335,10 +315,11 @@ p, li, figcaption { text-wrap: pretty; }
 
 /* ── Earlier ── */
 .earlier-grid { display: grid; gap: 2.5rem; margin-top: 2.5rem; }
-@media (min-width: 768px) { .earlier-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; margin-top: 3rem; } }
+@media (min-width: 768px) { .earlier-grid { gap: 3.5rem; margin-top: 3rem; } }
 .earlier-item .card-title { margin-bottom: 0.8rem; }
 .earlier-item p { margin: 0 0 1rem; }
-.sulis-figure { margin: 1.25rem 0 0; }
+/* A picture keeps the size it had in its old column, so a screenshot reads at its natural scale under the full-width text. */
+.sulis-figure { margin: 1.25rem 0 0; width: min(100%, 52rem); }
 
 /* ── Contact ── */
 .contact { background: var(--panel); }
@@ -378,11 +359,10 @@ p, li, figcaption { text-wrap: pretty; }
 #spoonjoy .card-media.media-shot img { object-fit: cover; object-position: center top; }
 
 /* Each era of Spoonjoy shows its own screen, running again from its old code. */
-.beat-figure { margin: 1rem 0 0; }
+.beat-figure { margin: 1rem 0 0; width: min(100%, 44rem); }
 
 /* Ouro: the description, then every tool in it as one list, each row linking
-   to its section on ouroboros.bot. One column at every width; from 1024px the
-   title, description and links sit left of the list. */
+   to its section on ouroboros.bot. One column at every width. */
 .ouro-section { grid-template-rows: auto; align-content: start; }
 .ouro-tools { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .ouro-tools li { border-bottom: 1px solid var(--line); }
@@ -396,8 +376,3 @@ p, li, figcaption { text-wrap: pretty; }
 .tool-text { line-height: 1.45; }
 .tool-text strong { color: var(--ink); font-weight: 600; }
 .tool-arrow { color: var(--muted); }
-@media (min-width: 1024px) {
-  .card-wide.ouro-section { grid-template-columns: var(--split-cols); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); }
-  .ouro-section > :not(.ouro-tools) { grid-column: 1; }
-  .ouro-section > .ouro-tools { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
-}
