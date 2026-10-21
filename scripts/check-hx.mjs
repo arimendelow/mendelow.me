@@ -23,3 +23,10 @@ assert.doesNotMatch(html, /href="[^"]*ouro-ax/);
 for (const file of [...list.matchAll(/src="\/assets\/([^"]+)"/g)].map(([, file]) => file)) assert.ok(fs.existsSync(new URL(`assets/${file}`, root)), `assets/${file} exists`);
 assert.match(html, /rel="icon" href="\/favicon.ico"/);
 console.log('PASS: Ouro section lists every tool with a link to its section, Ouro HX keeps its construction status, and the favicon is unchanged.');
+
+// Ari, 2026-10-20: text flows to the full width of its column. Nothing caps a line length;
+// the only width limit is the page container (.wrap).
+const css = read('styles.css');
+const caps = [...css.matchAll(/^[^@\n]*\{[^}]*max-width:\s*[\d.]+(?:ch|rem|em)\b[^}]*\}/gm)].map(([rule]) => rule.trim());
+assert.deepEqual(caps, [], 'No text has its own max-width');
+console.log('PASS: no text has its own max-width.');

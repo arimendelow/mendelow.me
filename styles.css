@@ -13,7 +13,6 @@
   --on-accent: #ffffff;
   --shadow: rgba(40, 30, 20, 0.45);
   --maxw: 72rem;
-  --prose: 44rem;
   --gutter: 1.25rem;
   /* The desktop layout grid, shared with ouroboros.bot: a split section puts
      the heading in about 5/12 of the container and the body in about 7/12. */
@@ -164,9 +163,11 @@ p, li, figcaption { text-wrap: pretty; }
 @media (min-width: 640px) { .heading-section { font-size: 2.4rem; } }
 @media (min-width: 768px) { .heading-section { font-size: 3rem; } }
 @media (min-width: 1024px) { .heading-section { font-size: 3.6rem; } }
-.dek { color: var(--muted); font-size: 1.2rem; margin: 1.1rem 0 0; max-width: 36rem; }
+.dek { color: var(--muted); font-size: 1.2rem; margin: 1.1rem 0 0; }
 
-.prose { max-width: var(--prose); margin-top: 2rem; }
+.prose { margin-top: 2rem; }
+/* A stacked section: the heading, then its text under it at the full width of the page. */
+.stack > .heading-section + * { margin-top: 1.5rem; }
 .prose p { font-size: 1.2rem; margin: 0 0 1.1rem; }
 .prose p:last-child { margin-bottom: 0; }
 
@@ -196,7 +197,7 @@ p, li, figcaption { text-wrap: pretty; }
 .hero-copy { display: contents; }
 /* On a phone the headline stands on its own line, so it centers. */
 .hero-title { grid-area: title; text-align: center; }
-.hero-sub { grid-area: sub; margin: 0; font-size: 1.125rem; line-height: 1.5; color: var(--ink-soft); max-width: 38ch; }
+.hero-sub { grid-area: sub; margin: 0; font-size: 1.125rem; line-height: 1.5; color: var(--ink-soft); }
 .hero-pic { grid-area: pic; margin: 0; width: 6.5rem; }
 .hero-cta { grid-area: cta; }
 @media (min-width: 768px) {
@@ -204,7 +205,7 @@ p, li, figcaption { text-wrap: pretty; }
   .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
   .hero-copy > .hero-title, .hero-copy > .hero-sub, .hero-copy > .hero-cta { grid-area: auto; }
   .hero-title { text-align: left; }
-  .hero-sub { font-size: 1.4rem; max-width: 56ch; }
+  .hero-sub { font-size: 1.4rem; }
   .hero-pic { width: 12rem; }
 }
 @media (min-width: 1024px) { .hero-pic { width: 17rem; } }
