@@ -185,28 +185,28 @@ p, li, figcaption { text-wrap: pretty; }
 .hero { padding: 2.5rem 0 3rem; }
 @media (min-width: 768px) { .hero { padding: 4rem 0 3.5rem; } }
 /* The hero layout is shared with ouroboros.bot's (src/pages/index.astro there): keep the two identical.
-   On a phone the headline spans the width, then the intro and the portrait sit side by side, centered
-   against each other. From 768px the copy is one block, centered beside the portrait, so the photo's
-   height never opens gaps inside the copy. */
+   On a phone the photo leads, full width and cropped wide around the face, and the text stacks
+   centered under it. From 768px the copy is one block, centered beside a portrait-shaped photo. */
 .hero-grid {
-  display: grid; gap: 1.5rem 1.25rem;
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas: "title title" "sub pic" "cta cta";
-  align-items: center;
+  display: grid; gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "pic" "title" "sub" "cta";
+  text-align: center;
 }
 .hero-copy { display: contents; }
-/* On a phone the headline stands on its own line, so it centers. */
-.hero-title { grid-area: title; text-align: center; }
+.hero-title { grid-area: title; }
 .hero-sub { grid-area: sub; margin: 0; font-size: 1.125rem; line-height: 1.5; color: var(--ink-soft); }
-.hero-pic { grid-area: pic; margin: 0; width: 6.5rem; }
-.hero-cta { grid-area: cta; }
+.hero-pic { grid-area: pic; margin: 0; width: 100%; }
+.hero-pic .portrait-img { aspect-ratio: 3 / 2; object-position: 50% 26%; }
+.hero-cta { grid-area: cta; justify-content: center; }
 @media (min-width: 768px) {
-  .hero-grid { grid-template-areas: "copy pic"; column-gap: 3rem; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "copy pic"; column-gap: 3rem; align-items: center; text-align: left; }
   .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
   .hero-copy > .hero-title, .hero-copy > .hero-sub, .hero-copy > .hero-cta { grid-area: auto; }
-  .hero-title { text-align: left; }
+  .hero-cta { justify-content: flex-start; }
   .hero-sub { font-size: 1.4rem; }
   .hero-pic { width: 12rem; }
+  .hero-pic .portrait-img { aspect-ratio: 3 / 4; }
 }
 @media (min-width: 1024px) { .hero-pic { width: 17rem; } }
 @media (min-width: 1240px) { .hero-pic { width: 21rem; } }
