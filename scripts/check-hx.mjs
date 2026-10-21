@@ -30,3 +30,10 @@ const css = read('styles.css');
 const caps = [...css.matchAll(/^[^@\n]*\{[^}]*max-width:\s*[\d.]+(?:ch|rem|em)\b[^}]*\}/gm)].map(([rule]) => rule.trim());
 assert.deepEqual(caps, [], 'No text has its own max-width');
 console.log('PASS: no text has its own max-width.');
+
+// Ari, 2026-10-20: every section reads top to bottom. Only copy beside its own pictures
+// (the Spoonjoy card and the RAPID story) may use the split columns.
+const splitRules = [...css.matchAll(/([^{}]*)\{[^{}]*grid-template-columns:\s*var\(--split-cols(?:-wide)?\)[^{}]*\}/g)].map(([, selector]) => selector.trim());
+const sideBySide = splitRules.filter((selector) => !/^\.(card-split|about-grid)$/.test(selector));
+assert.deepEqual(sideBySide, [], 'Only copy beside its own pictures sits in columns');
+console.log('PASS: every section reads top to bottom, except copy beside its own pictures.');
