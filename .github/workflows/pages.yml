@@ -12,9 +12,11 @@ on:
 permissions:
   contents: read
 
+# A newer push to a pull request cancels its older run. Runs not triggered by a pull request each
+# get their own group, so they are never cancelled.
 concurrency:
-  group: pages-${{ github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
@@ -42,6 +44,11 @@ jobs:
   deploy:
     if: github.event_name != 'pull_request'
     needs: build
+    # One Pages deploy at a time. A running deploy is never cancelled; a waiting one may be replaced by
+    # a newer push, so the newest commit always deploys.
+    concurrency:
+      group: pages-deploy
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     permissions:
       pages: write
