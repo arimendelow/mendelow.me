@@ -162,13 +162,13 @@ html:not(.js) .showcase-controls, html:not(.js) .showcase-steps { display: none;
 
 /* The cups are the hero: as large as their space allows, on the page's own ground. */
 .showcase-scene { grid-area: scene; display: grid; align-content: center; justify-items: center; gap: 0.75rem; }
-@media (min-width: 64rem) { .showcase-scene { min-height: 22rem; } }
+@media (min-width: 64rem) { .showcase-scene { min-height: 24rem; } }
 .showcase-cups { display: flex; justify-content: center; align-items: flex-end; gap: 0.25rem; width: 100%; }
-.showcase-cup { flex: 0 1 15rem; min-width: 0; height: auto; overflow: visible; }
-/* Beside the controls the ending keeps its room, so the cups don't move when the tea is ready; stacked, the scene
-   grows into it instead of leaving a gap under the cups. */
-.showcase-ending { display: grid; justify-items: center; gap: 0.75rem; align-content: start; }
-@media (min-width: 64rem) { .showcase-ending { min-height: 6.25rem; } }
+.showcase-cup { flex: 0 1 18rem; min-width: 0; height: auto; overflow: visible; }
+/* The ending keeps its room, so the cups don't move when the tea is ready: a quiet line of what finishes it, then
+   Celebrate and the rating in its place. */
+.showcase-ending { display: grid; justify-items: center; gap: 0.75rem; align-content: start; min-height: 6.25rem; }
+.showcase-hint { margin: 0; font-size: 0.95rem; color: var(--muted-foreground); text-align: center; }
 .showcase-rating { display: grid; justify-items: center; gap: 0.4rem; }
 .showcase-rating-label { font-size: 0.95rem; color: var(--muted-foreground); }
 .showcase-controls { grid-area: controls; display: grid; gap: 1.5rem; align-content: start; }
@@ -180,8 +180,8 @@ html:not(.js) .showcase-controls, html:not(.js) .showcase-steps { display: none;
   .showcase-cup { animation: showcase-cup-in var(--ouro-duration-sheet) var(--ouro-ease-out) both; }
   .showcase-tea { animation: showcase-pour 900ms var(--ouro-ease-out) 150ms both; transform-box: view-box; transform-origin: 70px 56px; }
   .showcase-tea-surface { transition: fill var(--ouro-duration-sheet) var(--ouro-ease-out); }
-  /* While the timer runs, the tea darkens over the length of the steep (STEEP in OuroShowcase.tsx). */
-  [data-steaming] .showcase-tea-surface { transition: fill 8s linear; }
+  /* While the timer runs, the tea darkens over the length of the steep (--showcase-steep, from STEEP in OuroShowcase.tsx). */
+  [data-steaming] .showcase-tea-surface { transition: fill var(--showcase-steep, 8s) var(--ouro-ease-in-out); }
   .showcase-steam { transition: opacity 600ms var(--ouro-ease-out); }
   .showcase-steam path { animation: showcase-steam 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
   .showcase-steam path:nth-child(2) { animation-delay: -1.2s; }

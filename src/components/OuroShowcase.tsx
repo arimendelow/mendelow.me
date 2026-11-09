@@ -1,7 +1,7 @@
 // The Ouro UI entry's showcase: a little tea set to play with, built from real Ouro HX components. An island that
 // hydrates when it scrolls into view (client:visible), so the rest of the page ships no extra script; its server HTML
 // is the whole scene in its starting state.
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Celebrate } from "@/components/ouro/celebrate/celebrate";
 import { Checklist, type ChecklistItemData } from "@/components/ouro/checklist/checklist";
 import { ReactionBar, type Reaction, type ReactionOption } from "@/components/ouro/reaction-bar/reaction-bar";
@@ -23,7 +23,7 @@ const ratings: ReactionOption[] = [
   { key: "honey", label: "Needs honey", emoji: "🍯" },
   { key: "love", label: "Love it", emoji: "💚" },
 ];
-// The steep, in seconds; site.css darkens the tea over the same time.
+// The steep, in seconds; the tea darkens over the same time (--showcase-steep in site.css).
 const STEEP = 8;
 
 // The porcelain, the cup's inside and the steam's blur, defined once for every cup.
@@ -118,13 +118,13 @@ export function OuroShowcase() {
   const steps: ChecklistItemData[] = [
     { id: "boil", label: "Boil the water", checked: !!done.boil },
     { id: "leaves", label: "Add the leaves", value: `${count} tsp`, checked: !!done.leaves },
-    { id: "steep", label: "Steep", description: "The timer ticks this off", checked: !!done.steep, disabled: !done.steep },
+    { id: "steep", label: "Steep", description: "The timer ticks this off", checked: !!done.steep, disabled: true },
     { id: "out", label: "Take out the leaves", checked: !!done.out },
   ];
   const ready = steps.every((step) => step.checked);
 
   return (
-    <div className="showcase" data-steaming={steeping ? "" : undefined} data-ready={ready ? "" : undefined}>
+    <div className="showcase" data-steaming={steeping ? "" : undefined} data-ready={ready ? "" : undefined} style={{ "--showcase-steep": `${STEEP}s` } as CSSProperties}>
       <CupDefs />
       <div className="showcase-scene">
         <div className="showcase-cups" role="img" aria-label={`${count === 1 ? "One cup" : `${count} cups`} of ${word} tea${steeping ? ", steeping" : ready ? ", ready" : ""}.`}>
@@ -134,6 +134,7 @@ export function OuroShowcase() {
         </div>
         <div className="showcase-ending">
           <Celebrate show={ready} message="Tea's ready" cap={{ times: 1, per: "day", key: "mendelow-tea-ready" }} />
+          {!ready ? <p className="showcase-hint">Tick off every step and the tea is ready.</p> : null}
           {ready ? (
             <div className="showcase-rating">
               <span className="showcase-rating-label">How's your cup?</span>
@@ -175,7 +176,7 @@ export function OuroShowcase() {
         label="Make the tea"
         className="showcase-steps"
         items={steps}
-        onCheckedChange={(id, checked) => setDone((now) => ({ ...now, [id]: checked }))}
+        onCheckedChange={(id, checked) => id !== "steep" && setDone((now) => ({ ...now, [id]: checked }))}
         onClearChecked={() => {
           setDone({});
           setRating([]);
