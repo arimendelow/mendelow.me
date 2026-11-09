@@ -28,7 +28,10 @@ jobs:
       - name: The new Ouro check (ouro-ui#803, merged, not yet released), on this build only
         continue-on-error: true
         run: |
-          npx -y shadcn@latest add --yes --overwrite ourostack/ouro-ui/ouro-check#c7ed66833577e7c7683cfbeaa3191ebb780db7f8 2>&1 | tail -5
+          # The registry is built at release, so take the check's own files from the merge commit.
+          for f in check design-check fade-check fades in-page measure motion-check overlap-check serve size-check; do
+            curl -fsSL "https://raw.githubusercontent.com/ourostack/ouro-ui/c7ed66833577e7c7683cfbeaa3191ebb780db7f8/registry/ouro/check/$f.ts" -o "lib/ouro/check/$f.ts"
+          done
           node lib/ouro/check/check.ts _site --out proof/ouro-check-803 2>&1 | tail -40
       - name: Recordings as GIFs
         if: always()
