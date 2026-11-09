@@ -1,47 +1,81 @@
-// The Ouro UI entry's showcase: a little tea set to play with, built from real Ouro HX components. An island that
-// hydrates when it scrolls into view (client:visible), so the rest of the page ships no extra script; its server HTML
-// is the whole scene in its starting state.
-import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+// The Ouro UI entry's showcase: a pot of tea to make, built from real Ouro HX components. The cups are a Carousel: swipe
+// to change the tea. The steps are a Reorderable: drag them into order, then Brew, and the list ticks off each step in
+// turn. The order matters: a wrong one makes the tea gently wrong, and says why. A right one fills the cups, and
+// Celebrate bursts over them. An island that hydrates when it scrolls into view (client:visible), so the rest of the
+// page ships no extra script; its server HTML is the whole scene in its starting state.
+import { useEffect, useState, type CSSProperties } from "react";
 import { Button } from "@/components/ouro/button/button";
 import { Carousel } from "@/components/ouro/carousel/carousel";
-import { Item } from "@/components/ouro/item/item";
 import { Celebrate } from "@/components/ouro/celebrate/celebrate";
+import { Item } from "@/components/ouro/item/item";
 import { Reorderable } from "@/components/ouro/reorderable/reorderable";
-import { Timer } from "@/components/ouro/timer/timer";
 
 const teas = [
   { id: "breakfast", name: "English breakfast", line: "Malty and bold", tea: "#5a2a0e" },
   { id: "earl-grey", name: "Earl Grey", line: "Black tea and bergamot", tea: "#7a3d16" },
-  { id: "sencha", name: "Sencha", line: "Grassy green tea", tea: "#a3a33c" },
+  { id: "sencha", name: "Sencha", line: "Grassy green tea", tea: "#9a9a34" },
   { id: "rooibos", name: "Rooibos", line: "Red bush, sweet and round", tea: "#a8401c" },
   { id: "chamomile", name: "Chamomile", line: "Golden and calm", tea: "#d6a83f" },
 ] as const;
 
 const steps = [
-  { id: "boil", label: "Boil the water" },
-  { id: "warm", label: "Warm the pot" },
-  { id: "leaves", label: "Add the leaves" },
-  { id: "pour", label: "Pour it in" },
+  { id: "boil", label: "Boil the water", doing: "Boiling the water" },
+  { id: "warm", label: "Warm the pot", doing: "Warming the pot" },
+  { id: "leaves", label: "Add the leaves", doing: "Adding the leaves" },
+  { id: "pour", label: "Pour on the water", doing: "Pouring on the water" },
+  { id: "steep", label: "Let it steep", doing: "Steeping" },
 ] as const;
-const inOrder = steps.map((step) => step.id).join();
+type StepId = (typeof steps)[number]["id"];
 // The order the steps start in, so there's something to put right.
-const shuffled = ["leaves", "boil", "pour", "warm"];
+const shuffled: StepId[] = ["leaves", "boil", "steep", "warm", "pour"];
+// How long each step takes as the list ticks it off.
+const STEP_MS = 1100;
 
-// The steep, in seconds; the tea darkens over the same time (--showcase-steep in site.css).
-const STEEP = 8;
+interface Brew {
+  /** How much of the tea's colour comes through, out of 100. */
+  strength: number;
+  hot: boolean;
+  /** What went wrong, kindly, or nothing when the order was right. */
+  note: string | null;
+}
 
-// Each step's icon, drawn in the text colour: a kettle, a teapot, a leaf and a pour.
-function StepIcon({ id }: { id: string }) {
-  const paths: Record<string, string> = {
+// The first thing the order got wrong, from the start of the brew, and what it did to the tea.
+function brew(order: readonly StepId[]): Brew {
+  const at = (id: StepId) => order.indexOf(id);
+  if (at("pour") < at("boil")) return { strength: 30, hot: false, note: "The water went in before it boiled, so the tea is weak and cool." };
+  if (at("warm") < at("boil")) return { strength: 85, hot: false, note: "The pot was warmed before the water boiled, so the tea is lukewarm." };
+  if (at("pour") < at("leaves")) return { strength: 45, hot: true, note: "The water went in before the leaves, so the tea came out thin." };
+  if (at("leaves") < at("warm")) return { strength: 70, hot: true, note: "The leaves went into a cold pot, so the tea is a little weak." };
+  if (at("steep") < at("pour")) return { strength: 40, hot: true, note: "It steeped before the water was in, so the tea is thin." };
+  return { strength: 100, hot: true, note: null };
+}
+
+// Each step's icon, drawn in the text colour: a kettle, a teapot, a leaf, a pour and a timer.
+function StepIcon({ id }: { id: StepId }) {
+  const paths: Record<StepId, string> = {
     boil: "M6 19h12M7 19l1-8h8l1 8M9 11V9a3 3 0 0 1 6 0v2M17 13l3-2M10 6c0-1 1-1.5 1-2.5M13 6c0-1 1-1.5 1-2.5",
     warm: "M5 12h12v3a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5zM17 13h1.5a2 2 0 0 1 0 4H16M9 12V10h4v2M4 20h14",
     leaves: "M6 18c0-7 5-12 13-12c0 8-5 13-12 13zM6 18l7-7",
     pour: "M4 9h9l-1 9H5zM13 11h2a2 2 0 0 1 0 4h-2M14 4l4 0l1 3M19 7c0 2-1 3-1 5",
+    steep: "M12 8v4l2.5 2.5M12 21a8 8 0 1 0 0-16a8 8 0 0 0 0 16zM10 2h4",
   };
   return (
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d={paths[id]} />
     </svg>
+  );
+}
+
+// Where a step stands in the brew: a tick once done, a soft pulse while it's the one under way.
+function StepMark({ state }: { state: "done" | "now" | "todo" }) {
+  if (state === "todo") return null;
+  return state === "done" ? (
+    <svg className="showcase-tick" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+      <circle cx="12" cy="12" r="11" />
+      <path d="m7 12.5 3.2 3.2L17 9" fill="none" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ) : (
+    <span className="showcase-now" aria-hidden="true" />
   );
 }
 
@@ -76,7 +110,7 @@ function CupDefs() {
 }
 
 // A porcelain cup on its saucer, seen from a little above, with the tea's surface inside its rim.
-function Cup({ tea }: { tea: string }) {
+function Cup({ tea, pour }: { tea: string; pour: number }) {
   return (
     <svg className="showcase-cup" viewBox="0 0 140 120" aria-hidden="true" focusable="false">
       <g className="showcase-steam" filter="url(#tea-steam-blur)" fill="none" strokeLinecap="round" strokeWidth="3.5">
@@ -96,7 +130,7 @@ function Cup({ tea }: { tea: string }) {
       <ellipse cx="70" cy="44" rx="46" ry="11" className="showcase-rim showcase-edge" />
       <ellipse cx="70" cy="45" rx="42" ry="9" fill="url(#tea-inside)" />
       <g clipPath="url(#tea-opening)">
-        <g className="showcase-tea">
+        <g className="showcase-tea" key={pour}>
           <ellipse cx="70" cy="48" rx="40" ry="7.6" className="showcase-tea-surface" style={{ fill: tea }} />
           <ellipse cx="60" cy="46.5" rx="15" ry="2" fill="#ffffff" opacity="0.22" />
         </g>
@@ -107,143 +141,101 @@ function Cup({ tea }: { tea: string }) {
 
 export function OuroShowcase() {
   const [tea, setTea] = useState(0);
-  const [order, setOrder] = useState<string[]>(shuffled);
-  const [steeped, setSteeped] = useState(false);
-  const [status, setStatus] = useState("idle");
-  // A new key brings the timer back to its start: just after it ends (the tea says so, without leaving its red
-  // "Time's up" beside it) and when the visitor starts again.
-  const [round, setRound] = useState(0);
-  const timer = useRef<HTMLDivElement>(null);
-  const stage = useRef<HTMLDivElement>(null);
-  // Where keyboard focus goes after a remount takes away the control that had it.
-  const refocus = useRef<"timer" | "steps" | null>(null);
+  const [order, setOrder] = useState<StepId[]>(shuffled);
+  // idle: nothing brewed yet; brewing: the list ticks off `step`; done: `result` is in the cups.
+  const [phase, setPhase] = useState<"idle" | "brewing" | "done">("idle");
+  const [step, setStep] = useState(0);
+  const [result, setResult] = useState<Brew | null>(null);
+  const [pours, setPours] = useState(0);
   const chosen = teas[tea]!;
 
-  // The timer keeps its own state; the scene follows it, so the cups steam and darken while it runs.
+  // The brew: each step in the list's order is under way for STEP_MS, then ticked; after the last, the tea is poured.
   useEffect(() => {
-    const node = timer.current;
-    if (!node) return;
-    const sync = () => setStatus(node.dataset.status ?? "idle");
-    sync();
-    const watch = new MutationObserver(sync);
-    watch.observe(node, { attributes: true, attributeFilter: ["data-status"] });
-    return () => watch.disconnect();
-  }, [round]);
+    if (phase !== "brewing") return;
+    if (step < order.length) {
+      const next = window.setTimeout(() => setStep((n) => n + 1), STEP_MS);
+      return () => window.clearTimeout(next);
+    }
+    setResult(brew(order));
+    setPours((n) => n + 1);
+    setPhase("done");
+  }, [phase, step, order]);
 
-  useLayoutEffect(() => {
-    const target = refocus.current;
-    refocus.current = null;
-    if (target === "timer") timer.current?.querySelector<HTMLElement>('[data-ouro-part="primary"]')?.focus();
-    if (target === "steps") stage.current?.querySelector<HTMLElement>('[data-ouro="reorderable"] button')?.focus();
-  }, [round]);
-
-  const steeping = status === "running";
-  const ordered = order.join() === inOrder;
-  const ready = ordered && steeped;
-  // The cups hold hot water, faintly tinted toward the chosen tea, and take its full colour as it steeps.
-  const full = steeped || steeping || status === "paused";
-  const colour = `color-mix(in oklab, ${chosen.tea} ${full ? 100 : 14}%, #f6efe2)`;
-  const hint = ready
-    ? null
-    : steeping
-      ? "Steeping…"
-      : ordered && !steeped
-        ? "In order. Now press Start to steep it."
-        : steeped
-          ? "Steeped. Now put the steps in order."
-          : "Put the steps in order, then steep the tea.";
-
-  const again = () => {
-    refocus.current = "steps";
-    setOrder(shuffled);
-    setSteeped(false);
-    setRound((n) => n + 1);
+  const start = () => {
+    setResult(null);
+    setStep(0);
+    setPhase("brewing");
+  };
+  // A new order after a brew goes back to the start, so the list never shows ticks for steps it didn't take.
+  const reorder = (ids: string[]) => {
+    setOrder(ids as StepId[]);
+    if (phase === "done") {
+      setPhase("idle");
+      setResult(null);
+    }
   };
 
+  const brewing = phase === "brewing";
+  const ready = phase === "done" && result?.note === null;
+  // The cups hold a hint of the chosen tea until it's brewed; then the brew's strength, poured fresh.
+  const strength = result ? result.strength : 22;
+  const colour = (hex: string) => `color-mix(in oklab, ${hex} ${strength}%, #f6efe2)`;
+  const steaming = phase === "done" && result?.hot;
+  const doing = brewing && step < order.length ? steps.find((s) => s.id === order[step])!.doing : null;
+
   return (
-    <div ref={stage} className="showcase" data-steaming={steeping ? "" : undefined} data-ready={ready ? "" : undefined} style={{ "--showcase-steep": `${STEEP}s` } as CSSProperties}>
+    <div className="showcase" data-steaming={steaming ? "" : undefined} data-ready={ready ? "" : undefined} style={{ "--showcase-step": `${STEP_MS}ms` } as CSSProperties}>
       <CupDefs />
       <div className="showcase-stage">
-        <div className="showcase-part">
-          <p className="showcase-label" aria-hidden="true">
-            <span className="showcase-number">1</span> Choose a tea
-          </p>
-          <Carousel label="Teas" slideLabel="{n} of {total}" onIndexChange={setTea}>
-            {teas.map((t) => (
-              <div key={t.id} className="showcase-tea-card">
-                <span className="showcase-swatch" style={{ background: t.tea }} aria-hidden="true" />
-                <span className="showcase-tea-name">{t.name}</span>
-                <span className="showcase-tea-line">{t.line}</span>
+        <Carousel label="Teas" slideLabel="{n} of {total}" onIndexChange={setTea}>
+          {teas.map((t) => (
+            <div key={t.id} className="showcase-slide">
+              <div className="showcase-cups" role="img" aria-label={`Two cups of ${t.name}${ready ? ", ready" : phase === "done" ? ", made" : ""}.`}>
+                <Cup tea={colour(t.tea)} pour={pours} />
+                <Cup tea={colour(t.tea)} pour={pours} />
               </div>
-            ))}
-          </Carousel>
-        </div>
-        <div className="showcase-scene">
-          <div className="showcase-cups" role="img" aria-label={`Two cups of ${chosen.name}${steeping ? ", steeping" : ready ? ", ready" : ""}.`}>
-            <Cup tea={colour} />
-            <Cup tea={colour} />
-          </div>
-          <div className="showcase-ending">
-            {ready ? (
-              <p className="showcase-ready" aria-hidden="true">
-                Your {chosen.name} is ready.
-              </p>
-            ) : (
-              <p className="showcase-hint">{hint}</p>
-            )}
-            <div className="showcase-ending-row">
-              <Celebrate show={ready} message="Tea's ready" />
-              {ready ? (
-                <Button variant="outline" tone="secondary" onClick={again}>
-                  Make another pot
-                </Button>
-              ) : null}
+              <p className="showcase-tea-name">{t.name}</p>
+              <p className="showcase-tea-line">{t.line}</p>
             </div>
-          </div>
-          <p className="sr-only" aria-live="polite">
-            {steeping ? "Steeping." : steeped && !ready ? "Steeped." : ""}
-          </p>
+          ))}
+        </Carousel>
+        <div className="showcase-burst">
+          <Celebrate show={ready} message={`Your ${chosen.name} is ready`} hideMessage className="absolute inset-0" />
         </div>
       </div>
       <div className="showcase-work">
-        <div className="showcase-part">
-          <p className="showcase-label" aria-hidden="true">
-            <span className="showcase-number">2</span> Drag the steps into order
+        <p className="showcase-hint" id="showcase-hint">
+          {ready ? (
+            <span className="showcase-ready">Your {chosen.name} is ready.</span>
+          ) : phase === "done" && result ? (
+            <>
+              <strong className="showcase-off">Not quite.</strong> {result.note} Drag the steps and brew again.
+            </>
+          ) : (
+            "Swipe to choose a tea, drag the steps into order, then brew."
+          )}
+        </p>
+        <Reorderable
+          label="Steps"
+          disabled={brewing}
+          items={order.map((id, index) => {
+            const s = steps.find((x) => x.id === id)!;
+            const state = phase === "done" || (brewing && index < step) ? "done" : brewing && index === step ? "now" : "todo";
+            return {
+              id,
+              label: s.label,
+              content: <Item variant="outline" size="sm" className="my-1" media={<StepIcon id={id} />} mediaSize="icon" title={s.label} actions={<StepMark state={state} />} data-state={state} />,
+            };
+          })}
+          onReorder={reorder}
+        />
+        <div className="showcase-brew">
+          <Button size="lg" loading={brewing} loadingLabel="Brewing" onClick={start} aria-describedby="showcase-hint">
+            {phase === "done" ? "Brew again" : "Brew"}
+          </Button>
+          <p className="showcase-doing" aria-live="polite">
+            {doing ? `${doing}…` : ready ? `Your ${chosen.name} is ready.` : phase === "done" ? "Not quite. See why above." : ""}
           </p>
-          <Reorderable
-            label="Steps, to drag into order"
-            items={order.map((id) => {
-              const step = steps.find((s) => s.id === id)!;
-              return {
-                id,
-                label: step.label,
-                content: <Item variant="outline" size="sm" className="my-1" media={<StepIcon id={id} />} mediaSize="icon" title={step.label} />,
-              };
-            })}
-            onReorder={(ids) => setOrder(ids)}
-          />
-        </div>
-        <div className="showcase-part">
-          <p className="showcase-label" aria-hidden="true">
-            <span className="showcase-number">3</span> Steep it
-          </p>
-          <Timer
-            key={round}
-            ref={timer}
-            label="Steep"
-            duration={STEEP}
-            // No chime or buzz from a visitor's speakers: the tea darkening says it's done.
-            silent
-            onDone={() => {
-              setSteeped(true);
-              // Only if it is still showing its end: a Restart in the meantime keeps its new steep.
-              window.setTimeout(() => {
-                if (timer.current?.dataset.status !== "done") return;
-              if (timer.current.contains(document.activeElement)) refocus.current = "timer";
-              setRound((n) => n + 1);
-              }, 600);
-            }}
-          />
         </div>
       </div>
     </div>

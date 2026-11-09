@@ -33,7 +33,7 @@ const island = lead.querySelector('astro-island');
 assert.ok(island, 'The Ouro UI showcase is an island');
 assert.equal(island.getAttribute('client'), 'visible', 'The showcase hydrates only when it scrolls into view');
 assert.equal(lead.querySelectorAll('figure img').length, 0, 'No photo in the Ouro UI entry');
-for (const part of ['carousel', 'reorderable', 'timer', 'celebrate']) assert.ok(island.querySelector(`[data-ouro="${part}"]`), `The showcase plays with the real ${part}`);
+for (const part of ['carousel', 'reorderable', 'celebrate', 'button']) assert.ok(island.querySelector(`[data-ouro="${part}"]`), `The showcase plays with the real ${part}`);
 const caption = lead.querySelector('figure figcaption');
 assert.ok(caption && hrefs(caption).includes('https://ui.ouroboros.bot/docs/'), 'The showcase links to the live components');
 assert.equal(doc.querySelectorAll('astro-island').map(i => i.getAttribute('client')).filter(c => c !== 'visible').length, 1, 'Only the navigation hydrates on load');
