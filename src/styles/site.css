@@ -128,9 +128,8 @@ p, li, figcaption { text-wrap: pretty; }
 
 /* Spoonjoy: the recipe capture, cut to the card's shape, fills its frame from the top. */
 #spoonjoy .card-media { aspect-ratio: 6 / 5; background: #fbf9f4; }
-/* Stacked, the capture keeps to the width its file holds at 2x. */
+/* The capture keeps to the width its file holds at 2x, stacked or beside its text. */
 #spoonjoy .card-figure { width: min(100%, 720px); }
-@media (min-width: 1024px) { #spoonjoy .card-figure { width: auto; } }
 #spoonjoy .card-media img { object-position: center top; }
 
 /* Ouro: the description, then every tool in it as one list, each row linking to its section on ouroboros.bot.
