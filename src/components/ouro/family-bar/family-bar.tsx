@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, type JSX, type ReactNode, type Ref } from "react";
+import { useLayoutEffect, useRef, type FocusEvent, type JSX, type ReactNode, type Ref } from "react";
 import { useAppearanceClassNameCheck } from "@/lib/ouro/class-name-check";
 import { cn } from "@/lib/ouro/cn";
 import { RouterLink } from "@/lib/ouro/router-link";
@@ -59,6 +59,9 @@ const example = '<FamilyBar links={[{ id: "docs", label: "Docs", href: "/" }]} /
  *
  * @group Navigation
  * @see https://ui.ouroboros.bot/docs/family-bar
+ * @claim "links every site of a family" registry/ouro/components/ouro/family-bar/family-bar.test.tsx verify:testExists(registry/ouro/components/ouro/family-bar/family-bar.test.tsx::FamilyBar > renders a labelled nav of the family's links in order, the current site marked with aria-current, heavier text and a bar under it)
+ * @claim "the server HTML is the whole bar" registry/ouro/components/ouro/family-bar/family-bar.test.tsx verify:testExists(registry/ouro/components/ouro/family-bar/family-bar.test.tsx::FamilyBar > renders the whole bar in the server HTML)
+ * @claim "the current site's link starts in view with no script" registry/ouro/components/ouro/family-bar/family-bar.test.tsx verify:testExists(registry/ouro/components/ouro/family-bar/family-bar.test.tsx::FamilyBar > starts the row with the current site's link in view from the server HTML alone, where the browser supports scroll-initial-target)
  *
  * @example
  * <FamilyBar
@@ -89,7 +92,8 @@ export function FamilyBar(props: FamilyBarProps): JSX.Element {
     className,
     process.env.NODE_ENV !== "production"
       ? (token: string) => `remove "${token}"; FamilyBar sets its own look`
-      : /* istanbul ignore next @preserve -- production only */ "",
+      : // Stryker disable next-line StringLiteral: production only; the check never runs there.
+        /* istanbul ignore next @preserve -- production only */ "",
   );
   useDevWarnings(
     "FamilyBar",
@@ -116,6 +120,19 @@ export function FamilyBar(props: FamilyBarProps): JSX.Element {
     row.scrollLeft += at.left + at.width / 2 - (box.left + box.width / 2);
   }, [current]);
 
+  // The browser scrolls a focused link only until it is in view, which can leave it, outline and all, in the fade at
+  // the row's edge. Keyboard focus moves it clear of the row's scroll padding, which is as wide as the fade; a pointer's
+  // does not, so the link a click lands on never moves under it.
+  function clearOfFade(event: FocusEvent<HTMLUListElement>) {
+    const link = event.target;
+    if (!link.matches(":focus-visible")) return;
+    const row = scroller.current!;
+    const pad = parseFloat(getComputedStyle(row).scrollPaddingLeft);
+    const box = row.getBoundingClientRect();
+    const at = link.getBoundingClientRect();
+    row.scrollLeft += Math.min(at.left - box.left - pad, 0) || Math.max(at.right - box.right + pad, 0);
+  }
+
   return (
     <nav ref={ref} data-ouro="family-bar" aria-label={label} className={cn(familyBarClass, className)}>
       {brand !== undefined && (
@@ -124,7 +141,9 @@ export function FamilyBar(props: FamilyBarProps): JSX.Element {
         </div>
       )}
       <div ref={scroller} data-ouro-family-row="" className={cn(familyScrollerClass, scrollFadeClass)}>
-        <ul className="m-0 flex w-max list-none items-center gap-0.5 p-0">
+        {/* Room after the last link: the row's scroll width rounds the list's down, which would clip the last link and
+            its outline by a fraction of a pixel when the row is scrolled to its end. */}
+        <ul onFocus={clearOfFade} className="m-0 flex w-max list-none items-center gap-0.5 p-0 pe-1">
           {links.map((link, index) => (
             <li key={index} className="flex">
               <RouterLink
