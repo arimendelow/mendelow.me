@@ -94,7 +94,7 @@ export function OuroShowcase() {
           duration={20}
           onDone={() => {
             setDone((now) => ({ ...now, steep: true }));
-            window.setTimeout(() => setRound((n) => n + 1), 2500);
+            window.setTimeout(() => setRound((n) => n + 1), 2000);
           }}
         />
       </div>

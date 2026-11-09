@@ -139,7 +139,7 @@ html:not(.js) .when-script, html.js .when-no-script { display: none; }
   .showcase-controls { grid-template-columns: minmax(0, 1fr); }
 }
 /* The table the cups stand on: the page's own colour, inset in the card. */
-.showcase-scene { grid-area: scene; display: grid; align-content: center; justify-items: center; gap: 0.75rem; min-height: 12rem; padding: 1.5rem 1rem 1rem; border-radius: var(--radius-lg); background: var(--background); }
+.showcase-scene { grid-area: scene; display: grid; align-content: center; justify-items: center; gap: 0.75rem; min-height: 10rem; padding: 1.5rem 1rem 1rem; border-radius: var(--radius-lg); background: var(--background); }
 .showcase-cups { display: flex; justify-content: center; align-items: flex-end; gap: 0.25rem; width: 100%; }
 .showcase-cup { flex: 0 1 9rem; min-width: 0; height: auto; overflow: visible; }
 .showcase-cup-body { fill: var(--card); stroke: color-mix(in oklab, var(--foreground) 55%, transparent); stroke-width: 2.5; }
@@ -149,7 +149,8 @@ html:not(.js) .when-script, html.js .when-no-script { display: none; }
 [data-steaming] .showcase-steam { opacity: 0.85; }
 .showcase-controls { grid-area: controls; display: grid; gap: 1.25rem; align-content: start; }
 @media (min-width: 48rem) { .showcase-controls { gap: 1.5rem 2rem; } }
-.showcase-steps { grid-area: steps; }
+/* Its own height, not the row's: stretched, the checklist would share the extra height between its header and rows. */
+.showcase-steps { grid-area: steps; align-self: start; }
 .showcase-celebrate { min-height: 2rem; }
 @media (prefers-reduced-motion: no-preference) {
   .showcase-cup { animation: showcase-cup-in 420ms var(--ouro-ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)) both; transform-origin: 50% 95%; }
