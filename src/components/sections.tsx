@@ -91,7 +91,8 @@ function ToolArt({ art }: { art: string }) {
   return <img src={`/assets/${art}-128.webp`} srcSet={`/assets/${art}-128.webp 1x, /assets/${art}-256.webp 2x`} width="40" height="40" alt="" loading="lazy" decoding="async" />;
 }
 
-export function Work() {
+// The Ouro UI entry's showcase is an island the page passes in (client:visible), so this stays static HTML.
+export function Work({ showcase }: { showcase?: ReactNode }) {
   return (
     <section className="section work" id="work" aria-labelledby="work-heading">
       <div className="wrap">
@@ -101,29 +102,18 @@ export function Work() {
 
         <div className="cards">
           <article className="card card-lead" id="ouro-ui">
-            <figure className="card-figure lead-figure">
-              <picture>
-                <source type="image/avif" srcSet="/assets/scene-ouro-hx-640.avif 640w, /assets/scene-ouro-hx-960.avif 960w, /assets/scene-ouro-hx-1536.avif 1536w" sizes="(min-width: 2000px) 84rem, (min-width: 1200px) 72rem, 100vw" />
-                <img
-                  src="/assets/scene-ouro-hx-960.webp"
-                  srcSet="/assets/scene-ouro-hx-640.webp 640w, /assets/scene-ouro-hx-960.webp 960w"
-                  sizes="(min-width: 2000px) 84rem, (min-width: 1200px) 72rem, 100vw"
-                  width="960"
-                  height="360"
-                  loading="lazy"
-                  decoding="async"
-                  data-ouro-allow="blurry-image"
-                  data-ouro-allow-why="The storybook scene's largest file is 1536px wide, the size of the brand header it comes from; nothing larger exists."
-                  alt="A woman and a little white robot build a big green switch panel on a wooden workbench at dawn, while Ouro, a smiling green snake curled into an O, watches from the glowing trail."
-                />
-              </picture>
-            </figure>
             <h3 className="card-title lead-title">Ouro UI</h3>
             <div className="card-body lead-body">
               <p>
                 Ouro UI is how I build interfaces for both sides of the work: Ouro HX, components that feel right to people, and Ouro AX, tools that read clearly to agents. It grew out of <Link href="#redwoodjs">RedwoodUI</Link>. This site is built on Ouro HX, which you can use today.
               </p>
             </div>
+            <figure className="showcase-figure">
+              {showcase}
+              <figcaption className="showcase-caption">
+                Make a pot of tea: every control here is a live Ouro HX component, so go ahead and play. <Out href="https://ui.ouroboros.bot/docs/">See them all</Out>
+              </figcaption>
+            </figure>
             <div className="card-links">
               <Out href="https://ui.ouroboros.bot/">Explore Ouro UI</Out>
               <Out href="https://github.com/ourostack/ouro-ui">Ouro UI on GitHub</Out>

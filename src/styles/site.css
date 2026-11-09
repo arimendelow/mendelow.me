@@ -119,9 +119,45 @@ p, li, figcaption { text-wrap: pretty; }
 .card-body > p + p { margin-top: 0.9rem; }
 .card-links { display: flex; gap: 0.25rem 1.5rem; flex-wrap: wrap; align-items: center; font-weight: 500; margin: 0; }
 
-/* Ouro UI leads the work: its storybook scene across the container, whole and uncropped. */
-.lead-figure { margin: 0 0 0.5rem; }
-.lead-figure img { width: 100%; height: auto; aspect-ratio: 8 / 3; object-fit: cover; }
+/* Ouro UI leads the work, with a little tea set built from live Ouro HX components to play with: the cups on a
+   table, then the controls, then the steps. One column on a phone; from 48rem the cups sit beside the steps with
+   the controls in a row under them; from 64rem the cups, the controls and the steps sit in three columns. */
+.showcase-figure { margin: 0.75rem 0 0.25rem; }
+.showcase {
+  display: grid; gap: 1.5rem 2rem; padding: 1.25rem;
+  grid-template-columns: minmax(0, 1fr); grid-template-areas: "scene" "controls" "steps";
+  border: 1px solid var(--border); border-radius: var(--radius-xl); background: var(--card);
+}
+@media (min-width: 48rem) {
+  .showcase { padding: 2rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "scene steps" "controls controls"; }
+  .showcase-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+}
+@media (min-width: 64rem) {
+  .showcase { padding: 2.5rem; column-gap: 2.5rem; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr) minmax(0, 5fr); grid-template-areas: "scene controls steps"; }
+  .showcase-controls { grid-template-columns: minmax(0, 1fr); }
+}
+.showcase-scene { grid-area: scene; display: grid; align-content: center; justify-items: center; gap: 1rem; min-height: 11rem; padding: 1.5rem 1rem 1.25rem; border-radius: var(--radius-lg); background: var(--background); border: 1px solid var(--border); }
+.showcase-cups { display: flex; justify-content: center; align-items: flex-end; gap: 0.5rem; width: 100%; }
+.showcase-cup { flex: 0 1 6.5rem; min-width: 0; height: auto; overflow: visible; }
+.showcase-cup-body { fill: var(--card); stroke: color-mix(in oklab, var(--foreground) 55%, transparent); stroke-width: 2.5; }
+.showcase-handle { stroke: color-mix(in oklab, var(--foreground) 55%, transparent); }
+.showcase-saucer { fill: color-mix(in oklab, var(--foreground) 10%, var(--card)); stroke: color-mix(in oklab, var(--foreground) 30%, transparent); stroke-width: 1.5; }
+.showcase-tea { transition: fill 300ms ease; }
+.showcase-steam { stroke: color-mix(in oklab, var(--muted-foreground) 70%, transparent); opacity: 0; transition: opacity 400ms ease; }
+[data-steaming] .showcase-steam { opacity: 0.8; }
+.showcase-controls { grid-area: controls; display: grid; gap: 1.5rem; align-content: start; }
+.showcase-steps { grid-area: steps; }
+.showcase-celebrate { min-height: 2rem; }
+.showcase-caption { margin: 0.9rem 0 0; color: var(--muted-foreground); font-size: 1rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .showcase-cup { animation: showcase-cup-in 420ms var(--ouro-ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)) both; transform-origin: 50% 95%; }
+  .showcase-steam path { animation: showcase-steam 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+  .showcase-steam path:nth-child(2) { animation-delay: -0.8s; }
+  .showcase-steam path:nth-child(3) { animation-delay: -1.6s; }
+  .showcase-tea { transition: fill 300ms ease, transform 300ms ease; }
+}
+@keyframes showcase-cup-in { from { opacity: 0; transform: translateY(0.5rem) scale(0.7); } to { opacity: 1; transform: none; } }
+@keyframes showcase-steam { 0% { opacity: 0; transform: translateY(4px) scaleY(0.8); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(-6px) scaleY(1.05); } }
 .lead-title { font-size: 2.6rem; }
 @media (min-width: 768px) { .lead-title { font-size: 3.4rem; } }
 .lead-body { font-size: 1.2rem; }
