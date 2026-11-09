@@ -25,6 +25,11 @@ jobs:
         run: node scripts/build-site.mjs _site
       - name: After (this branch)
         run: node .github/proof/shoot.mjs after _site proof/after play
+      - name: The new Ouro check (ouro-ui#803, merged, not yet released), on this build only
+        continue-on-error: true
+        run: |
+          npx -y shadcn@latest add --yes --overwrite ourostack/ouro-ui/ouro-check#c7ed66833577e7c7683cfbeaa3191ebb780db7f8 2>&1 | tail -5
+          node lib/ouro/check/check.ts _site --out proof/ouro-check-803 2>&1 | tail -40
       - name: Recordings as GIFs
         if: always()
         timeout-minutes: 6
