@@ -27,7 +27,7 @@ export function Hero() {
             <h1 id="hero-heading">I build products that help humans and agents do more together.</h1>
           </div>
           <p className="hero-sub">
-            As a founding member of Microsoft's Customer Innovation Team, I'm working with customers to explore how that collaboration reshapes their work, and what <Link href="https://teams.microsoft.com">Microsoft Teams</Link> needs to become. Outside work, I take the same questions further with <Link href="https://ouroboros.bot/">Ouro</Link> and <Link href="https://ouroboros.bot/#spoonjoy">Spoonjoy</Link>.
+            As a founding member of Microsoft's Customer Innovation Team, I'm working with customers to explore how that collaboration reshapes their work, and what <Link href="https://teams.microsoft.com">Microsoft Teams</Link> needs to become. Outside work, I take the same questions further with <Link href="https://ouroboros.bot/">Ouro</Link>, <Link href="https://ui.ouroboros.bot/">Ouro UI</Link> and <Link href="https://ouroboros.bot/#spoonjoy">Spoonjoy</Link>.
           </p>
           <div className="cta-row hero-cta">
             <Button href="#work" size="lg">
