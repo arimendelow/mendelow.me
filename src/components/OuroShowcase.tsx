@@ -3,7 +3,7 @@
 // turn. The order matters: a wrong one makes the tea gently wrong, and says why. A right one fills the cups, and
 // Celebrate bursts over them. An island that hydrates when it scrolls into view (client:visible), so the rest of the
 // page ships no extra script; its server HTML is the whole scene in its starting state.
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { Button } from "@/components/ouro/button/button";
 import { Carousel } from "@/components/ouro/carousel/carousel";
 import { Celebrate } from "@/components/ouro/celebrate/celebrate";
@@ -142,70 +142,63 @@ function Cup({ tea, pour }: { tea: string; pour: number }) {
 export function OuroShowcase() {
   const [tea, setTea] = useState(0);
   const [order, setOrder] = useState<StepId[]>(shuffled);
-  // idle: nothing brewed yet; brewing: the list ticks off `step`; done: `result` is in the cups.
-  const [phase, setPhase] = useState<"idle" | "brewing" | "done">("idle");
+  // While brewing, the list ticks off `step`; each tea keeps the result of its own last brew, so a swipe shows each
+  // tea as it is: unbrewed, not quite right, or ready.
+  const [brewing, setBrewing] = useState<number | null>(null);
   const [step, setStep] = useState(0);
-  const [result, setResult] = useState<Brew | null>(null);
+  const [results, setResults] = useState<Record<number, Brew>>({});
   const [pours, setPours] = useState(0);
-  // The tea the brew was made with: Celebrate bursts there once, not again on every swipe after.
-  const [brewed, setBrewed] = useState(0);
-  // Read when the brew ends, so a swipe mid-brew doesn't restart the step under way.
-  const current = useRef(0);
-  current.current = tea;
 
-  // The brew: each step in the list's order is under way for STEP_MS, then ticked; after the last, the tea is poured.
+  // The brew: each step in the list's order is under way for STEP_MS, then ticked; after the last, the tea is poured
+  // into the cups of the tea it was started for.
   useEffect(() => {
-    if (phase !== "brewing") return;
+    if (brewing === null) return;
     if (step < order.length) {
       const next = window.setTimeout(() => setStep((n) => n + 1), STEP_MS);
       return () => window.clearTimeout(next);
     }
-    setResult(brew(order));
-    setBrewed(current.current);
+    setResults((now) => ({ ...now, [brewing]: brew(order) }));
     setPours((n) => n + 1);
-    setPhase("done");
-  }, [phase, step, order]);
+    setBrewing(null);
+  }, [brewing, step, order]);
 
   const start = () => {
-    setResult(null);
+    setResults(({ [tea]: _, ...rest }) => rest);
     setStep(0);
-    setPhase("brewing");
+    setBrewing(tea);
   };
-  // A new order after a brew goes back to the start, so the list never shows ticks for steps it didn't take.
+  // A new order is a new plan: every tea goes back to unbrewed, so no list shows ticks for steps it didn't take.
   const reorder = (ids: string[]) => {
     setOrder(ids as StepId[]);
-    if (phase === "done") {
-      setPhase("idle");
-      setResult(null);
-    }
+    setResults({});
   };
 
-  const brewing = phase === "brewing";
-  const ready = phase === "done" && result?.note === null;
-  // The cups hold a hint of the chosen tea until it's brewed; then the brew's strength, poured fresh.
-  const strength = result ? result.strength : 22;
-  const colour = (hex: string) => `color-mix(in oklab, ${hex} ${strength}%, #f6efe2)`;
-  const steaming = phase === "done" && result?.hot;
-  const doing = brewing && step < order.length ? steps.find((s) => s.id === order[step])!.doing : null;
+  const result = results[tea];
+  const ready = result?.note === null;
+  // The cups hold a hint of each tea until it's brewed; then the brew's strength, poured fresh.
+  const colour = (index: number) => `color-mix(in oklab, ${teas[index]!.tea} ${results[index]?.strength ?? 22}%, #f6efe2)`;
+  const doing = brewing !== null && step < order.length ? steps.find((s) => s.id === order[step])!.doing : null;
+  const name = teas[tea]!.name;
 
   return (
-    <div className="showcase" data-steaming={steaming ? "" : undefined} data-ready={ready ? "" : undefined} style={{ "--showcase-step": `${STEP_MS}ms` } as CSSProperties}>
+    <div className="showcase" data-ready={ready ? "" : undefined} style={{ "--showcase-step": `${STEP_MS}ms` } as CSSProperties}>
       <CupDefs />
       <div className="showcase-stage">
         <Carousel label="Teas" slideLabel="{n} of {total}" onIndexChange={setTea}>
           {teas.map((t, index) => {
-            const here = index === brewed;
+            const own = results[index];
+            const good = own?.note === null;
             return (
-              <div key={t.id} className="showcase-slide" data-ready={ready && here ? "" : undefined}>
-                <div className="showcase-cups" role="img" aria-label={`Two cups of ${t.name}${ready ? ", ready" : phase === "done" ? ", not quite right" : ""}.`}>
-                  <Cup tea={colour(t.tea)} pour={pours} />
-                  <Cup tea={colour(t.tea)} pour={pours} />
-                  {/* The payoff bursts from the cups themselves, across their whole width, not from a chip. */}
+              <div key={t.id} className="showcase-slide" data-steaming={own?.hot ? "" : undefined}>
+                <div className="showcase-cups" role="img" aria-label={`Two cups of ${t.name}${good ? ", ready" : own ? ", not quite right" : ""}.`}>
+                  <Cup tea={colour(index)} pour={own ? pours : 0} />
+                  <Cup tea={colour(index)} pour={own ? pours : 0} />
+                  {/* The payoff bursts from the cups themselves, across their whole width, once, when this tea comes out right. */}
                   <span className="showcase-burst">
-                    <Celebrate show={ready && here} message={`Your ${t.name} is ready`} hideMessage className="absolute inset-0" />
+                    <Celebrate show={good} message={`Your ${t.name} is ready`} hideMessage className="absolute inset-0" />
                   </span>
                 </div>
-                {ready ? (
+                {good ? (
                   <>
                     <p className="showcase-tea-name showcase-ready">Your {t.name} is ready.</p>
                     <p className="showcase-tea-line">Fresh from the pot.</p>
@@ -213,7 +206,7 @@ export function OuroShowcase() {
                 ) : (
                   <>
                     <p className="showcase-tea-name">{t.name}</p>
-                    <p className="showcase-tea-line">{phase === "done" ? "Not quite right this time." : t.line}</p>
+                    <p className="showcase-tea-line">{own ? "Not quite right this time." : t.line}</p>
                   </>
                 )}
               </div>
@@ -225,7 +218,7 @@ export function OuroShowcase() {
         <p className="showcase-hint" id="showcase-hint">
           {ready ? (
             "Just right. Swipe to try another tea, or brew again."
-          ) : phase === "done" && result ? (
+          ) : result ? (
             <>
               <strong className="showcase-off">Not quite.</strong> {result.note} Drag the steps and brew again.
             </>
@@ -235,10 +228,10 @@ export function OuroShowcase() {
         </p>
         <Reorderable
           label="Steps"
-          disabled={brewing}
+          disabled={brewing !== null}
           items={order.map((id, index) => {
             const s = steps.find((x) => x.id === id)!;
-            const state = phase === "done" || (brewing && index < step) ? "done" : brewing && index === step ? "now" : "todo";
+            const state = brewing !== null ? (index < step ? "done" : index === step ? "now" : "todo") : result ? "done" : "todo";
             return {
               id,
               label: s.label,
@@ -248,13 +241,13 @@ export function OuroShowcase() {
           onReorder={reorder}
         />
         <div className="showcase-brew">
-          <Button size="lg" loading={brewing} loadingLabel="Brewing" onClick={start} aria-describedby="showcase-hint">
-            {phase === "done" ? "Brew again" : "Brew"}
+          <Button size="lg" loading={brewing !== null} loadingLabel="Brewing" onClick={start} aria-describedby="showcase-hint">
+            {result ? `Brew the ${name} again` : `Brew the ${name}`}
           </Button>
           <p className="showcase-doing" aria-live="polite">
             {doing ? `${doing}…` : ""}
             {/* Celebrate says when it's ready; a tea that came out wrong says so here. */}
-            <span className="sr-only">{phase === "done" && result?.note ? `Not quite. ${result.note}` : ""}</span>
+            <span className="sr-only">{brewing === null && result?.note ? `Not quite. ${result.note}` : ""}</span>
           </p>
         </div>
       </div>
