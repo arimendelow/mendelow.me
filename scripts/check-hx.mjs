@@ -27,9 +27,17 @@ assert.deepEqual(work.querySelectorAll('.cards > article').map(a => a.id), ['our
 const lead = doc.querySelector('#ouro-ui');
 assert.equal(text(lead.querySelector('h3')), 'Ouro UI');
 for (const href of ['https://ui.ouroboros.bot/', 'https://github.com/ourostack/ouro-ui']) assert.ok(hrefs(lead).includes(href), `Ouro UI links to ${href}`);
-const leadArt = lead.querySelector('figure img');
-assert.ok(leadArt?.getAttribute('alt'), 'Ouro UI shows its art, described');
-for (const src of [leadArt.getAttribute('src'), ...lead.querySelectorAll('source').flatMap(s => s.getAttribute('srcset').split(',').map(c => c.trim().split(' ')[0]))]) assert.ok(served(src), `${src} is served`);
+// Ari, 2026-11-09: not a giant photo but a live showcase of Ouro HX's components, an island that hydrates only when
+// it scrolls into view, so the rest of the page ships no extra script. Its server HTML is the whole scene.
+const island = lead.querySelector('astro-island');
+assert.ok(island, 'The Ouro UI showcase is an island');
+assert.equal(island.getAttribute('client'), 'visible', 'The showcase hydrates only when it scrolls into view');
+assert.equal(lead.querySelectorAll('figure img').length, 0, 'No photo in the Ouro UI entry');
+for (const part of ['segmented-control', 'timer', 'checklist']) assert.ok(island.querySelector(`[data-ouro="${part}"]`), `The showcase plays with the real ${part}`);
+assert.ok(island.querySelector('input[type="range"]'), 'The showcase has the real slider');
+const caption = lead.querySelector('figure figcaption');
+assert.ok(caption && hrefs(caption).includes('https://ui.ouroboros.bot/docs/'), 'The showcase links to the live components');
+assert.equal(doc.querySelectorAll('astro-island').map(i => i.getAttribute('client')).filter(c => c !== 'visible').length, 1, 'Only the navigation hydrates on load');
 assert.match(text(lead), /Ouro HX/);
 assert.match(text(lead), /Ouro AX/);
 assert.match(text(lead), /use today/);
@@ -37,7 +45,7 @@ assert.doesNotMatch(text(doc.querySelector('main')), /under construction/i, 'Our
 assert.doesNotMatch(text(doc.querySelector('main')), /\b(stable|production[- ]ready)\b/i, 'Nothing is called stable or production-ready');
 assert.equal(doc.querySelectorAll('img').filter(img => /ouro[ -]?ax/i.test(`${img.getAttribute('src')} ${img.getAttribute('alt')}`)).length, 0, 'Ouro AX has no mark');
 assert.equal(hrefs(doc).filter(href => /ouro-ax/.test(href)).length, 0);
-console.log('PASS: Ouro UI leads Selected work with its art, both halves and its links, and readiness stays honest.');
+console.log('PASS: Ouro UI leads Selected work with a live showcase that hydrates when seen, both halves and its links, and readiness stays honest.');
 
 // Ouro on the personal site: a description, then every tool in it as one list, each row linking to its own section
 // on ouroboros.bot. Ouro HX carries the same readiness as on ouroboros.bot.

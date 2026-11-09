@@ -2,6 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import { AboutStory, AgentsStory, Contact, Earlier, Hero, Now, RapidLinks, RapidPhoto, SpoonjoyStory, Work } from "@/components/sections";
 import { RapidVideo } from "@/components/RapidVideo";
+import { OuroShowcase } from "@/components/OuroShowcase";
 
 const title = "Ari Mendelow | Building products for humans + agents";
 const description = "Ari Mendelow builds products that help humans and agents do more together, on Microsoft's Customer Innovation Team and through his own projects, Ouro, Ouro UI and Spoonjoy.";
@@ -42,7 +43,9 @@ const jsonLd = {
 
   <Hero />
   <Now />
-  <Work />
+  <Work>
+    <OuroShowcase slot="showcase" client:visible />
+  </Work>
 
   <section class="section about" id="about" aria-labelledby="about-heading">
     <div class="wrap about-grid">
