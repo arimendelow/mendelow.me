@@ -153,6 +153,7 @@ html:not(.js) .showcase-controls, html:not(.js) .showcase-steps { display: none;
 .showcase-well { fill: var(--porcelain-lo); opacity: 0.7; }
 .showcase-cup-shadow { fill: var(--shadow); }
 .showcase-table-shadow { fill: var(--shadow); opacity: 0.6; }
+.showcase-handle-edge { stroke: var(--porcelain-edge); }
 .showcase-handle { stroke: var(--porcelain-lo); }
 .showcase-handle-hi { stroke: var(--porcelain-hi); opacity: 0.8; }
 .showcase-band { stroke: var(--porcelain-band); }
@@ -164,8 +165,10 @@ html:not(.js) .showcase-controls, html:not(.js) .showcase-steps { display: none;
 @media (min-width: 64rem) { .showcase-scene { min-height: 22rem; } }
 .showcase-cups { display: flex; justify-content: center; align-items: flex-end; gap: 0.25rem; width: 100%; }
 .showcase-cup { flex: 0 1 15rem; min-width: 0; height: auto; overflow: visible; }
-/* The ending keeps its room, so the scene doesn't jump when the tea is ready. */
-.showcase-ending { display: grid; justify-items: center; gap: 0.75rem; min-height: 6.25rem; align-content: start; }
+/* Beside the controls the ending keeps its room, so the cups don't move when the tea is ready; stacked, the scene
+   grows into it instead of leaving a gap under the cups. */
+.showcase-ending { display: grid; justify-items: center; gap: 0.75rem; align-content: start; }
+@media (min-width: 64rem) { .showcase-ending { min-height: 6.25rem; } }
 .showcase-rating { display: grid; justify-items: center; gap: 0.4rem; }
 .showcase-rating-label { font-size: 0.95rem; color: var(--muted-foreground); }
 .showcase-controls { grid-area: controls; display: grid; gap: 1.5rem; align-content: start; }
