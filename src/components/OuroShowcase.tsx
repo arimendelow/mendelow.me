@@ -1,7 +1,7 @@
 // The Ouro UI entry's showcase: a little tea set to play with, built from real Ouro HX components. An island that
 // hydrates when it scrolls into view (client:visible), so the rest of the page ships no extra script; its server HTML
 // is the whole scene in its starting state.
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { Button } from "@/components/ouro/button/button";
 import { Carousel } from "@/components/ouro/carousel/carousel";
 import { Item } from "@/components/ouro/item/item";
@@ -114,6 +114,9 @@ export function OuroShowcase() {
   // "Time's up" beside it) and when the visitor starts again.
   const [round, setRound] = useState(0);
   const timer = useRef<HTMLDivElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  // Where keyboard focus goes after a remount takes away the control that had it.
+  const refocus = useRef<"timer" | "steps" | null>(null);
   const chosen = teas[tea]!;
 
   // The timer keeps its own state; the scene follows it, so the cups steam and darken while it runs.
@@ -125,6 +128,13 @@ export function OuroShowcase() {
     const watch = new MutationObserver(sync);
     watch.observe(node, { attributes: true, attributeFilter: ["data-status"] });
     return () => watch.disconnect();
+  }, [round]);
+
+  useLayoutEffect(() => {
+    const target = refocus.current;
+    refocus.current = null;
+    if (target === "timer") timer.current?.querySelector<HTMLElement>('[data-ouro-part="primary"]')?.focus();
+    if (target === "steps") stage.current?.querySelector<HTMLElement>('[data-ouro="reorderable"] button')?.focus();
   }, [round]);
 
   const steeping = status === "running";
@@ -144,13 +154,14 @@ export function OuroShowcase() {
           : "Put the steps in order, then steep the tea.";
 
   const again = () => {
+    refocus.current = "steps";
     setOrder(shuffled);
     setSteeped(false);
     setRound((n) => n + 1);
   };
 
   return (
-    <div className="showcase" data-steaming={steeping ? "" : undefined} data-ready={ready ? "" : undefined} style={{ "--showcase-steep": `${STEEP}s` } as CSSProperties}>
+    <div ref={stage} className="showcase" data-steaming={steeping ? "" : undefined} data-ready={ready ? "" : undefined} style={{ "--showcase-steep": `${STEEP}s` } as CSSProperties}>
       <CupDefs />
       <div className="showcase-stage">
         <div className="showcase-part">
@@ -227,7 +238,9 @@ export function OuroShowcase() {
               setSteeped(true);
               // Only if it is still showing its end: a Restart in the meantime keeps its new steep.
               window.setTimeout(() => {
-                if (timer.current?.dataset.status === "done") setRound((n) => n + 1);
+                if (timer.current?.dataset.status !== "done") return;
+              if (timer.current.contains(document.activeElement)) refocus.current = "timer";
+              setRound((n) => n + 1);
               }, 600);
             }}
           />
