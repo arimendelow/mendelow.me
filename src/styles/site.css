@@ -186,9 +186,10 @@ html:not(.js) .showcase-work { display: none; }
   .showcase-steam { transition: opacity 600ms var(--ouro-ease-out); }
   [data-steaming] .showcase-steam { opacity: 1; }
   /* Steam rises for a few breaths and settles, so the page never repaints at rest. */
-  .showcase-steam path { animation: showcase-steam 3.6s ease-in-out 4 both; transform-box: fill-box; transform-origin: 50% 100%; }
-  .showcase-steam path:nth-child(2) { animation-delay: -1.2s; }
-  .showcase-steam path:nth-child(3) { animation-delay: -2.4s; }
+  /* It starts when the tea is poured, not when the page loads. */
+  [data-steaming] .showcase-steam path { animation: showcase-steam 3.6s ease-in-out 4 both; transform-box: fill-box; transform-origin: 50% 100%; }
+  [data-steaming] .showcase-steam path:nth-child(2) { animation-delay: 1.2s; }
+  [data-steaming] .showcase-steam path:nth-child(3) { animation-delay: 2.4s; }
   .showcase-ready, .showcase-hint > strong { animation: showcase-rise var(--ouro-duration-sheet) var(--ouro-ease-out) both; }
   .showcase-tick { animation: showcase-tick var(--ouro-duration-slow) var(--ouro-ease-out) both; }
   .showcase-now { animation: showcase-now var(--showcase-step, 1100ms) ease-in-out infinite; }
