@@ -120,52 +120,74 @@ p, li, figcaption { text-wrap: pretty; }
 .card-links { display: flex; gap: 0.25rem 1.5rem; flex-wrap: wrap; align-items: center; font-weight: 500; margin: 0.25rem 0 0; }
 
 /* Ouro UI leads the work, with a little tea set built from live Ouro HX components to play with: an invitation, then
-   the cups, the controls and the steps. One column on a phone; from 48rem the cups sit beside the steps with the
-   controls in a row under them; from 64rem the cups, the controls and the steps sit in three columns. */
-.showcase-figure { margin: 0.5rem 0 0.25rem; display: grid; gap: 1rem; }
+   the cups on the page itself, no frame round them, and the controls and steps beside them. One column on a phone;
+   from 48rem the cups lead across the top with the controls and the steps in two columns under them; from 64rem the
+   cups take the left and the controls and steps stack on the right. */
+.showcase-figure { margin: 0.5rem 0 0.25rem; display: grid; gap: 1.25rem; }
 .showcase-caption { margin: 0; color: var(--ink-soft); font-size: 1rem; }
 html:not(.js) .when-script, html.js .when-no-script { display: none; }
 /* Without script the controls can't work, so only the cups show. */
 html:not(.js) .showcase-controls, html:not(.js) .showcase-steps { display: none; }
 .showcase {
-  display: grid; gap: 1.25rem 2rem; padding: 1rem;
+  /* Porcelain in both themes: warm white by day, a softer bone at night, lit from the left. */
+  --porcelain-hi: #fffdf8; --porcelain-lo: #eee6d8; --porcelain-shade: #d8ccb8; --porcelain-edge: #c7bba6;
+  --porcelain-band: color-mix(in oklab, var(--primary) 70%, transparent); --steam: rgb(120 108 92 / 0.55); --shadow: rgb(70 50 25 / 0.16);
+  display: grid; gap: 2rem 3rem;
   grid-template-columns: minmax(0, 1fr); grid-template-areas: "scene" "controls" "steps";
-  border: 1px solid var(--border); border-radius: var(--radius-xl); background: var(--card);
 }
+.dark .showcase { --porcelain-hi: #efe9dd; --porcelain-lo: #cbc2b2; --porcelain-shade: #9f9586; --porcelain-edge: #8a8274; --steam: rgb(236 230 218 / 0.5); --shadow: rgb(0 0 0 / 0.5); }
+@media (prefers-color-scheme: dark) { html:not(.js) .showcase { --porcelain-hi: #efe9dd; --porcelain-lo: #cbc2b2; --porcelain-shade: #9f9586; --porcelain-edge: #8a8274; --steam: rgb(236 230 218 / 0.5); --shadow: rgb(0 0 0 / 0.5); } }
 @media (min-width: 48rem) {
-  .showcase { gap: 1.75rem 2rem; padding: 1.5rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "scene steps" "controls controls"; }
-  .showcase-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+  .showcase { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "scene scene" "controls steps"; }
 }
 @media (min-width: 64rem) {
-  .showcase { padding: 1.75rem; column-gap: 2.5rem; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr) minmax(0, 5fr); grid-template-areas: "scene controls steps"; }
-  .showcase-controls { grid-template-columns: minmax(0, 1fr); }
+  .showcase { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); grid-template-areas: "scene controls" "scene steps"; grid-template-rows: auto 1fr; column-gap: 4rem; }
 }
-/* The table the cups stand on: the page's own colour, inset in the card. */
-.showcase-scene { grid-area: scene; display: grid; align-content: center; justify-items: center; gap: 0.75rem; min-height: 9rem; padding: 1.25rem 0.75rem 0.75rem; border-radius: var(--radius-lg); background: var(--background); }
-@media (min-width: 48rem) { .showcase-scene { min-height: 12rem; padding: 1.5rem 1rem 1rem; } }
+.showcase-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.showcase-stop-hi { stop-color: var(--porcelain-hi); }
+.showcase-stop-lo { stop-color: var(--porcelain-lo); }
+.showcase-stop-shade { stop-color: var(--porcelain-shade); }
+.showcase-edge { stroke: var(--porcelain-edge); stroke-width: 0.75; }
+.showcase-rim { fill: var(--porcelain-hi); }
+.showcase-well { fill: var(--porcelain-lo); opacity: 0.7; }
+.showcase-cup-shadow { fill: var(--shadow); }
+.showcase-table-shadow { fill: var(--shadow); opacity: 0.6; }
+.showcase-handle { stroke: var(--porcelain-lo); }
+.showcase-handle-hi { stroke: var(--porcelain-hi); opacity: 0.8; }
+.showcase-band { stroke: var(--porcelain-band); }
+.showcase-steam { stroke: var(--steam); opacity: 0; }
+[data-steaming] .showcase-steam { opacity: 1; }
+
+/* The cups are the hero: as large as their space allows, on the page's own ground. */
+.showcase-scene { grid-area: scene; display: grid; align-content: center; justify-items: center; gap: 1rem; min-height: 12rem; }
+@media (min-width: 64rem) { .showcase-scene { min-height: 22rem; } }
 .showcase-cups { display: flex; justify-content: center; align-items: flex-end; gap: 0.25rem; width: 100%; }
-.showcase-cup { flex: 0 1 10rem; min-width: 0; height: auto; overflow: visible; }
-.showcase-cup-body { fill: var(--card); stroke: color-mix(in oklab, var(--foreground) 55%, transparent); stroke-width: 2.5; }
-.showcase-handle { stroke: color-mix(in oklab, var(--foreground) 55%, transparent); }
-.showcase-saucer { fill: color-mix(in oklab, var(--foreground) 10%, var(--card)); stroke: color-mix(in oklab, var(--foreground) 30%, transparent); stroke-width: 1.5; }
-.showcase-steam { stroke: color-mix(in oklab, var(--muted-foreground) 70%, transparent); opacity: 0; }
-[data-steaming] .showcase-steam { opacity: 0.85; }
-.showcase-controls { grid-area: controls; display: grid; gap: 1.25rem; align-content: start; }
-@media (min-width: 48rem) { .showcase-controls { gap: 1.5rem 2rem; } }
+.showcase-cup { flex: 0 1 12rem; min-width: 0; height: auto; overflow: visible; }
+/* The ending keeps its room, so the scene doesn't jump when the tea is ready. */
+.showcase-ending { display: grid; justify-items: center; gap: 0.75rem; min-height: 5.5rem; align-content: start; }
+.showcase-rating { display: grid; justify-items: center; gap: 0.4rem; }
+.showcase-rating-label { font-size: 0.95rem; color: var(--muted-foreground); }
+.showcase-controls { grid-area: controls; display: grid; gap: 1.5rem; align-content: start; }
 /* Its own height, not the row's: stretched, the checklist would share the extra height between its header and rows. */
 .showcase-steps { grid-area: steps; align-self: start; }
+
 @media (prefers-reduced-motion: no-preference) {
-  .showcase-cup { animation: showcase-cup-in 420ms var(--ouro-ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)) both; transform-origin: 50% 95%; }
-  .showcase-steam { transition: opacity 400ms ease; }
-  .showcase-steam path { animation: showcase-steam 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
-  .showcase-steam path:nth-child(2) { animation-delay: -0.8s; }
-  .showcase-steam path:nth-child(3) { animation-delay: -1.6s; }
-  .showcase-tea { transition: fill 300ms ease; }
+  /* A cup arrives softly and is poured: the tea rises from the bottom of the cup. Calm, no bounce. */
+  .showcase-cup { animation: showcase-cup-in var(--ouro-duration-sheet) var(--ouro-ease-out) both; }
+  .showcase-tea { animation: showcase-pour 900ms var(--ouro-ease-out) 150ms both; transform-box: view-box; transform-origin: 70px 56px; }
+  .showcase-tea-surface { transition: fill var(--ouro-duration-sheet) var(--ouro-ease-out); }
   /* While the timer runs, the tea darkens over the length of the steep (STEEP in OuroShowcase.tsx). */
-  [data-steaming] .showcase-tea { transition: fill 8s linear; }
+  [data-steaming] .showcase-tea-surface { transition: fill 8s linear; }
+  .showcase-steam { transition: opacity 600ms var(--ouro-ease-out); }
+  .showcase-steam path { animation: showcase-steam 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+  .showcase-steam path:nth-child(2) { animation-delay: -1.2s; }
+  .showcase-steam path:nth-child(3) { animation-delay: -2.4s; }
+  .showcase-rating { animation: showcase-rise var(--ouro-duration-sheet) var(--ouro-ease-out) both; }
 }
-@keyframes showcase-cup-in { from { opacity: 0; transform: translateY(0.5rem) scale(0.7); } to { opacity: 1; transform: none; } }
-@keyframes showcase-steam { 0% { opacity: 0; transform: translateY(4px) scaleY(0.8); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(-6px) scaleY(1.05); } }
+@keyframes showcase-cup-in { from { opacity: 0; transform: translateY(0.5rem); } to { opacity: 1; transform: none; } }
+@keyframes showcase-pour { from { transform: translateY(9px) scale(0.78); opacity: 0.4; } to { transform: none; opacity: 1; } }
+@keyframes showcase-steam { 0% { opacity: 0; transform: translateY(6px); } 35% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-10px); } }
+@keyframes showcase-rise { from { opacity: 0; transform: translateY(0.4rem); } to { opacity: 1; transform: none; } }
 .lead-title { font-size: 2.6rem; }
 @media (min-width: 768px) { .lead-title { font-size: 3rem; } }
 .lead-body { font-size: 1.2rem; }
