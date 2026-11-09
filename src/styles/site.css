@@ -86,7 +86,10 @@ p, li, figcaption { text-wrap: pretty; }
 @media (min-width: 1240px) { .hero-pic { width: 21rem; } }
 .eyebrow { font-family: var(--font-heading); color: var(--primary); font-size: 1.5rem; line-height: 1.2; margin: 0 0 0.5rem; }
 @media (min-width: 768px) { .eyebrow { font-size: 1.75rem; } }
+/* The page's one h1 is never smaller than the section headings under it (3.4rem from 768px, 4rem from 1024px). */
 .hero h1 { font-size: clamp(2.4rem, 1.5rem + 3vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; margin: 0; color: var(--foreground); }
+@media (min-width: 768px) { .hero h1 { font-size: max(clamp(2.4rem, 1.5rem + 3vw, 4.5rem), 3.4rem); } }
+@media (min-width: 1024px) { .hero h1 { font-size: max(clamp(2.4rem, 1.5rem + 3vw, 4.5rem), 4rem); } }
 /* A hero without a grid (the 404 page). */
 .hero-solo > .hero-title + *, .hero-solo > .hero-sub + * { margin-top: 1.5rem; }
 .portrait-img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 1rem; border: 1px solid var(--border); }
@@ -119,32 +122,24 @@ p, li, figcaption { text-wrap: pretty; }
 .card-body > p + p { margin-top: 0.9rem; }
 .card-links { display: flex; gap: 0.25rem 1.5rem; flex-wrap: wrap; align-items: center; font-weight: 500; margin: 0.25rem 0 0; }
 
-/* Ouro UI leads the work, with a little tea set built from live Ouro HX components to play with: an invitation, then
-   the cups on the page itself, no frame round them, the teas to swipe through under them, and the steps to drag into
-   order and the steep's timer beside them. One column on a phone; from 48rem the steps and the timer sit side by side
-   under the cups and the teas; from 64rem the cups and the teas take the left and the steps and the timer the right. */
+/* Ouro UI leads the work, with a pot of tea to make from live Ouro HX components: an invitation, then one stage. The
+   cups are a Carousel of teas; beside them (under them on a phone) the steps to drag into order, Brew, and what came
+   of it. On the page itself, no frame round the cups. */
 .showcase-figure { margin: 0.5rem 0 0.25rem; display: grid; gap: 1.25rem; }
 /* The invitation, then its link, which wraps to a line of its own rather than stretch a line with its touch target. */
 .showcase-caption { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 0.75rem; color: var(--ink-soft); font-size: 1rem; }
 html:not(.js) .when-script, html.js .when-no-script { display: none; }
-/* Without script the controls can't work, so only the cups show. */
-html:not(.js) .showcase-work, html:not(.js) .showcase-stage > .showcase-part { display: none; }
+/* Without script nothing can be swiped, dragged or brewed, so only the first tea's cups show. */
+html:not(.js) .showcase-work { display: none; }
 .showcase {
   /* Porcelain in both themes: warm white by day, a softer bone at night, lit from the left. */
   --porcelain-hi: #fffdf8; --porcelain-lo: #eee6d8; --porcelain-shade: #d8ccb8; --porcelain-edge: #c7bba6;
   --porcelain-band: color-mix(in oklab, var(--primary) 70%, transparent); --steam: rgb(120 108 92 / 0.55); --shadow: rgb(70 50 25 / 0.16);
-  /* One reading order: choose a tea, see it in the cups, put the steps in order, steep it. Stacked on a phone; from
-     64rem the tea and its cups on the left, the steps and the timer on the right, both columns from the same top. */
-  display: grid; gap: 2rem 4rem; grid-template-columns: minmax(0, 1fr); align-items: start;
+  display: grid; gap: 2rem 4rem; grid-template-columns: minmax(0, 1fr); align-items: center;
 }
 .dark .showcase { --porcelain-hi: #efe9dd; --porcelain-lo: #cbc2b2; --porcelain-shade: #9f9586; --porcelain-edge: #8a8274; --steam: rgb(236 230 218 / 0.5); --shadow: rgb(0 0 0 / 0.5); }
 @media (prefers-color-scheme: dark) { html:not(.js) .showcase { --porcelain-hi: #efe9dd; --porcelain-lo: #cbc2b2; --porcelain-shade: #9f9586; --porcelain-edge: #8a8274; --steam: rgb(236 230 218 / 0.5); --shadow: rgb(0 0 0 / 0.5); } }
 @media (min-width: 64rem) { .showcase { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } }
-.showcase-stage, .showcase-work { display: grid; gap: 1.75rem; min-width: 0; }
-/* Each part: a small numbered label, then its component. */
-.showcase-part { display: grid; gap: 0.75rem; min-width: 0; }
-.showcase-label { margin: 0; display: flex; align-items: center; gap: 0.6rem; font-size: 1rem; font-weight: 500; line-height: 1.5rem; color: var(--foreground); }
-.showcase-number { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; font-size: 0.8rem; font-weight: 600; color: var(--primary-foreground); background: var(--primary); }
 .showcase-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 .showcase-stop-hi { stop-color: var(--porcelain-hi); }
 .showcase-stop-lo { stop-color: var(--porcelain-lo); }
@@ -158,48 +153,55 @@ html:not(.js) .showcase-work, html:not(.js) .showcase-stage > .showcase-part { d
 .showcase-handle { stroke: var(--porcelain-lo); }
 .showcase-handle-hi { stroke: var(--porcelain-hi); opacity: 0.8; }
 .showcase-band { stroke: var(--porcelain-band); }
-/* Steam only where motion is welcome; with reduced motion the darkening tea says it's steeping. */
+/* Steam only where motion is welcome; with reduced motion the tea's colour says how it came out. */
 .showcase-steam { stroke: var(--steam); opacity: 0; }
 
-/* The cups are the hero: as large as their space allows, on the page's own ground, right under the tea they show. */
-.showcase-scene { display: grid; justify-items: center; gap: 1rem; }
-.showcase-cups { display: flex; justify-content: center; align-items: flex-end; gap: 0.25rem; width: 100%; }
-.showcase-cup { flex: 0 1 18rem; min-width: 0; height: auto; overflow: visible; }
-/* The ending keeps its room, so the cups don't move when the tea is ready: a quiet line of what to do next; then, when
-   it's ready, the line says so in the display face, Celebrate bursts beside a button to make another pot, and stays. */
-.showcase-ending { display: grid; justify-items: center; align-content: start; gap: 0.75rem; min-height: 6rem; text-align: center; }
-.showcase-hint { margin: 0; font-size: 1rem; line-height: 2.25rem; color: var(--muted-foreground); }
-.showcase-ready { margin: 0; font-family: var(--font-heading); font-size: 2rem; line-height: 2.25rem; color: var(--foreground); }
-@media (min-width: 48rem) { .showcase-ready { font-size: 2.25rem; } }
-.showcase-ending-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.75rem; min-height: 2.75rem; }
+/* The stage: the cups are the Carousel's slides, as large as their space allows, each tea's name under its cups. When
+   the tea is ready, Celebrate bursts across the whole stage, not from a chip. */
+.showcase-stage { position: relative; min-width: 0; }
+.showcase-slide { display: grid; justify-items: center; gap: 0.25rem; padding: 0.5rem 0 0.25rem; text-align: center; }
+.showcase-cups { position: relative; display: flex; justify-content: center; align-items: flex-end; gap: 0.25rem; width: 100%; margin-bottom: 0.75rem; }
+.showcase-cup { flex: 0 1 17rem; min-width: 0; height: auto; overflow: visible; }
+.showcase-tea-name { margin: 0; font-family: var(--font-heading); font-size: 2rem; line-height: 1.1; color: var(--foreground); }
+.showcase-tea-line { margin: 0; font-size: 1rem; color: var(--muted-foreground); }
+.showcase-burst { position: absolute; inset: -1.5rem -1rem; pointer-events: none; }
+/* Ready: the tea's name becomes the news, larger. */
+.showcase-tea-name.showcase-ready { font-size: 2.4rem; }
+@media (min-width: 48rem) { .showcase-tea-name.showcase-ready { font-size: 2.75rem; } }
 
-/* The teas: one card per slide, its colour, its name in the display face and a line about it. */
-.showcase-tea-card { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "swatch name" "swatch line"; column-gap: 1rem; align-items: center; padding: 1rem 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--card); }
-.showcase-swatch { grid-area: swatch; width: 3rem; height: 3rem; border-radius: 50%; box-shadow: inset 0 -0.35rem 0.6rem rgb(0 0 0 / 0.18), 0 0 0 3px var(--porcelain-hi), 0 0 0 4px var(--porcelain-edge); }
-.showcase-tea-name { grid-area: name; font-family: var(--font-heading); font-size: 1.6rem; line-height: 1.1; color: var(--foreground); }
-.showcase-tea-line { grid-area: line; font-size: 0.95rem; color: var(--muted-foreground); }
+/* Where you act: what to do (or what came of it), the steps, and Brew. */
+.showcase-work { display: grid; gap: 1rem; min-width: 0; }
+.showcase-hint { margin: 0; min-height: 3.3rem; font-size: 1.05rem; line-height: 1.6rem; color: var(--ink-soft); }
+.showcase-off { font-weight: 600; color: var(--foreground); }
+.showcase-brew { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin-top: 0.25rem; }
+.showcase-doing { margin: 0; font-size: 1rem; color: var(--muted-foreground); }
+.showcase-tick circle { fill: var(--primary); }
+.showcase-tick path { stroke: var(--primary-foreground); }
+.showcase-now { display: block; width: 0.75rem; height: 0.75rem; margin-inline: 0.3rem; border-radius: 50%; background: var(--primary); }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* A cup arrives softly and is poured: the tea rises from the bottom of the cup. Calm, no bounce. */
-  .showcase-cup { animation: showcase-cup-in var(--ouro-duration-sheet) var(--ouro-ease-out) both; }
-  .showcase-tea { animation: showcase-pour 900ms var(--ouro-ease-out) 150ms both; transform-box: view-box; transform-origin: 70px 56px; }
+  /* The tea is poured: it rises from the bottom of the cup. Calm, no bounce. */
+  .showcase-tea { animation: showcase-pour 900ms var(--ouro-ease-out) both; transform-box: view-box; transform-origin: 70px 56px; }
   .showcase-tea-surface { transition: fill var(--ouro-duration-sheet) var(--ouro-ease-out); }
-  /* While the timer runs, the tea darkens over the length of the steep (--showcase-steep, from STEEP in OuroShowcase.tsx). */
-  [data-steaming] .showcase-tea-surface { transition: fill var(--showcase-steep, 8s) var(--ouro-ease-in-out); }
   .showcase-steam { transition: opacity 600ms var(--ouro-ease-out); }
   [data-steaming] .showcase-steam { opacity: 1; }
-  /* Ready: the tea keeps a gentle steam, fresh from the pot. */
-  [data-ready] .showcase-steam { opacity: 0.7; }
-  .showcase-ready { animation: showcase-rise var(--ouro-duration-sheet) var(--ouro-ease-out) both; }
-  .showcase-steam path { animation: showcase-steam 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
-  .showcase-steam path:nth-child(2) { animation-delay: -1.2s; }
-  .showcase-steam path:nth-child(3) { animation-delay: -2.4s; }
+  /* Steam rises for a few breaths and settles, so the page never repaints at rest. */
+  /* It starts when the tea is poured, not when the page loads. */
+  [data-steaming] .showcase-steam path { animation: showcase-steam 3.6s ease-in-out 4 both; transform-box: fill-box; transform-origin: 50% 100%; }
+  [data-steaming] .showcase-steam path:nth-child(2) { animation-delay: 1.2s; }
+  [data-steaming] .showcase-steam path:nth-child(3) { animation-delay: 2.4s; }
+  .showcase-ready, .showcase-hint > strong { animation: showcase-rise var(--ouro-duration-sheet) var(--ouro-ease-out) both; }
+  .showcase-tick { animation: showcase-tick var(--ouro-duration-slow) var(--ouro-ease-out) both; }
+  .showcase-now { animation: showcase-now var(--showcase-step, 1100ms) ease-in-out infinite; }
 }
-@keyframes showcase-cup-in { from { opacity: 0; transform: translateY(0.5rem); } to { opacity: 1; transform: none; } }
 @keyframes showcase-pour { from { transform: translateY(9px) scale(0.78); opacity: 0.4; } to { transform: none; opacity: 1; } }
 @keyframes showcase-rise { from { opacity: 0; transform: translateY(0.5rem); } to { opacity: 1; transform: none; } }
+@keyframes showcase-tick { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+@keyframes showcase-now { 0%, 100% { opacity: 0.35; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1); } }
 @keyframes showcase-steam { 0% { opacity: 0; transform: translateY(6px); } 35% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-10px); } }
-.lead-title { font-size: 2.6rem; }
+/* Under "Selected work", never larger than it. */
+.lead-title { font-size: 2.2rem; }
+@media (min-width: 640px) { .lead-title { font-size: 2.6rem; } }
 @media (min-width: 768px) { .lead-title { font-size: 3rem; } }
 .lead-body { font-size: 1.2rem; }
 
