@@ -9,7 +9,7 @@
     "dev": "astro dev",
     "build": "rm -rf dist && node scripts/build-site.mjs dist",
     "check": "node scripts/check-fades.mjs && node --test 'tests/*.test.mjs' && node scripts/check-hx.mjs dist",
-    "check:screens": "node lib/ouro/check/check.ts dist --out ouro-check-report"
+    "check:screens": "node lib/ouro/check/check.ts dist --sizes 390x844,1440x900,3840x2160 --out ouro-check"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",

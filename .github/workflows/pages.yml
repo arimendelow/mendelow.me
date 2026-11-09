@@ -38,15 +38,17 @@ jobs:
         run: node scripts/check-hx.mjs _site
       - name: Install Chromium for the screen check
         run: npx playwright install --with-deps chromium
-      - name: Check every screen size from 320 to 3840 wide, light and dark (Ouro check)
-        run: node lib/ouro/check/check.ts _site --out ouro-check-report
+      # Ouro check at a phone, a laptop and 4K, light and dark: layout, pictures, type scale, headings, motion, loading
+      # and presses. It exits 3 on any finding, so a finding fails this job and blocks the merge.
+      - name: Ouro check at 390, 1440 and 3840 wide, light and dark
+        run: node lib/ouro/check/check.ts _site --sizes 390x844,1440x900,3840x2160 --out ouro-check
       - name: Check that no picture fades (Ouro check's fade check, over the source)
         run: node scripts/check-fades.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: ouro-check-report
-          path: ouro-check-report
+          name: ouro-check
+          path: ouro-check
           if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
         with:

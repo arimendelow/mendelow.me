@@ -4,7 +4,7 @@ import { FamilyBar } from "@/components/ouro/family-bar/family-bar";
 import { FamilyFooter } from "@/components/ouro/family-bar/family-footer";
 import { Link } from "@/components/ouro/link/link";
 import family from "@/family.json";
-import { familyBarGutters, gutters } from "@/site";
+import { gutters } from "@/site";
 
 const current = "ari";
 
@@ -12,7 +12,7 @@ export function SiteFamilyBar() {
   // Hidden below 40rem by the stylesheet, with no script: on a phone the menu lists the family instead.
   return (
     <div className="family-bar-wrap">
-      <FamilyBar links={family.links} current={current} label="Sites" className={familyBarGutters} />
+      <FamilyBar links={family.links} current={current} label="Sites" className={gutters} />
     </div>
   );
 }
