@@ -27,8 +27,10 @@ jobs:
         run: node .github/proof/shoot.mjs after _site proof/after play
       - name: Recordings as GIFs
         if: always()
+        timeout-minutes: 6
+        continue-on-error: true
         run: |
-          sudo apt-get install -y -qq ffmpeg > /dev/null
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
           for f in proof/after/play-*.webm; do
             [ -f "$f" ] || continue
             case "$f" in *phone*) w=300; r=10 ;; *) w=720; r=12 ;; esac
