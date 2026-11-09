@@ -37,15 +37,15 @@ function PhoneMenu() {
           {family.links.map((site) => {
             const here = site.id === "ari";
             return (
-              <li key={site.id}>
+              <li key={site.id} className="phone-menu-row">
                 <Link href={site.href} tone="secondary" inline={false} aria-current={here ? "true" : undefined} className="phone-menu-link phone-menu-site">
                   {site.label}
-                  {here && (
-                    <span className="phone-menu-here" aria-hidden="true">
-                      this site
-                    </span>
-                  )}
                 </Link>
+                {here && (
+                  <span className="phone-menu-here" aria-hidden="true">
+                    this site
+                  </span>
+                )}
               </li>
             );
           })}

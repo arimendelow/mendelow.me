@@ -214,7 +214,8 @@ main:focus { outline: none; }
 .phone-menu-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.125rem; }
 .phone-menu-link { display: flex; align-items: center; gap: 0.75rem; min-height: 2.75rem; padding: 0 0.75rem; font-size: 1.125rem; font-weight: 500; }
 .phone-menu-family { border-top: 1px solid var(--border); padding-top: 0.75rem; }
-.phone-menu-heading { margin: 0; padding: 0.25rem 0.75rem; font-family: inherit; font-size: 0.75rem; font-weight: 500; line-height: 1rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-foreground); }
+.phone-menu-heading { margin: 0; padding: 0.25rem 0.75rem; font-family: inherit; font-size: 0.875rem; font-weight: 500; line-height: 1.25rem; color: var(--muted-foreground); }
 .phone-menu-site { font-size: 1rem; }
 .phone-menu-site[aria-current="true"] { font-weight: 600; }
-.phone-menu-here { margin-inline-start: auto; font-size: 0.75rem; font-weight: 500; color: var(--muted-foreground); }
+.phone-menu-row { display: flex; align-items: center; gap: 0.25rem; }
+.phone-menu-here { font-size: 0.875rem; font-weight: 500; color: var(--muted-foreground); }
