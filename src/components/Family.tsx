@@ -26,7 +26,7 @@ export function SiteFooter() {
         </p>
       </div>
       <FamilyFooter links={family.links} current={current} label="All sites" className={gutters}>
-        <span>&copy; 2026 Ari Mendelow</span>
+        <span className="basis-full sm:basis-auto sm:me-4">&copy; 2026 Ari Mendelow</span>
         <Link href="https://github.com/arimendelow" tone="secondary">
           My GitHub
         </Link>
