@@ -1,0 +1,207 @@
+/* mendelow.me's own layout, in the family look it shares with ouroboros.bot: Cormorant for display (regular,
+   never italic), sentence case, the 72rem container, open sections under a rule. Colours come only from the
+   Ouro theme tokens in global.css, and every control is an Ouro HX component, so nothing here styles a link,
+   a button or the navigation. */
+:root {
+  --maxw: 72rem;
+  --gutter: 1.25rem;
+  /* The desktop layout grid, shared with ouroboros.bot. */
+  --split-cols: minmax(0, 5fr) minmax(0, 7fr);
+  --split-cols-wide: minmax(0, 7fr) minmax(0, 5fr);
+  --split-gap: 4rem;
+}
+@media (min-width: 640px) { :root { --gutter: 1.5rem; } }
+@media (min-width: 768px) { :root { --gutter: 3rem; } }
+@media (min-width: 1024px) { :root { --gutter: 4rem; } }
+/* And from 2000px the container grows from 72rem to 84rem, so a 4K display holds about half its width in content. */
+@media (min-width: 2000px) { :root { --maxw: 84rem; } }
+
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 4.5rem; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+/* Nothing may pan the page sideways. clip, unlike hidden, keeps sticky positioning working. */
+html, body { overflow-x: clip; }
+/* Wide screens: from 1600px the root size grows with the viewport, so the container, the type and the spacing
+   scale together. 16px at 1600px, about 20px at 2560px, capped at 24px. Shared with ouroboros.bot. */
+@media (min-width: 1600px) { html { font-size: min(calc(0.45vw + 8.8px), 24px); } }
+
+body { margin: 0; font-size: 1.125rem; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3 { font-family: var(--font-heading); font-weight: 400; font-style: normal; line-height: 1.08; letter-spacing: -0.01em; text-wrap: pretty; }
+p, li, figcaption { text-wrap: pretty; }
+
+/* Content is 72rem wide, with the gutters outside it, as on ouroboros.bot. */
+.wrap { width: 100%; max-width: calc(var(--maxw) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ── Section ── */
+.section { padding: 3.5rem 0; border-top: 1px solid var(--border); }
+@media (min-width: 768px) { .section { padding: 6rem 0; } }
+
+.heading-section { font-size: 2.25rem; line-height: 1.02; letter-spacing: -0.015em; margin: 0; color: var(--foreground); }
+@media (min-width: 640px) { .heading-section { font-size: 2.75rem; } }
+@media (min-width: 768px) { .heading-section { font-size: 3.4rem; } }
+@media (min-width: 1024px) { .heading-section { font-size: 4rem; } }
+.dek { color: var(--muted-foreground); font-size: 1.2rem; margin: 1.1rem 0 0; }
+
+.prose { margin-top: 2rem; }
+/* A stacked section: the heading, then its text under it at the full width of the page. */
+.stack > .heading-section + * { margin-top: 1.5rem; }
+.prose p { font-size: 1.2rem; margin: 0 0 1.1rem; color: var(--ink-soft); }
+.prose p:last-child { margin-bottom: 0; }
+
+/* ── Reading order: every section reads top to bottom ──
+   A heading sits directly above its body at every width and the body fills the container (Ari, 2026-10-20).
+   The only side-by-side layouts are copy beside its own pictures: the hero photo, the Spoonjoy screenshot and
+   the RAPID photo and video. */
+
+/* ── Hero ── */
+.hero { padding: 2.5rem 0 3rem; }
+@media (min-width: 768px) { .hero { padding: 4rem 0 3.5rem; } }
+/* On a phone the photo leads, full width and cropped wide around the face, and the text stacks centered under
+   it. From 768px the copy is one block beside a portrait-shaped photo. Shared with ouroboros.bot's hero. */
+.hero-grid {
+  display: grid; gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "pic" "title" "sub" "cta";
+  text-align: center;
+}
+.hero-copy { display: contents; }
+.hero-title { grid-area: title; }
+.hero-sub { grid-area: sub; margin: 0; font-size: 1.125rem; line-height: 1.5; color: var(--ink-soft); }
+/* On a phone the photo is as wide as the column, up to the width its file holds at 2x. */
+.hero-pic { grid-area: pic; margin: 0 auto; width: min(100%, 600px); }
+.hero-pic .portrait-img { aspect-ratio: 3 / 2; object-position: 50% 26%; }
+.hero-cta { grid-area: cta; justify-content: center; }
+@media (min-width: 768px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "copy pic"; column-gap: 3rem; align-items: center; text-align: left; }
+  .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
+  .hero-copy > .hero-title, .hero-copy > .hero-sub, .hero-copy > .hero-cta { grid-area: auto; }
+  .hero-cta { justify-content: flex-start; }
+  .hero-sub { font-size: 1.4rem; }
+  .hero-pic { width: 12rem; }
+  .hero-pic .portrait-img { aspect-ratio: 3 / 4; }
+}
+@media (min-width: 1024px) { .hero-pic { width: 17rem; } }
+@media (min-width: 1240px) { .hero-pic { width: 21rem; } }
+.eyebrow { font-family: var(--font-heading); color: var(--primary); font-size: 1.5rem; line-height: 1.2; margin: 0 0 0.5rem; }
+@media (min-width: 768px) { .eyebrow { font-size: 1.75rem; } }
+.hero h1 { font-size: clamp(2.4rem, 1.5rem + 3vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; margin: 0; color: var(--foreground); }
+/* A hero without a grid (the 404 page). */
+.hero-solo > .hero-title + *, .hero-solo > .hero-sub + * { margin-top: 1.5rem; }
+.portrait-img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 1rem; border: 1px solid var(--border); }
+
+.cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* ── Cards: open sections, not boxes; each piece of work sits under a rule ── */
+.cards { display: grid; gap: 3rem; margin-top: 2.5rem; }
+@media (min-width: 768px) { .cards { margin-top: 3rem; } }
+.card { display: grid; gap: 0.9rem; align-content: start; padding: 2rem 0 0; border-top: 1px solid var(--border); min-width: 0; }
+/* From 1024px a split card puts its picture beside its text. */
+@media (min-width: 1024px) {
+  .card-split { grid-template-columns: var(--split-cols-wide); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); }
+  .card-split .card-figure { grid-row: 1 / span 3; margin: 0; align-self: start; }
+  .card-split > :not(.card-figure) { grid-column: 2; }
+}
+/* A picture ends on a hard edge: a rounded frame with a rule, never a fade. */
+.card-figure { margin: 0 0 0.25rem; border-radius: 0.9rem; overflow: hidden; border: 1px solid var(--border); background: var(--card); }
+.card-media img { width: 100%; height: 100%; object-fit: cover; }
+.card-media.media-natural img { height: auto; }
+.card-media.media-white { background: #ffffff; }
+.dark .card-media.media-white img { filter: brightness(0.88); }
+.card-caption { margin: 0; padding: 0.6rem 0.9rem; font-size: 0.9rem; color: var(--muted-foreground); background: var(--background); border-top: 1px solid var(--border); }
+.card-title { font-size: 2.1rem; line-height: 1.05; margin: 0; color: var(--foreground); }
+@media (min-width: 768px) { .card-title { font-size: 2.5rem; } }
+.card-title-mark { display: flex; align-items: center; gap: 0.75rem; }
+.card-title-mark img, .card-title-mark svg { display: block; flex: none; width: 2.5rem; height: 2.5rem; object-fit: contain; }
+.card-body { margin: 0; color: var(--ink-soft); }
+.card-body > p { margin: 0; }
+.card-body > p + p { margin-top: 0.9rem; }
+.card-links { display: flex; gap: 0.25rem 1.5rem; flex-wrap: wrap; align-items: center; font-weight: 500; margin: 0; }
+
+/* Ouro UI leads the work: its storybook scene across the container, whole and uncropped. */
+.lead-figure { margin: 0 0 0.5rem; }
+.lead-figure img { width: 100%; height: auto; aspect-ratio: 8 / 3; object-fit: cover; }
+.lead-title { font-size: 2.6rem; }
+@media (min-width: 768px) { .lead-title { font-size: 3.4rem; } }
+.lead-body { font-size: 1.2rem; }
+
+/* Spoonjoy: the recipe capture, cut to the card's shape, fills its frame from the top. */
+#spoonjoy .card-media { aspect-ratio: 6 / 5; background: #fbf9f4; }
+/* The capture keeps to the width its file holds at 2x, stacked or beside its text. */
+#spoonjoy .card-figure { width: min(100%, 720px); }
+#spoonjoy .card-media img { object-position: center top; }
+
+/* Ouro: the description, then every tool in it as one list, each row linking to its section on ouroboros.bot.
+   One column at every width. */
+.ouro-tools { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+/* ── Timeline ── */
+.story-grid { display: grid; gap: 2.5rem; }
+.story-link { margin: 2rem 0 0; padding-left: calc(7px + 1.75rem); }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 7px; }
+.beat { position: relative; padding: 0 0 2rem 1.75rem; border-left: 2px solid color-mix(in srgb, var(--primary) 45%, transparent); }
+.beat:last-child { padding-bottom: 0; border-left-color: transparent; }
+.beat::before { content: ""; position: absolute; left: -7px; top: 0.6rem; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); }
+.beat-when { font-size: 1.6rem; margin: 0 0 0.35rem; color: var(--foreground); }
+.beat p { margin: 0; color: var(--ink-soft); }
+/* Each era of Spoonjoy shows its own screen, running again from its old code. */
+.beat-figure { margin: 1rem 0 0; width: min(100%, 44rem); }
+
+/* ── About ── */
+.about-media { display: grid; gap: 1.5rem; margin-top: 2.5rem; align-items: start; }
+@media (min-width: 768px) { .about-media { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.about-figure { margin: 0; }
+.about-figure img, .video-poster { aspect-ratio: 16 / 9; object-fit: cover; }
+.figure-links { margin-top: 1.5rem; }
+/* On a desktop the RAPID story sits beside its photo and video, stacked, with the RAPID links under them. */
+@media (min-width: 1024px) {
+  .about-grid { display: grid; grid-template-columns: var(--split-cols-wide); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); align-items: start; }
+  .about-grid > .heading-section { grid-column: 1; grid-row: 1; }
+  .about-grid > .prose { grid-column: 1; grid-row: 2 / span 2; }
+  .about-grid > .about-media { grid-column: 2; grid-row: 1 / span 2; grid-template-columns: minmax(0, 1fr); margin-top: 0; }
+  .about-grid > .figure-links { grid-column: 2; grid-row: 3; }
+}
+
+/* The RAPID demo: its title frame with a Play button in the corner, clear of the logo in the middle, until the
+   visitor asks for the video. The frame ends on a hard edge; the button sits on it as a solid control. */
+.video { position: relative; margin: 0; border: 1px solid var(--border); border-radius: 0.9rem; overflow: hidden; background: var(--card); }
+.video-poster { width: 100%; }
+/* The Play button sits in a band under the title frame, as a caption does under a photo, never over the picture. */
+.video-bar { display: flex; align-items: center; padding: 0.6rem 0.9rem; background: var(--background); border-top: 1px solid var(--border); }
+.video iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; display: block; }
+
+/* ── Earlier ── */
+.earlier-grid { display: grid; gap: 2.5rem; margin-top: 2.5rem; }
+@media (min-width: 768px) { .earlier-grid { gap: 3.5rem; margin-top: 3rem; } }
+.earlier-item .card-title { margin-bottom: 0.8rem; }
+.earlier-item p { margin: 0 0 1rem; color: var(--ink-soft); }
+/* A picture keeps the same readable size as the timeline's, under the full-width text. */
+.earlier-figure { margin: 1.25rem 0 0; width: min(100%, 44rem); }
+
+/* ── Contact ── */
+.contact { background: var(--card); }
+.contact-line { font-size: 1.25rem; margin: 1.25rem 0 1rem; color: var(--ink-soft); }
+
+/* ── Footer: the site's own line, then the family footer with the site's own links ── */
+.site-footer { border-top: 1px solid var(--border); }
+.footer-band { padding-top: 3rem; padding-bottom: 2.5rem; }
+@media (min-width: 768px) { .footer-band { padding-top: 4.5rem; padding-bottom: 3.5rem; } }
+.footer-line { font-family: var(--font-heading); font-size: 1.75rem; line-height: 1.25; color: var(--foreground); margin: 0; text-wrap: balance; }
+@media (min-width: 768px) { .footer-line { font-size: 2.25rem; } }
+.footer-line span { display: inline-block; }
+
+/* ── Phone ── */
+@media (max-width: 767px) {
+  body { font-size: 1.06rem; }
+  .prose p { font-size: 1.1rem; }
+}
+
+/* The wordmark in the navbar: the way home, in the display face. */
+.wordmark { display: inline-flex; margin-inline-end: 1.25rem; align-items: center; min-height: 2.75rem; font-family: var(--font-heading); font-size: 1.6rem; line-height: 1; color: var(--foreground); text-decoration: none; border-radius: 0.375rem; }
+.wordmark:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+/* Without script the phone menu and the light or dark menu cannot open, so they are not shown. */
+html:not(.js) [data-ouro-navbar-menu], html:not(.js) [data-ouro="color-scheme-toggle"] { display: none; }
+/* The skip link and the section links land on <main> and the sections without an outline round the whole page. */
+main:focus { outline: none; }

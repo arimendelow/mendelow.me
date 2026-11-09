@@ -1,0 +1,240 @@
+@import "tailwindcss";
+/* The site's own layout, under Tailwind's utilities so an Ouro HX component's classes always win. */
+@import "./site.css" layer(components);
+
+/* Ouro HX switches schemes with the .dark class on <html> (lib/ouro/color-scheme). */
+@custom-variant dark (&:is(.dark *));
+
+/* ── Fonts: the family's own, self-hosted as on ouroboros.bot ──
+   Cormorant Garamond for display, regular weight only and never italic; Outfit for everything else. */
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/cormorant-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url("/fonts/outfit.woff2") format("woff2");
+}
+/* Metric-matched fallbacks, as on ouroboros.bot, so lines wrap the same before and after the swap. */
+@font-face {
+  font-family: "Cormorant Fallback";
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Times"), local("Liberation Serif");
+  size-adjust: 96.5%;
+}
+@font-face {
+  font-family: "Outfit Fallback";
+  src: local("Arial"), local("ArialMT"), local("Helvetica"), local("Liberation Sans");
+  size-adjust: 97.9%;
+}
+
+/* ── Ouro theme tokens, in ouroboros.bot's palette ──
+   Light is its warm paper (void, deep, undergrowth, canopy, scale, bone); dark is its night serpent palette.
+   Every text pair passes WCAG AA. */
+:root {
+  --radius: 0.75rem;
+  --background: #f5efe0;
+  --foreground: #1a2118;
+  --card: #fffaf0;
+  --card-foreground: #1a2118;
+  --popover: #fffaf0;
+  --popover-foreground: #1a2118;
+  --primary: #1f6a37;
+  --primary-foreground: #fffaf0;
+  --secondary: #ece3cc;
+  --secondary-foreground: #1a2118;
+  --muted: #ece3cc;
+  --muted-foreground: #535e50;
+  --accent: #ece3cc;
+  --accent-foreground: #1a2118;
+  --destructive: #a8352a;
+  --border: rgb(31 106 55 / 0.2);
+  --input: #8f8466;
+  --ring: #1f6a37;
+  /* The site's own: the second voice of the text, and the hover green. */
+  --ink-soft: #3d4839;
+  --primary-hover: #14502a;
+  --destructive-foreground: #ffffff;
+  --success: #157d3c;
+  --success-foreground: #ffffff;
+  --warning: #b05109;
+  --warning-foreground: #ffffff;
+  --avatar-1: #c4314b;
+  --avatar-2: #ca5010;
+  --avatar-3: #986f0b;
+  --avatar-4: #498205;
+  --avatar-5: #038387;
+  --avatar-6: #0f6cbd;
+  --avatar-7: #8764b8;
+  --avatar-8: #c239b3;
+    --ouro-spring-duration: 750ms;
+    --ouro-ease-spring: linear(0, 0.0663, 0.2105, 0.3763, 0.5332, 0.6669, 0.7733, 0.8533, 0.9107, 0.9499, 0.9754, 0.9911, 1, 1.0044, 1.0061, 1.0062, 1.0055, 1.0045, 1.0035, 1.0026, 1.0018, 1.0012, 1.0008, 1, 1);
+    --ouro-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ouro-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ouro-ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    --ouro-duration-press: 160ms;
+    --ouro-duration-fast: 150ms;
+    --ouro-duration-base: 200ms;
+    --ouro-duration-draw: 240ms;
+    --ouro-duration-slow: 300ms;
+    --ouro-duration-sheet: 500ms;
+    --ouro-press-scale: 0.97;
+    --ouro-backdrop-color: #18181b;
+    --ouro-backdrop-max: 0.4;
+    --ouro-shadow-sheet-bottom: 0 -1px 0 color-mix(in oklab, var(--border) 60%, transparent), 0 -8px 32px rgb(0 0 0 / 0.12);
+    --ouro-shadow-sheet-top: 0 1px 0 color-mix(in oklab, var(--border) 60%, transparent), 0 8px 32px rgb(0 0 0 / 0.12);
+    --ouro-shadow-sheet-left: 8px 0 32px rgb(0 0 0 / 0.12);
+    --ouro-shadow-sheet-right: -8px 0 32px rgb(0 0 0 / 0.12);
+    --ouro-layer: 50;
+}
+
+.dark {
+  --background: #050a07;
+  --foreground: #edf2ee;
+  --card: #0d1f13;
+  --card-foreground: #edf2ee;
+  --popover: #0d1f13;
+  --popover-foreground: #edf2ee;
+  --primary: #36a452;
+  --primary-foreground: #050a07;
+  --secondary: #152a1c;
+  --secondary-foreground: #edf2ee;
+  --muted: #152a1c;
+  --muted-foreground: #9aae9f;
+  --accent: #152a1c;
+  --accent-foreground: #edf2ee;
+  --destructive: #e5625a;
+  --border: rgb(54 164 82 / 0.22);
+  --input: #4f7a5a;
+  --ring: #4ae36c;
+  --ink-soft: #c9d4cb;
+  --primary-hover: #4ae36c;
+  --destructive-foreground: #000000;
+  --success: #4ade80;
+  --success-foreground: #000000;
+  --warning: #fbbf24;
+  --warning-foreground: #000000;
+  --avatar-1: #ee8a99;
+  --avatar-2: #f4a46c;
+  --avatar-3: #f2c661;
+  --avatar-4: #8bd17b;
+  --avatar-5: #4bc4c8;
+  --avatar-6: #6cb8f6;
+  --avatar-7: #c3a6ec;
+  --avatar-8: #ef85e2;
+    --ouro-backdrop-color: #000000;
+}
+
+/* Without script the head never sets .dark, so the system's dark setting applies here instead. */
+@media (prefers-color-scheme: dark) {
+  html:not(.js) {
+    color-scheme: dark;
+    --background: #050a07;
+    --foreground: #edf2ee;
+    --card: #0d1f13;
+    --card-foreground: #edf2ee;
+    --popover: #0d1f13;
+    --popover-foreground: #edf2ee;
+    --primary: #36a452;
+    --primary-foreground: #050a07;
+    --secondary: #152a1c;
+    --secondary-foreground: #edf2ee;
+    --muted: #152a1c;
+    --muted-foreground: #9aae9f;
+    --accent: #152a1c;
+    --accent-foreground: #edf2ee;
+    --destructive: #e5625a;
+    --border: rgb(54 164 82 / 0.22);
+    --input: #4f7a5a;
+    --ring: #4ae36c;
+    --ink-soft: #c9d4cb;
+    --primary-hover: #4ae36c;
+  }
+}
+
+@theme inline {
+  --font-sans: "Outfit", "Outfit Fallback", system-ui, sans-serif;
+  --font-heading: "Cormorant Garamond", "Cormorant Fallback", Georgia, serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-avatar-8: var(--avatar-8);
+  --color-avatar-7: var(--avatar-7);
+  --color-avatar-6: var(--avatar-6);
+  --color-avatar-5: var(--avatar-5);
+  --color-avatar-4: var(--avatar-4);
+  --color-avatar-3: var(--avatar-3);
+  --color-avatar-2: var(--avatar-2);
+  --color-avatar-1: var(--avatar-1);
+  @keyframes ouro-spin {
+  to {
+    rotate: 1turn;
+    }
+  }
+  @keyframes ouro-pulse {
+  50% {
+    opacity: 0.4;
+    }
+  }
+  @keyframes ouro-progress {
+  from {
+    translate: -100% 0;
+    }
+  to {
+    translate: 300% 0;
+    }
+  }
+  @keyframes ouro-shimmer {
+  from {
+    background-position: 100% 0;
+    }
+  to {
+    background-position: -100% 0;
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@utility press {
+    transition: scale var(--ouro-duration-press) var(--ouro-ease-out), background-color var(--ouro-duration-fast) ease, border-color var(--ouro-duration-fast) ease, color var(--ouro-duration-fast) ease, opacity var(--ouro-duration-fast) ease;
+}

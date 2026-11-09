@@ -1,8 +1,8 @@
 name: Pages
 
-# Builds the site (generating the social card from the page), checks it, and
-# deploys master to GitHub Pages. Pull requests build and check only.
-# Requires Settings → Pages → Source: "GitHub Actions".
+# Builds the site (Astro, rendering Ouro HX on the server; the social card is generated from the built page), checks
+# it, and deploys master to GitHub Pages. Pull requests run every check without deploying, so a red check blocks
+# the merge. Requires Settings → Pages → Source: "GitHub Actions".
 on:
   push:
     branches: [master]
@@ -26,13 +26,28 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # Charis SIL is Charter's open-licence twin, so the card matches the site's serif.
-      - name: Install the card font
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-sil-charis
-      - name: Check the Ouro UI entry
-        run: node scripts/check-hx.mjs
+          cache: npm
+      - run: npm ci
+      - name: Check the family links against ourostack/.github brand/family.json
+        run: node --test 'tests/*.test.mjs'
+      - name: Type check
+        run: npx tsc --noEmit
       - name: Build, generate the social card and check share metadata
         run: node scripts/build-site.mjs _site
+      - name: Check the page's structure (Ouro UI, the Ouro list, the family links, Ouro HX controls, no text caps)
+        run: node scripts/check-hx.mjs _site
+      - name: Install Chromium for the screen check
+        run: npx playwright install --with-deps chromium
+      - name: Check every screen size from 320 to 3840 wide, light and dark (Ouro check)
+        run: node lib/ouro/check/check.ts _site --out ouro-check-report
+      - name: Check that no picture fades (Ouro check's fade check, over the source)
+        run: node scripts/check-fades.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ouro-check-report
+          path: ouro-check-report
+          if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
         with:
           name: social-card

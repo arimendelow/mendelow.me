@@ -1,7 +1,7 @@
-// Builds the publishable site into <outDir>, generating the social card from
-// the page itself, then checks the result. Production (GitHub Pages) and the
-// noindex preview Worker both deploy this output, so the card is never edited
-// by hand and can never fall behind the page.
+// Builds the publishable site into <outDir>: Astro renders the pages (React and Ouro HX on the server, with
+// islands only where a control needs script), then the social card is generated from the built page itself and
+// the result is checked. Production (GitHub Pages) and the noindex preview Worker both deploy this output, so the
+// card is never edited by hand and can never fall behind the page.
 //
 //   node scripts/build-site.mjs <outDir> [--preview]
 //
@@ -9,6 +9,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { build } from 'astro';
 import { renderSocialCard } from './social-card.mjs';
 import { checkSite } from './check-site.mjs';
 
@@ -18,17 +19,14 @@ if (!outArg) { console.error('usage: node scripts/build-site.mjs <outDir> [--pre
 const out = path.resolve(outArg);
 const preview = flags.includes('--preview');
 
-// Everything a visitor can request. Sources such as scripts/ and readme.md stay out.
-const PUBLISH = ['index.html', '404.html', 'styles.css', 'favicon.ico', 'robots.txt', 'sitemap.xml', 'CNAME', 'assets'];
-
 if (fs.existsSync(out) && fs.readdirSync(out).length) {
   console.error(`refusing to build into non-empty ${out}`);
   process.exit(2);
 }
-fs.mkdirSync(out, { recursive: true });
-for (const entry of PUBLISH) fs.cpSync(path.join(root, entry), path.join(out, entry), { recursive: true });
 
-await renderSocialCard({ html: path.join(out, 'index.html'), assets: path.join(out, 'assets'), out: path.join(out, 'assets', 'social-card.png') });
+await build({ root, outDir: out, logLevel: 'warn' });
+
+await renderSocialCard({ html: path.join(out, 'index.html'), assets: path.join(out, 'assets'), fonts: path.join(out, 'fonts'), out: path.join(out, 'assets', 'social-card.png') });
 
 if (preview) {
   for (const page of ['index.html', '404.html']) {

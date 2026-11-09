@@ -5,7 +5,9 @@
 # Needs `npx wrangler login` on the Mendelow Studio Cloudflare account.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-WORK="$(mktemp -d)"
+# The build and the Worker config go in a fresh folder inside the project (ignored by git), not the system temp folder.
+WORK=".preview-build"
+rm -rf "$WORK" && mkdir -p "$WORK"
 node scripts/build-site.mjs "$WORK/public" --preview
 cat > "$WORK/wrangler.jsonc" <<'JSON'
 {
@@ -16,3 +18,4 @@ cat > "$WORK/wrangler.jsonc" <<'JSON'
 JSON
 (cd "$WORK" && npx -y wrangler@4 deploy)
 echo "deployed $(git rev-parse --short HEAD) from $WORK"
+rm -rf "$WORK"
