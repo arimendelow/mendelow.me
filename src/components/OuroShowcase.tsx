@@ -30,6 +30,21 @@ const shuffled = ["leaves", "boil", "pour", "warm"];
 // The steep, in seconds; the tea darkens over the same time (--showcase-steep in site.css).
 const STEEP = 8;
 
+// Each step's icon, drawn in the text colour: a kettle, a teapot, a leaf and a pour.
+function StepIcon({ id }: { id: string }) {
+  const paths: Record<string, string> = {
+    boil: "M6 19h12M7 19l1-8h8l1 8M9 11V9a3 3 0 0 1 6 0v2M17 13l3-2M10 6c0-1 1-1.5 1-2.5M13 6c0-1 1-1.5 1-2.5",
+    warm: "M5 12h12v3a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5zM17 13h1.5a2 2 0 0 1 0 4H16M9 12V10h4v2M4 20h14",
+    leaves: "M6 18c0-7 5-12 13-12c0 8-5 13-12 13zM6 18l7-7",
+    pour: "M4 9h9l-1 9H5zM13 11h2a2 2 0 0 1 0 4h-2M14 4l4 0l1 3M19 7c0 2-1 3-1 5",
+  };
+  return (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d={paths[id]} />
+    </svg>
+  );
+}
+
 // The porcelain, the cup's inside and the steam's blur, defined once for every cup.
 function CupDefs() {
   return (
@@ -137,59 +152,86 @@ export function OuroShowcase() {
   return (
     <div className="showcase" data-steaming={steeping ? "" : undefined} data-ready={ready ? "" : undefined} style={{ "--showcase-steep": `${STEEP}s` } as CSSProperties}>
       <CupDefs />
-      <div className="showcase-scene">
-        <div className="showcase-cups" role="img" aria-label={`Two cups of ${chosen.name}${steeping ? ", steeping" : ready ? ", ready" : ""}.`}>
-          <Cup tea={colour} />
-          <Cup tea={colour} />
+      <div className="showcase-stage">
+        <div className="showcase-part">
+          <p className="showcase-label" aria-hidden="true">
+            <span className="showcase-number">1</span> Choose a tea
+          </p>
+          <Carousel label="Teas" slideLabel="{n} of {total}" onIndexChange={setTea}>
+            {teas.map((t) => (
+              <div key={t.id} className="showcase-tea-card">
+                <span className="showcase-swatch" style={{ background: t.tea }} aria-hidden="true" />
+                <span className="showcase-tea-name">{t.name}</span>
+                <span className="showcase-tea-line">{t.line}</span>
+              </div>
+            ))}
+          </Carousel>
         </div>
-        <div className="showcase-ending">
-          <Celebrate show={ready} message="Tea's ready" />
-          {hint ? <p className="showcase-hint">{hint}</p> : <Button variant="outline" tone="secondary" onClick={again}>Make another pot</Button>}
-        </div>
-        <p className="sr-only" aria-live="polite">
-          {steeping ? "Steeping." : steeped && !ready ? "Steeped." : ""}
-        </p>
-      </div>
-      <div className="showcase-teas">
-        <Carousel label="Teas" slideLabel="{n} of {total}" onIndexChange={setTea}>
-          {teas.map((t) => (
-            <div key={t.id} className="showcase-tea-card">
-              <span className="showcase-swatch" style={{ background: t.tea }} aria-hidden="true" />
-              <span className="showcase-tea-name">{t.name}</span>
-              <span className="showcase-tea-line">{t.line}</span>
+        <div className="showcase-scene">
+          <div className="showcase-cups" role="img" aria-label={`Two cups of ${chosen.name}${steeping ? ", steeping" : ready ? ", ready" : ""}.`}>
+            <Cup tea={colour} />
+            <Cup tea={colour} />
+          </div>
+          <div className="showcase-ending">
+            {ready ? (
+              <p className="showcase-ready" aria-hidden="true">
+                Your {chosen.name} is ready.
+              </p>
+            ) : (
+              <p className="showcase-hint">{hint}</p>
+            )}
+            <div className="showcase-ending-row">
+              <Celebrate show={ready} message="Tea's ready" />
+              {ready ? (
+                <Button variant="outline" tone="secondary" onClick={again}>
+                  Make another pot
+                </Button>
+              ) : null}
             </div>
-          ))}
-        </Carousel>
+          </div>
+          <p className="sr-only" aria-live="polite">
+            {steeping ? "Steeping." : steeped && !ready ? "Steeped." : ""}
+          </p>
+        </div>
       </div>
-      <div className="showcase-steps">
-        <p className="showcase-label" aria-hidden="true">
-          Drag the steps into order
-        </p>
-        <Reorderable
-          label="Steps, to drag into order"
-          items={order.map((id) => {
-            const label = steps.find((step) => step.id === id)!.label;
-            return { id, label, content: <Item title={label} /> };
-          })}
-          onReorder={(ids) => setOrder(ids)}
-        />
-      </div>
-      <div className="showcase-steep">
-        <Timer
-          key={round}
-          ref={timer}
-          label="Steep"
-          duration={STEEP}
-          // No chime or buzz from a visitor's speakers: the tea darkening says it's done.
-          silent
-          onDone={() => {
-            setSteeped(true);
-            // Only if it is still showing its end: a Restart in the meantime keeps its new steep.
-            window.setTimeout(() => {
-              if (timer.current?.dataset.status === "done") setRound((n) => n + 1);
-            }, 600);
-          }}
-        />
+      <div className="showcase-work">
+        <div className="showcase-part">
+          <p className="showcase-label" aria-hidden="true">
+            <span className="showcase-number">2</span> Drag the steps into order
+          </p>
+          <Reorderable
+            label="Steps, to drag into order"
+            items={order.map((id) => {
+              const step = steps.find((s) => s.id === id)!;
+              return {
+                id,
+                label: step.label,
+                content: <Item variant="outline" size="sm" className="my-1" media={<StepIcon id={id} />} mediaSize="icon" title={step.label} />,
+              };
+            })}
+            onReorder={(ids) => setOrder(ids)}
+          />
+        </div>
+        <div className="showcase-part">
+          <p className="showcase-label" aria-hidden="true">
+            <span className="showcase-number">3</span> Steep it
+          </p>
+          <Timer
+            key={round}
+            ref={timer}
+            label="Steep"
+            duration={STEEP}
+            // No chime or buzz from a visitor's speakers: the tea darkening says it's done.
+            silent
+            onDone={() => {
+              setSteeped(true);
+              // Only if it is still showing its end: a Restart in the meantime keeps its new steep.
+              window.setTimeout(() => {
+                if (timer.current?.dataset.status === "done") setRound((n) => n + 1);
+              }, 600);
+            }}
+          />
+        </div>
       </div>
     </div>
   );
