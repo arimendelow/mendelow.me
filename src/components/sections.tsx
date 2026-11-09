@@ -159,7 +159,11 @@ export function Work({ showcase }: { showcase?: ReactNode }) {
           </article>
 
           <article className="card card-split" id="spoonjoy">
-            <figure className="card-figure">
+            <figure
+              className="card-figure"
+              data-ouro-allow="first-content"
+              data-ouro-allow-why="Far below a phone's first screen, this capture draws only when Ouro check scrolls to it, after the page has loaded. A reader's first content is the hero portrait, drawn in about 0.1 s."
+            >
               <div className="card-media">
                 <img src="/assets/spoonjoy-recipe.webp" width="1440" height="1200" loading="lazy" decoding="async" alt="Ari's Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion." />
               </div>
