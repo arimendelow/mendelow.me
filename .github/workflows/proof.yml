@@ -21,10 +21,6 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Build
         run: node scripts/build-site.mjs _site
-      - name: Before (the live site)
-        run: node .github/proof/fixes.mjs before https://mendelow.me/ proof/before
-      - name: After (this branch)
-        run: node .github/proof/fixes.mjs after _site proof/after
       - name: The new Ouro check (ouro-ui#803, merged, not yet released), at the gate's sizes
         continue-on-error: true
         run: |
@@ -32,6 +28,9 @@ jobs:
             curl -fsSL "https://raw.githubusercontent.com/ourostack/ouro-ui/c7ed66833577e7c7683cfbeaa3191ebb780db7f8/registry/ouro/check/$f.ts" -o "lib/ouro/check/$f.ts"
           done
           node lib/ouro/check/check.ts _site --sizes 390x844,1440x900,3840x2160 --out proof/ouro-check 2>&1 | tail -40
+      - name: The same check at every default size (not gated), for the record
+        continue-on-error: true
+        run: node lib/ouro/check/check.ts _site --out proof/ouro-check-all 2>&1 | tail -40
       - uses: actions/upload-artifact@v4
         if: always()
         with:
