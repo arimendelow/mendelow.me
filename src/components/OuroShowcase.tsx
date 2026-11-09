@@ -2,27 +2,30 @@
 // hydrates when it scrolls into view (client:visible), so the rest of the page ships no extra script; its server HTML
 // is the whole scene in its starting state.
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { Button } from "@/components/ouro/button/button";
+import { Carousel } from "@/components/ouro/carousel/carousel";
 import { Celebrate } from "@/components/ouro/celebrate/celebrate";
-import { Checklist, type ChecklistItemData } from "@/components/ouro/checklist/checklist";
-import { ReactionBar, type Reaction, type ReactionOption } from "@/components/ouro/reaction-bar/reaction-bar";
-import { SegmentedControl } from "@/components/ouro/segmented-control/segmented-control";
-import { Slider } from "@/components/ouro/slider/slider";
+import { Reorderable } from "@/components/ouro/reorderable/reorderable";
 import { Timer } from "@/components/ouro/timer/timer";
 
-const strengths = [
-  { word: "light", tea: "#d9a54e" },
-  { word: "mellow", tea: "#c27f2f" },
-  { word: "medium", tea: "#a15a1d" },
-  { word: "strong", tea: "#7a3913" },
-  { word: "very strong", tea: "#4f210a" },
+const teas = [
+  { id: "breakfast", name: "English breakfast", line: "Malty and bold", tea: "#5a2a0e" },
+  { id: "earl-grey", name: "Earl Grey", line: "Black tea and bergamot", tea: "#7a3d16" },
+  { id: "sencha", name: "Sencha", line: "Grassy green tea", tea: "#a3a33c" },
+  { id: "rooibos", name: "Rooibos", line: "Red bush, sweet and round", tea: "#a8401c" },
+  { id: "chamomile", name: "Chamomile", line: "Golden and calm", tea: "#d6a83f" },
 ] as const;
 
-const cupChoices = ["1", "2", "3", "4"].map((value) => ({ value, label: value }));
-const ratings: ReactionOption[] = [
-  { key: "lovely", label: "Lovely", emoji: "☕" },
-  { key: "honey", label: "Needs honey", emoji: "🍯" },
-  { key: "love", label: "Love it", emoji: "💚" },
-];
+const steps = [
+  { id: "boil", label: "Boil the water" },
+  { id: "warm", label: "Warm the pot" },
+  { id: "leaves", label: "Add the leaves" },
+  { id: "pour", label: "Pour it in" },
+] as const;
+const inOrder = steps.map((step) => step.id).join();
+// The order the steps start in, so there's something to put right.
+const shuffled = ["leaves", "boil", "pour", "warm"];
+
 // The steep, in seconds; the tea darkens over the same time (--showcase-steep in site.css).
 const STEEP = 8;
 
@@ -87,17 +90,15 @@ function Cup({ tea }: { tea: string }) {
 }
 
 export function OuroShowcase() {
-  const [cups, setCups] = useState("2");
-  const [strength, setStrength] = useState(3);
-  const [done, setDone] = useState<Record<string, boolean>>({});
+  const [tea, setTea] = useState(0);
+  const [order, setOrder] = useState<string[]>(shuffled);
+  const [steeped, setSteeped] = useState(false);
   const [status, setStatus] = useState("idle");
-  const [rating, setRating] = useState<Reaction[]>([]);
-  // A new key brings the timer back to its start: just after it ends (the ticked step says so, without leaving its red
-  // "Time's up" beside the finished tea) and when the visitor starts again.
+  // A new key brings the timer back to its start: just after it ends (the tea says so, without leaving its red
+  // "Time's up" beside it) and when the visitor starts again.
   const [round, setRound] = useState(0);
   const timer = useRef<HTMLDivElement>(null);
-  const { word, tea } = strengths[strength - 1]!;
-  const count = Number(cups);
+  const chosen = teas[tea]!;
 
   // The timer keeps its own state; the scene follows it, so the cups steam and darken while it runs.
   useEffect(() => {
@@ -111,60 +112,67 @@ export function OuroShowcase() {
   }, [round]);
 
   const steeping = status === "running";
+  const ordered = order.join() === inOrder;
+  const ready = ordered && steeped;
   // The cups hold hot water, faintly tinted toward the chosen tea, and take its full colour as it steeps.
-  const steeped = !!done.steep || status === "running" || status === "paused";
-  const colour = `color-mix(in oklab, ${tea} ${steeped ? 100 : 14}%, #f6efe2)`;
+  const full = steeped || steeping || status === "paused";
+  const colour = `color-mix(in oklab, ${chosen.tea} ${full ? 100 : 14}%, #f6efe2)`;
+  const hint = ready
+    ? null
+    : steeping
+      ? "Steeping…"
+      : ordered && !steeped
+        ? "In order. Now press Start to steep it."
+        : steeped
+          ? "Steeped. Now put the steps in order."
+          : "Put the steps in order, then steep the tea.";
 
-  const steps: ChecklistItemData[] = [
-    { id: "boil", label: "Boil the water", checked: !!done.boil },
-    { id: "leaves", label: "Add the leaves", value: `${count} tsp`, checked: !!done.leaves },
-    { id: "steep", label: "Steep", description: "The timer ticks this off", checked: !!done.steep, disabled: true },
-    { id: "out", label: "Take out the leaves", checked: !!done.out },
-  ];
-  const ready = steps.every((step) => step.checked);
+  const again = () => {
+    setOrder(shuffled);
+    setSteeped(false);
+    setRound((n) => n + 1);
+  };
 
   return (
     <div className="showcase" data-steaming={steeping ? "" : undefined} data-ready={ready ? "" : undefined} style={{ "--showcase-steep": `${STEEP}s` } as CSSProperties}>
       <CupDefs />
       <div className="showcase-scene">
-        <div className="showcase-cups" role="img" aria-label={`${count === 1 ? "One cup" : `${count} cups`} of ${word} tea${steeping ? ", steeping" : ready ? ", ready" : ""}.`}>
-          {Array.from({ length: count }, (_, index) => (
-            <Cup key={index} tea={colour} />
-          ))}
+        <div className="showcase-cups" role="img" aria-label={`Two cups of ${chosen.name}${steeping ? ", steeping" : ready ? ", ready" : ""}.`}>
+          <Cup tea={colour} />
+          <Cup tea={colour} />
         </div>
         <div className="showcase-ending">
-          <Celebrate show={ready} message="Tea's ready" cap={{ times: 1, per: "day", key: "mendelow-tea-ready" }} />
-          {!ready ? <p className="showcase-hint">Tick off every step and the tea is ready.</p> : null}
-          {ready ? (
-            <div className="showcase-rating">
-              <span className="showcase-rating-label">How's your cup?</span>
-              <ReactionBar
-                label="Rate your cup"
-                reactions={rating}
-                quick={ratings}
-                onReact={(key) =>
-                  setRating((now) => (now.some((r) => r.key === key && r.mine) ? now.filter((r) => r.key !== key) : [...now, { ...ratings.find((r) => r.key === key)!, count: 1, mine: true }]))
-                }
-              />
-            </div>
-          ) : null}
+          <Celebrate show={ready} message="Tea's ready" />
+          {hint ? <p className="showcase-hint">{hint}</p> : <Button variant="outline" tone="secondary" onClick={again}>Make another pot</Button>}
         </div>
         <p className="sr-only" aria-live="polite">
-          {steeping ? "Steeping." : done.steep ? "Steeped." : ""}
+          {steeping ? "Steeping." : steeped && !ready ? "Steeped." : ""}
         </p>
       </div>
-      <div className="showcase-controls">
-        <SegmentedControl label="Cups" fullWidth value={cups} onValueChange={setCups} items={cupChoices} />
-        <Slider label="Strength" description={`${word[0]!.toUpperCase()}${word.slice(1)}`} min={1} max={5} value={strength} onValueChange={setStrength} />
+      <div className="showcase-teas">
+        <Carousel label="Teas" slideLabel="{n} of {total}" onIndexChange={setTea}>
+          {teas.map((t) => (
+            <div key={t.id} className="showcase-tea-card">
+              <span className="showcase-swatch" style={{ background: t.tea }} aria-hidden="true" />
+              <span className="showcase-tea-name">{t.name}</span>
+              <span className="showcase-tea-line">{t.line}</span>
+            </div>
+          ))}
+        </Carousel>
+      </div>
+      <div className="showcase-steps">
+        <Reorderable label="Steps" items={order.map((id) => ({ id, label: steps.find((step) => step.id === id)!.label }))} onReorder={(ids) => setOrder(ids)} />
+      </div>
+      <div className="showcase-steep">
         <Timer
           key={round}
           ref={timer}
           label="Steep"
           duration={STEEP}
-          // No chime or buzz from a visitor's speakers: the tea darkening and the ticked step say it's done.
+          // No chime or buzz from a visitor's speakers: the tea darkening says it's done.
           silent
           onDone={() => {
-            setDone((now) => ({ ...now, steep: true }));
+            setSteeped(true);
             // Only if it is still showing its end: a Restart in the meantime keeps its new steep.
             window.setTimeout(() => {
               if (timer.current?.dataset.status === "done") setRound((n) => n + 1);
@@ -172,18 +180,6 @@ export function OuroShowcase() {
           }}
         />
       </div>
-      <Checklist
-        label="Make the tea"
-        className="showcase-steps"
-        items={steps}
-        onCheckedChange={(id, checked) => id !== "steep" && setDone((now) => ({ ...now, [id]: checked }))}
-        onClearChecked={() => {
-          setDone({});
-          setRating([]);
-          setRound((n) => n + 1);
-        }}
-        clearLabel="Start again"
-      />
     </div>
   );
 }

@@ -120,29 +120,29 @@ p, li, figcaption { text-wrap: pretty; }
 .card-links { display: flex; gap: 0.25rem 1.5rem; flex-wrap: wrap; align-items: center; font-weight: 500; margin: 0.25rem 0 0; }
 
 /* Ouro UI leads the work, with a little tea set built from live Ouro HX components to play with: an invitation, then
-   the cups on the page itself, no frame round them, and the controls and steps beside them. One column on a phone;
-   from 48rem the cups lead across the top with the controls and the steps in two columns under them; from 64rem the
-   cups take the left and the controls and steps stack on the right. */
+   the cups on the page itself, no frame round them, the teas to swipe through under them, and the steps to drag into
+   order and the steep's timer beside them. One column on a phone; from 48rem the steps and the timer sit side by side
+   under the cups and the teas; from 64rem the cups and the teas take the left and the steps and the timer the right. */
 .showcase-figure { margin: 0.5rem 0 0.25rem; display: grid; gap: 1.25rem; }
 /* The invitation, then its link, which wraps to a line of its own rather than stretch a line with its touch target. */
 .showcase-caption { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 0.75rem; color: var(--ink-soft); font-size: 1rem; }
 html:not(.js) .when-script, html.js .when-no-script { display: none; }
 /* Without script the controls can't work, so only the cups show. */
-html:not(.js) .showcase-controls, html:not(.js) .showcase-steps { display: none; }
+html:not(.js) .showcase-teas, html:not(.js) .showcase-steps, html:not(.js) .showcase-steep { display: none; }
 .showcase {
   /* Porcelain in both themes: warm white by day, a softer bone at night, lit from the left. */
   --porcelain-hi: #fffdf8; --porcelain-lo: #eee6d8; --porcelain-shade: #d8ccb8; --porcelain-edge: #c7bba6;
   --porcelain-band: color-mix(in oklab, var(--primary) 70%, transparent); --steam: rgb(120 108 92 / 0.55); --shadow: rgb(70 50 25 / 0.16);
   display: grid; gap: 1.5rem 3rem;
-  grid-template-columns: minmax(0, 1fr); grid-template-areas: "scene" "controls" "steps";
+  grid-template-columns: minmax(0, 1fr); grid-template-areas: "scene" "teas" "steps" "steep";
 }
 .dark .showcase { --porcelain-hi: #efe9dd; --porcelain-lo: #cbc2b2; --porcelain-shade: #9f9586; --porcelain-edge: #8a8274; --steam: rgb(236 230 218 / 0.5); --shadow: rgb(0 0 0 / 0.5); }
 @media (prefers-color-scheme: dark) { html:not(.js) .showcase { --porcelain-hi: #efe9dd; --porcelain-lo: #cbc2b2; --porcelain-shade: #9f9586; --porcelain-edge: #8a8274; --steam: rgb(236 230 218 / 0.5); --shadow: rgb(0 0 0 / 0.5); } }
 @media (min-width: 48rem) {
-  .showcase { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "scene scene" "controls steps"; }
+  .showcase { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "scene scene" "teas teas" "steps steep"; }
 }
 @media (min-width: 64rem) {
-  .showcase { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); grid-template-areas: "scene controls" "scene steps"; grid-template-rows: auto 1fr; column-gap: 4rem; }
+  .showcase { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); grid-template-areas: "scene steps" "teas steep"; column-gap: 4rem; row-gap: 2rem; align-items: start; }
 }
 .showcase-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 .showcase-stop-hi { stop-color: var(--porcelain-hi); }
@@ -162,18 +162,21 @@ html:not(.js) .showcase-controls, html:not(.js) .showcase-steps { display: none;
 
 /* The cups are the hero: as large as their space allows, on the page's own ground. */
 .showcase-scene { grid-area: scene; display: grid; align-content: center; justify-items: center; gap: 0.75rem; }
-@media (min-width: 64rem) { .showcase-scene { min-height: 24rem; } }
+@media (min-width: 64rem) { .showcase-scene { min-height: 20rem; } }
 .showcase-cups { display: flex; justify-content: center; align-items: flex-end; gap: 0.25rem; width: 100%; }
 .showcase-cup { flex: 0 1 18rem; min-width: 0; height: auto; overflow: visible; }
-/* The ending keeps its room, so the cups don't move when the tea is ready: a quiet line of what finishes it, then
-   Celebrate and the rating in its place. */
-.showcase-ending { display: grid; justify-items: center; gap: 0.75rem; align-content: start; min-height: 6.25rem; }
+/* The ending keeps its room, so the cups don't move when the tea is ready: a quiet line of what to do next, then
+   Celebrate and a button to make another pot in its place. */
+.showcase-ending { display: grid; justify-items: center; gap: 0.75rem; align-content: start; min-height: 5.25rem; }
 .showcase-hint { margin: 0; font-size: 0.95rem; color: var(--muted-foreground); text-align: center; }
-.showcase-rating { display: grid; justify-items: center; gap: 0.4rem; }
-.showcase-rating-label { font-size: 0.95rem; color: var(--muted-foreground); }
-.showcase-controls { grid-area: controls; display: grid; gap: 1.5rem; align-content: start; }
-/* Its own height, not the row's: stretched, the checklist would share the extra height between its header and rows. */
-.showcase-steps { grid-area: steps; align-self: start; }
+/* The teas: one card per slide, its colour, its name in the display face and a line about it. */
+.showcase-teas { grid-area: teas; min-width: 0; }
+.showcase-tea-card { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "swatch name" "swatch line"; column-gap: 1rem; align-items: center; padding: 1rem 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--card); }
+.showcase-swatch { grid-area: swatch; width: 3rem; height: 3rem; border-radius: 50%; box-shadow: inset 0 -0.35rem 0.6rem rgb(0 0 0 / 0.18), 0 0 0 3px var(--porcelain-hi), 0 0 0 4px var(--porcelain-edge); }
+.showcase-tea-name { grid-area: name; font-family: var(--font-heading); font-size: 1.6rem; line-height: 1.1; color: var(--foreground); }
+.showcase-tea-line { grid-area: line; font-size: 0.95rem; color: var(--muted-foreground); }
+.showcase-steps { grid-area: steps; min-width: 0; }
+.showcase-steep { grid-area: steep; }
 
 @media (prefers-reduced-motion: no-preference) {
   /* A cup arrives softly and is poured: the tea rises from the bottom of the cup. Calm, no bounce. */
@@ -186,12 +189,10 @@ html:not(.js) .showcase-controls, html:not(.js) .showcase-steps { display: none;
   .showcase-steam path { animation: showcase-steam 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
   .showcase-steam path:nth-child(2) { animation-delay: -1.2s; }
   .showcase-steam path:nth-child(3) { animation-delay: -2.4s; }
-  .showcase-rating { animation: showcase-rise var(--ouro-duration-sheet) var(--ouro-ease-out) both; }
 }
 @keyframes showcase-cup-in { from { opacity: 0; transform: translateY(0.5rem); } to { opacity: 1; transform: none; } }
 @keyframes showcase-pour { from { transform: translateY(9px) scale(0.78); opacity: 0.4; } to { transform: none; opacity: 1; } }
 @keyframes showcase-steam { 0% { opacity: 0; transform: translateY(6px); } 35% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-10px); } }
-@keyframes showcase-rise { from { opacity: 0; transform: translateY(0.4rem); } to { opacity: 1; transform: none; } }
 .lead-title { font-size: 2.6rem; }
 @media (min-width: 768px) { .lead-title { font-size: 3rem; } }
 .lead-body { font-size: 1.2rem; }

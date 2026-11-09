@@ -79,26 +79,32 @@ if (play) {
       const frame = async what => { await page.waitForTimeout(700); await lead.screenshot({ path: path.join(out, `play-${name}-${String(n++).padStart(2, "0")}-${what}.png`) }); };
       const tap = locator => (phone ? locator.tap() : locator.click());
       await frame("start");
-      await tap(page.getByRole("radio", { name: "4" }));
-      await frame("four-cups");
-      await page.locator("#ouro-ui input[type=range]").focus();
-      await page.keyboard.press("ArrowRight");
-      await page.keyboard.press("ArrowRight");
-      await frame("stronger-keyboard");
+      for (let i = 0; i < 3; i++) { await tap(page.getByRole("button", { name: "Next slide" })); await page.waitForTimeout(450); }
+      await frame("rooibos");
+      const handle = label => page.getByRole("button", { name: `Reorder ${label}` });
+      if (phone) {
+        await handle("Boil the water").focus();
+        for (const key of ["Space", "ArrowUp", "Space"]) { await page.keyboard.press(key); await page.waitForTimeout(250); }
+      } else {
+        // Drag "Boil the water" up a row with the pointer, so the recording shows the rows' springs.
+        const box = await handle("Boil the water").boundingBox();
+        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+        await page.mouse.down();
+        for (let i = 1; i <= 12; i++) { await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2 - i * 5); await page.waitForTimeout(30); }
+        await page.mouse.up();
+      }
+      await frame("one-moved");
+      await handle("Warm the pot").focus();
+      for (const key of ["Space", "ArrowUp", "ArrowUp", "Space"]) { await page.keyboard.press(key); await page.waitForTimeout(250); }
+      await frame("in-order-keyboard");
       await tap(page.getByRole("button", { name: "Start" }));
       await page.waitForTimeout(3000);
       await frame("steeping");
-      for (const step of ["Boil the water", "Add the leaves"]) await tap(page.getByRole("checkbox", { name: step }));
-      await frame("steps");
-      const steep = page.getByRole("checkbox", { name: "Steep" });
-      for (let i = 0; i < 60 && !(await steep.isChecked()); i++) await page.waitForTimeout(250);
-      await frame("steeped");
-      await tap(page.getByRole("checkbox", { name: "Take out the leaves" }));
-      await page.waitForTimeout(300);
+      await page.waitForFunction(() => document.querySelector("#ouro-ui .showcase")?.hasAttribute("data-ready"), null, { timeout: 20000 }).catch(() => {});
       await page.waitForTimeout(900);
       await frame("ready");
-      await tap(page.getByRole("button", { name: /Lovely/ }));
-      await frame("rated");
+      await page.waitForTimeout(1500);
+      await frame("after");
       await page.waitForTimeout(1200);
     });
     const [webm] = fs.readdirSync(videoDir);
