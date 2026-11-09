@@ -3,7 +3,7 @@
 // turn. The order matters: a wrong one makes the tea gently wrong, and says why. A right one fills the cups, and
 // Celebrate bursts over them. An island that hydrates when it scrolls into view (client:visible), so the rest of the
 // page ships no extra script; its server HTML is the whole scene in its starting state.
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Button } from "@/components/ouro/button/button";
 import { Carousel } from "@/components/ouro/carousel/carousel";
 import { Celebrate } from "@/components/ouro/celebrate/celebrate";
@@ -149,6 +149,9 @@ export function OuroShowcase() {
   const [pours, setPours] = useState(0);
   // The tea the brew was made with: Celebrate bursts there once, not again on every swipe after.
   const [brewed, setBrewed] = useState(0);
+  // Read when the brew ends, so a swipe mid-brew doesn't restart the step under way.
+  const current = useRef(0);
+  current.current = tea;
 
   // The brew: each step in the list's order is under way for STEP_MS, then ticked; after the last, the tea is poured.
   useEffect(() => {
@@ -158,10 +161,10 @@ export function OuroShowcase() {
       return () => window.clearTimeout(next);
     }
     setResult(brew(order));
-    setBrewed(tea);
+    setBrewed(current.current);
     setPours((n) => n + 1);
     setPhase("done");
-  }, [phase, step, order, tea]);
+  }, [phase, step, order]);
 
   const start = () => {
     setResult(null);
