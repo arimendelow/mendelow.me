@@ -48,6 +48,9 @@ export function OuroShowcase() {
   const [strength, setStrength] = useState(3);
   const [done, setDone] = useState<Record<string, boolean>>({});
   const [steeping, setSteeping] = useState(false);
+  // A new key brings the timer back to its start: after it ends (its red "Time's up" has done its job once the step
+  // is ticked) and when the visitor starts again.
+  const [round, setRound] = useState(0);
   const timer = useRef<HTMLDivElement>(null);
   const { word, tea } = strengths[strength - 1]!;
   const count = Number(cups);
@@ -61,7 +64,7 @@ export function OuroShowcase() {
     const watch = new MutationObserver(sync);
     watch.observe(node, { attributes: true, attributeFilter: ["data-status"] });
     return () => watch.disconnect();
-  }, []);
+  }, [round]);
 
   const steps: ChecklistItemData[] = [
     { id: "warm", label: "Warm the pot", checked: !!done.warm },
@@ -70,12 +73,11 @@ export function OuroShowcase() {
     { id: "pour", label: count === 1 ? "Pour a cup" : `Pour ${count} cups`, checked: !!done.pour },
   ];
   const ready = steps.every((step) => step.checked);
-  const poured = !!done.pour;
 
   return (
-    <div className="showcase" data-steaming={steeping || poured ? "" : undefined}>
+    <div className="showcase" data-steaming={steeping ? "" : undefined}>
       <div className="showcase-scene">
-        <div className="showcase-cups" role="img" aria-label={`${count === 1 ? "One cup" : `${count} cups`} of ${word} tea${steeping ? ", steeping" : ""}.`}>
+        <div className="showcase-cups" role="img" aria-label={`${count === 1 ? "One cup" : `${count} cups`} of ${word} tea${steeping ? ", steeping" : ready ? ", ready" : ""}.`}>
           {Array.from({ length: count }, (_, index) => (
             <Cup key={index} index={index} tea={tea} />
           ))}
@@ -85,14 +87,26 @@ export function OuroShowcase() {
       <div className="showcase-controls">
         <SegmentedControl label="Cups" fullWidth value={cups} onValueChange={setCups} items={cupChoices} />
         <Slider label="Strength" description={`${word[0]!.toUpperCase()}${word.slice(1)}`} min={1} max={5} value={strength} onValueChange={setStrength} />
-        <Timer ref={timer} label="Steep" duration={20} onDone={() => setDone((now) => ({ ...now, steep: true }))} />
+        <Timer
+          key={round}
+          ref={timer}
+          label="Steep"
+          duration={20}
+          onDone={() => {
+            setDone((now) => ({ ...now, steep: true }));
+            window.setTimeout(() => setRound((n) => n + 1), 2500);
+          }}
+        />
       </div>
       <Checklist
         label="Make the tea"
         className="showcase-steps"
         items={steps}
         onCheckedChange={(id, checked) => setDone((now) => ({ ...now, [id]: checked }))}
-        onClearChecked={() => setDone({})}
+        onClearChecked={() => {
+          setDone({});
+          setRound((n) => n + 1);
+        }}
         clearLabel="Start again"
       />
     </div>

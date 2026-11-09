@@ -28,6 +28,7 @@ jobs:
       - name: Recordings as GIFs
         if: always()
         run: |
+          sudo apt-get install -y -qq ffmpeg > /dev/null
           for f in proof/after/play-*.webm; do
             [ -f "$f" ] || continue
             ffmpeg -loglevel error -y -i "$f" -vf "fps=12,scale=720:-1:flags=lanczos,split[a][b];[a]palettegen=stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=4" "${f%.webm}.gif"
