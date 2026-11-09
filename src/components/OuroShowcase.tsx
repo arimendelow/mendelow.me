@@ -82,7 +82,7 @@ export function OuroShowcase() {
             <Cup key={index} index={index} tea={tea} />
           ))}
         </div>
-        <Celebrate show={ready} message="Tea's ready" className="showcase-celebrate" />
+        <Celebrate show={ready} message="Tea's ready" />
       </div>
       <div className="showcase-controls">
         <SegmentedControl label="Cups" fullWidth value={cups} onValueChange={setCups} items={cupChoices} />
@@ -94,7 +94,10 @@ export function OuroShowcase() {
           duration={20}
           onDone={() => {
             setDone((now) => ({ ...now, steep: true }));
-            window.setTimeout(() => setRound((n) => n + 1), 2000);
+            // Only if it is still showing its end: a Restart in the meantime keeps its new steep.
+            window.setTimeout(() => {
+              if (timer.current?.dataset.status === "done") setRound((n) => n + 1);
+            }, 2000);
           }}
         />
       </div>

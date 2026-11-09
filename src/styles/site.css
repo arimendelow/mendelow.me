@@ -151,7 +151,6 @@ html:not(.js) .when-script, html.js .when-no-script { display: none; }
 @media (min-width: 48rem) { .showcase-controls { gap: 1.5rem 2rem; } }
 /* Its own height, not the row's: stretched, the checklist would share the extra height between its header and rows. */
 .showcase-steps { grid-area: steps; align-self: start; }
-.showcase-celebrate { min-height: 2rem; }
 @media (prefers-reduced-motion: no-preference) {
   .showcase-cup { animation: showcase-cup-in 420ms var(--ouro-ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1)) both; transform-origin: 50% 95%; }
   .showcase-steam { transition: opacity 400ms ease; }
