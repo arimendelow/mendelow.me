@@ -20,7 +20,7 @@ const hrefs = el => el.querySelectorAll('a[href]').map(a => a.getAttribute('href
 const served = src => fs.existsSync(path.join(dir, decodeURIComponent(src.replace(/^\//, ''))));
 
 // The producer's decision, 2026-11-08: Ouro UI is one of Ari's biggest things, so it leads Selected work, with its
-// art and both halves named. Readiness stays honest (Ouro HX is under construction) and Ouro AX gets no mark.
+// art and both halves named. Readiness matches ouroboros.bot (Ouro HX: Use today, Ari's ruling of 2026-10-30) and Ouro AX gets no mark.
 const work = doc.querySelector('#work');
 assert.ok(work, 'Missing the Selected work section');
 assert.deepEqual(work.querySelectorAll('.cards > article').map(a => a.id), ['ouro-ui', 'agent-experience', 'ouro', 'spoonjoy'], 'Ouro UI leads Selected work');
@@ -32,14 +32,15 @@ assert.ok(leadArt?.getAttribute('alt'), 'Ouro UI shows its art, described');
 for (const src of [leadArt.getAttribute('src'), ...lead.querySelectorAll('source').flatMap(s => s.getAttribute('srcset').split(',').map(c => c.trim().split(' ')[0]))]) assert.ok(served(src), `${src} is served`);
 assert.match(text(lead), /Ouro HX/);
 assert.match(text(lead), /Ouro AX/);
-assert.match(text(lead), /under construction/);
+assert.match(text(lead), /use today/);
+assert.doesNotMatch(text(doc.querySelector('main')), /under construction/i, 'Ouro HX is no longer labelled under construction');
 assert.doesNotMatch(text(doc.querySelector('main')), /\b(stable|production[- ]ready)\b/i, 'Nothing is called stable or production-ready');
 assert.equal(doc.querySelectorAll('img').filter(img => /ouro[ -]?ax/i.test(`${img.getAttribute('src')} ${img.getAttribute('alt')}`)).length, 0, 'Ouro AX has no mark');
 assert.equal(hrefs(doc).filter(href => /ouro-ax/.test(href)).length, 0);
 console.log('PASS: Ouro UI leads Selected work with its art, both halves and its links, and readiness stays honest.');
 
 // Ouro on the personal site: a description, then every tool in it as one list, each row linking to its own section
-// on ouroboros.bot. Ouro HX keeps its construction status.
+// on ouroboros.bot. Ouro HX carries the same readiness as on ouroboros.bot.
 const list = doc.querySelector('#ouro #ouro-tools');
 assert.ok(list, 'Missing the list of Ouro tools');
 const rows = list.querySelectorAll('li').map(li => ({ href: li.querySelector('a[href]')?.getAttribute('href'), name: text(li.querySelector('a[href]')), summary: text(li).slice(text(li.querySelector('a[href]')).length).trim(), img: li.querySelector('img')?.getAttribute('src') }));
@@ -50,9 +51,9 @@ for (const row of rows) {
 }
 const hx = rows.find(row => row.name === 'Ouro HX');
 assert.equal(hx.href, 'https://ouroboros.bot/#ouro-ui');
-assert.match(hx.summary, /under construction$/);
+assert.match(hx.summary, /ready to use today$/);
 assert.equal(hx.img, '/assets/ouro-hx-render-128.webp');
-console.log('PASS: Ouro lists every tool with a link to its section, and Ouro HX keeps its construction status.');
+console.log('PASS: Ouro lists every tool with a link to its section, and Ouro HX is ready to use today.');
 
 // The family: the same links in the same order at the top and the foot of the page, with this site marked current
 // (aria-current="true"), and the site's own navigation under the family bar.

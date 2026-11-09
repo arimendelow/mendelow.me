@@ -79,7 +79,7 @@ const ouroTools = [
   { href: "https://ouroboros.bot/#ouroboros", art: "ouro-render", name: "Ouroboros", summary: "The agent harness where it all started" },
   { href: "https://ouroboros.bot/#desk", art: "desk-render", name: "Desk", summary: "Where agents keep their work, with Crew for teams" },
   { href: "https://ouroboros.bot/#ouro-md", art: "ouro-md-icon", name: "Ouro MD", summary: "A Mac Markdown editor for reading what agents write" },
-  { href: "https://ouroboros.bot/#ouro-ui", art: "ouro-hx-render", name: "Ouro HX", summary: "Components for humans and the agents building with them, under construction" },
+  { href: "https://ouroboros.bot/#ouro-ui", art: "ouro-hx-render", name: "Ouro HX", summary: "Components for humans and the agents building with them, ready to use today" },
   { href: "https://ouroboros.bot/#shepherd", art: "shepherd-render", name: "Ouro Shepherd", summary: "Keeps agents on task" },
   { href: "https://ouroboros.bot/#butler", art: "butler-render", name: "Ouro Butler", summary: "Looks after a home server" },
   { href: "https://ouroboros.bot/#friends", art: "friends-render", name: "Friends", summary: "Who agents know, and how they reach each other" },
@@ -121,7 +121,7 @@ export function Work() {
             <h3 className="card-title lead-title">Ouro UI</h3>
             <div className="card-body lead-body">
               <p>
-                Ouro UI is how I build interfaces for both sides of the work: Ouro HX, components that feel right to people, and Ouro AX, tools that read clearly to agents. It grew out of <Link href="#redwoodjs">RedwoodUI</Link>. This site is built on Ouro HX, which is still under construction, and Ouro AX comes next.
+                Ouro UI is how I build interfaces for both sides of the work: Ouro HX, components that feel right to people, and Ouro AX, tools that read clearly to agents. It grew out of <Link href="#redwoodjs">RedwoodUI</Link>. This site is built on Ouro HX, which you can use today.
               </p>
             </div>
             <div className="card-links">
