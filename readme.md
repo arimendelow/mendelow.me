@@ -26,7 +26,7 @@ To move Ouro HX to a newer release, add every installed item again at the new ta
 - `scripts/check-fades.mjs` runs Ouro check's fade check over `src/`: no picture fades into the page or into nothing, at any edge.
 - `scripts/check-hx.mjs <built folder>`: Ouro UI leads Selected work, Ouro lists every tool, the family bar and footer carry the family's links in order, every link and button is an Ouro HX component, no text has its own width cap, every section reads top to bottom, and `/favicon.ico` is served.
 - `scripts/check-site.mjs`, run by the build: every title, description and image tag agrees, and the card matches the page.
-- Ouro check (`lib/ouro/check/check.ts`) opens the built site at every screen size from 320 to 3840 wide, light and dark, and fails on sideways scroll, overlap, clipped text, blurry pictures and serious accessibility faults. It runs in CI.
+- Ouro check (`lib/ouro/check/check.ts`) opens the built site at a phone (390×844), a laptop (1440×900) and 4K (3840×2160), light and dark, and fails on any finding: sideways scroll, overlap, clipped text, blurry or giant pictures, a corner showing through its frame, more text sizes than a type scale holds, heading order, repaints at rest, slow first content and slow presses, among others. It runs in CI (`npm run check:screens` locally) and exits 3 on findings, so it gates the merge. A deliberate exception carries `data-ouro-allow="<rule>"` and its reason in `data-ouro-allow-why`.
 
 ## Deploys
 
