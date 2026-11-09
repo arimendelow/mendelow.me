@@ -86,7 +86,10 @@ p, li, figcaption { text-wrap: pretty; }
 @media (min-width: 1240px) { .hero-pic { width: 21rem; } }
 .eyebrow { font-family: var(--font-heading); color: var(--primary); font-size: 1.5rem; line-height: 1.2; margin: 0 0 0.5rem; }
 @media (min-width: 768px) { .eyebrow { font-size: 1.75rem; } }
+/* The page's one h1 is never smaller than the section headings under it (3.4rem from 768px, 4rem from 1024px). */
 .hero h1 { font-size: clamp(2.4rem, 1.5rem + 3vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; margin: 0; color: var(--foreground); }
+@media (min-width: 768px) { .hero h1 { font-size: max(clamp(2.4rem, 1.5rem + 3vw, 4.5rem), 3.4rem); } }
+@media (min-width: 1024px) { .hero h1 { font-size: max(clamp(2.4rem, 1.5rem + 3vw, 4.5rem), 4rem); } }
 /* A hero without a grid (the 404 page). */
 .hero-solo > .hero-title + *, .hero-solo > .hero-sub + * { margin-top: 1.5rem; }
 .portrait-img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 1rem; border: 1px solid var(--border); }
@@ -182,7 +185,8 @@ html:not(.js) .showcase-work { display: none; }
   .showcase-tea-surface { transition: fill var(--ouro-duration-sheet) var(--ouro-ease-out); }
   .showcase-steam { transition: opacity 600ms var(--ouro-ease-out); }
   [data-steaming] .showcase-steam { opacity: 1; }
-  .showcase-steam path { animation: showcase-steam 3.6s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+  /* Steam rises for a few breaths and settles, so the page never repaints at rest. */
+  .showcase-steam path { animation: showcase-steam 3.6s ease-in-out 4 both; transform-box: fill-box; transform-origin: 50% 100%; }
   .showcase-steam path:nth-child(2) { animation-delay: -1.2s; }
   .showcase-steam path:nth-child(3) { animation-delay: -2.4s; }
   .showcase-ready, .showcase-hint > strong { animation: showcase-rise var(--ouro-duration-sheet) var(--ouro-ease-out) both; }
@@ -194,7 +198,9 @@ html:not(.js) .showcase-work { display: none; }
 @keyframes showcase-tick { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
 @keyframes showcase-now { 0%, 100% { opacity: 0.35; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1); } }
 @keyframes showcase-steam { 0% { opacity: 0; transform: translateY(6px); } 35% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-10px); } }
-.lead-title { font-size: 2.6rem; }
+/* Under "Selected work", never larger than it. */
+.lead-title { font-size: 2.2rem; }
+@media (min-width: 640px) { .lead-title { font-size: 2.6rem; } }
 @media (min-width: 768px) { .lead-title { font-size: 3rem; } }
 .lead-body { font-size: 1.2rem; }
 
