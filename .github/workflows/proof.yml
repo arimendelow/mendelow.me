@@ -1,0 +1,36 @@
+name: Proof (temporary)
+
+# Before and after for Ouro HX v1.3.10, and the gate's Ouro check. Deleted before merge.
+on:
+  push:
+    branches: [ouro-v1.3.10]
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npx tsc --noEmit
+      - run: node scripts/build-site.mjs _site
+      - run: node scripts/check-hx.mjs _site
+      - name: Before (the live site)
+        run: node .github/proof/fixes.mjs before https://mendelow.me/ proof/before
+      - name: After (this branch)
+        run: node .github/proof/fixes.mjs after _site proof/after
+      - name: Ouro check v1.3.10 at the gate's sizes
+        continue-on-error: true
+        run: node lib/ouro/check/check.ts _site --sizes 390x844,1440x900,3840x2160 --out proof/ouro-check
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: proof
+          path: proof
