@@ -103,7 +103,7 @@ if (process.env.MENUS) {
   await withPage({ width: 1440, height: 900 }, "light", async page => {
     await page.locator("#about").scrollIntoViewIfNeeded();
     await page.waitForTimeout(1500);
-    await page.locator(".video-bar button").focus();
+    await page.locator(".video-bar a").focus();
     await page.screenshot({ path: path.join(out, `${label}-laptop-light-video-focus.png`) });
   });
 }
