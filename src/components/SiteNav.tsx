@@ -23,7 +23,7 @@ function PhoneMenu() {
       <ul className="phone-menu-list">
         {items.map((item) => (
           <li key={item.href}>
-            <Link href={item.href} tone="secondary" inline={false} className="phone-menu-link">
+            <Link href={item.href} tone="secondary" inline={false} className="flex pointer-coarse:flex phone-menu-link">
               {item.label}
             </Link>
           </li>
@@ -38,7 +38,7 @@ function PhoneMenu() {
             const here = site.id === "ari";
             return (
               <li key={site.id} className="phone-menu-row">
-                <Link href={site.href} tone="secondary" inline={false} aria-current={here ? "true" : undefined} className="phone-menu-link phone-menu-site">
+                <Link href={site.href} tone="secondary" inline={false} aria-current={here ? "true" : undefined} className="flex pointer-coarse:flex phone-menu-link phone-menu-site">
                   {site.label}
                 </Link>
                 {here && (
