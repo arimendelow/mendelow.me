@@ -205,3 +205,17 @@ p, li, figcaption { text-wrap: pretty; }
 html:not(.js) [data-ouro-navbar-menu], html:not(.js) [data-ouro="color-scheme-toggle"] { display: none; }
 /* The skip link and the section links land on <main> and the sections without an outline round the whole page. */
 main:focus { outline: none; }
+
+/* Below 40rem the family bar steps aside and the phone menu lists the family; the family footer stays. */
+@media (width < 40rem) { .family-bar-wrap { display: none; } }
+
+/* The phone menu: the site's sections, then the Ouro family under its own heading, this site marked in words. */
+.phone-menu { display: grid; gap: 1rem; }
+.phone-menu-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.125rem; }
+.phone-menu-link { align-items: center; gap: 0.75rem; min-height: 2.75rem; padding: 0 0.75rem; font-size: 1.125rem; font-weight: 500; }
+.phone-menu-family { border-top: 1px solid var(--border); padding-top: 0.75rem; }
+.phone-menu-heading { margin: 0; padding: 0.25rem 0.75rem; font-family: inherit; font-size: 0.875rem; font-weight: 500; line-height: 1.25rem; color: var(--muted-foreground); }
+.phone-menu-site { font-size: 1rem; }
+.phone-menu-site[aria-current="true"] { font-weight: 600; }
+.phone-menu-row { display: flex; align-items: center; gap: 0.25rem; }
+.phone-menu-here { font-size: 0.875rem; font-weight: 500; color: var(--muted-foreground); }

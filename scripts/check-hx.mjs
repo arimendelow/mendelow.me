@@ -75,7 +75,24 @@ const navLinks = navbar.querySelectorAll('nav a[href]').map(a => [text(a), a.get
 assert.deepEqual(navLinks, [['Work', '/#work'], ['About', '/#about'], ['Earlier', '/#earlier'], ['Contact', '/#contact']]);
 assert.ok(anchors.indexOf(runs[0].run[0]) < anchors.indexOf(navbar.querySelector('a[href]')), 'The family bar sits above the site navigation');
 assert.ok(doc.querySelector('footer')?.querySelectorAll('a[href]').some(a => a === runs[1].run[0]), 'The family footer is the page footer');
-console.log('PASS: the family bar and footer carry the family links in order, with Ari Mendelow current, above the site navigation.');
+// The same landmarks on every family site: the bar "Sites", the footer "All sites", the site's own nav "Primary".
+assert.deepEqual(doc.querySelectorAll('nav[aria-label]').map(nav => nav.getAttribute('aria-label')), ['Sites', 'Primary', 'All sites'], 'Landmark names are Sites, Primary and All sites');
+// Below 40rem the bar hides with no script (a wrapper and a media query), and the phone menu lists the family under a
+// heading, with this site marked, instead of a second "Sites" landmark. The menu mounts in the browser, so its source
+// is checked here and its rendering in the CI screenshots.
+assert.ok(runs[0].run[0].closest('.family-bar-wrap'), 'The family bar sits in .family-bar-wrap');
+assert.match(read('src/styles/site.css'), /@media \(width < 40rem\) \{ \.family-bar-wrap \{ display: none; \} \}/, 'The family bar hides below 40rem');
+const siteNav = read('src/components/SiteNav.tsx');
+assert.match(siteNav, /menu=\{<PhoneMenu \/>\}/, 'The phone menu is the site menu with the family');
+assert.match(siteNav, /family\.links\.map/, 'The phone menu lists every family link');
+assert.match(siteNav, /<h3 id=\{heading\}[\s\S]*?Ouro family/, 'The family links sit under a heading');
+assert.match(siteNav, /aria-labelledby=\{heading\}/);
+assert.match(siteNav, /site\.id === "ari"[\s\S]*?aria-current=\{here \? "true"/, 'Ari Mendelow is marked current in the phone menu');
+assert.doesNotMatch(siteNav, /<nav\b/, 'The phone menu adds no landmark of its own');
+// One name, one place: the footer's own GitHub link is Ari's, and says so.
+const footerLinks = doc.querySelector('footer').querySelectorAll('a[href]').map(a => [text(a), a.getAttribute('href')]);
+assert.deepEqual(footerLinks.filter(([label]) => /github/i.test(label)), [['GitHub', 'https://github.com/ourostack'], ['My GitHub', 'https://github.com/arimendelow']], 'The footer names its two GitHub links apart');
+console.log("PASS: the family bar and footer carry the family links in order, with Ari Mendelow current, above the site navigation, with the same landmark names as the family's other sites.");
 
 // Every link and button is an Ouro HX component. The one exception is the wordmark in the navbar's brand slot,
 // the site's own content there, as on ui.ouroboros.bot.
