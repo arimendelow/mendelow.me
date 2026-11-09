@@ -1,0 +1,32 @@
+name: Proof (temporary)
+
+# Before and after screenshots for the family chrome follow-up, shot in CI. Deleted before the pull request merges.
+on:
+  push:
+    branches: [family-chrome]
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Before (the live site)
+        run: node .github/proof/shoot.mjs before https://mendelow.me/ proof/before
+      - name: Build
+        run: node scripts/build-site.mjs _site
+      - name: After (this branch)
+        run: node .github/proof/shoot.mjs after _site proof/after
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: proof
+          path: proof

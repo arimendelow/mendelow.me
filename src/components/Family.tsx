@@ -9,7 +9,12 @@ import { familyBarGutters, gutters } from "@/site";
 const current = "ari";
 
 export function SiteFamilyBar() {
-  return <FamilyBar links={family.links} current={current} className={familyBarGutters} />;
+  // Hidden below 40rem by the stylesheet, with no script: on a phone the menu lists the family instead.
+  return (
+    <div className="family-bar-wrap">
+      <FamilyBar links={family.links} current={current} label="Sites" className={familyBarGutters} />
+    </div>
+  );
 }
 
 export function SiteFooter() {
@@ -20,10 +25,10 @@ export function SiteFooter() {
           <span>You bring judgment.</span> <span>Your agents bring the rest.</span>
         </p>
       </div>
-      <FamilyFooter links={family.links} current={current} className={gutters}>
+      <FamilyFooter links={family.links} current={current} label="All sites" className={gutters}>
         <span>&copy; 2026 Ari Mendelow</span>
         <Link href="https://github.com/arimendelow" tone="secondary">
-          GitHub
+          My GitHub
         </Link>
         <Link href="https://www.linkedin.com/in/arimendelow" tone="secondary">
           LinkedIn
