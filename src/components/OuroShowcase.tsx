@@ -102,6 +102,8 @@ export function OuroShowcase() {
           ref={timer}
           label="Steep"
           duration={STEEP}
+          // No chime or buzz from a visitor's speakers: the tea darkening and the ticked step say it's done.
+          silent
           onDone={() => {
             setDone((now) => ({ ...now, steep: true }));
             // Only if it is still showing its end: a Restart in the meantime keeps its new steep.
