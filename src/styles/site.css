@@ -125,6 +125,8 @@ p, li, figcaption { text-wrap: pretty; }
 .showcase-figure { margin: 0.5rem 0 0.25rem; display: grid; gap: 1rem; }
 .showcase-caption { margin: 0; color: var(--ink-soft); font-size: 1rem; }
 html:not(.js) .when-script, html.js .when-no-script { display: none; }
+/* Without script the controls can't work, so only the cups show. */
+html:not(.js) .showcase-controls, html:not(.js) .showcase-steps { display: none; }
 .showcase {
   display: grid; gap: 1.25rem 2rem; padding: 1rem;
   grid-template-columns: minmax(0, 1fr); grid-template-areas: "scene" "controls" "steps";
@@ -139,9 +141,10 @@ html:not(.js) .when-script, html.js .when-no-script { display: none; }
   .showcase-controls { grid-template-columns: minmax(0, 1fr); }
 }
 /* The table the cups stand on: the page's own colour, inset in the card. */
-.showcase-scene { grid-area: scene; display: grid; align-content: center; justify-items: center; gap: 0.75rem; min-height: 10rem; padding: 1.5rem 1rem 1rem; border-radius: var(--radius-lg); background: var(--background); }
+.showcase-scene { grid-area: scene; display: grid; align-content: center; justify-items: center; gap: 0.75rem; min-height: 9rem; padding: 1.25rem 0.75rem 0.75rem; border-radius: var(--radius-lg); background: var(--background); }
+@media (min-width: 48rem) { .showcase-scene { min-height: 12rem; padding: 1.5rem 1rem 1rem; } }
 .showcase-cups { display: flex; justify-content: center; align-items: flex-end; gap: 0.25rem; width: 100%; }
-.showcase-cup { flex: 0 1 9rem; min-width: 0; height: auto; overflow: visible; }
+.showcase-cup { flex: 0 1 10rem; min-width: 0; height: auto; overflow: visible; }
 .showcase-cup-body { fill: var(--card); stroke: color-mix(in oklab, var(--foreground) 55%, transparent); stroke-width: 2.5; }
 .showcase-handle { stroke: color-mix(in oklab, var(--foreground) 55%, transparent); }
 .showcase-saucer { fill: color-mix(in oklab, var(--foreground) 10%, var(--card)); stroke: color-mix(in oklab, var(--foreground) 30%, transparent); stroke-width: 1.5; }
@@ -158,6 +161,8 @@ html:not(.js) .when-script, html.js .when-no-script { display: none; }
   .showcase-steam path:nth-child(2) { animation-delay: -0.8s; }
   .showcase-steam path:nth-child(3) { animation-delay: -1.6s; }
   .showcase-tea { transition: fill 300ms ease; }
+  /* While the timer runs, the tea darkens over the length of the steep (STEEP in OuroShowcase.tsx). */
+  [data-steaming] .showcase-tea { transition: fill 8s linear; }
 }
 @keyframes showcase-cup-in { from { opacity: 0; transform: translateY(0.5rem) scale(0.7); } to { opacity: 1; transform: none; } }
 @keyframes showcase-steam { 0% { opacity: 0; transform: translateY(4px) scaleY(0.8); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(-6px) scaleY(1.05); } }

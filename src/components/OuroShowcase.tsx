@@ -18,6 +18,8 @@ const strengths = [
 
 const cupChoices = ["1", "2", "3", "4"].map((value) => ({ value, label: value }));
 
+const STEEP = 8;
+
 function Cup({ tea, index }: { tea: string; index: number }) {
   const clip = `showcase-cup-${index}`;
   return (
@@ -36,7 +38,7 @@ function Cup({ tea, index }: { tea: string; index: number }) {
       <path className="showcase-handle" d="M74 46h5a10 10 0 0 1 0 20h-7" fill="none" strokeWidth="5" />
       <path className="showcase-cup-body" d="M12 36h64v22a32 32 0 0 1-32 32a32 32 0 0 1-32-32z" />
       <g clipPath={`url(#${clip})`}>
-        <rect className="showcase-tea" x="0" y="44" width="100" height="56" fill={tea} />
+        <rect className="showcase-tea" x="0" y="44" width="100" height="56" style={{ fill: tea }} />
         <ellipse cx="44" cy="44" rx="30" ry="3" fill="#ffffff" opacity="0.18" />
       </g>
     </svg>
@@ -47,30 +49,35 @@ export function OuroShowcase() {
   const [cups, setCups] = useState("2");
   const [strength, setStrength] = useState(3);
   const [done, setDone] = useState<Record<string, boolean>>({});
-  const [steeping, setSteeping] = useState(false);
-  // A new key brings the timer back to its start: after it ends (its red "Time's up" has done its job once the step
-  // is ticked) and when the visitor starts again.
+  const [status, setStatus] = useState("idle");
+  // A new key brings the timer back to its start: just after it ends (the ticked step says so, without leaving its red
+  // "Time's up" beside the finished tea) and when the visitor starts again.
   const [round, setRound] = useState(0);
   const timer = useRef<HTMLDivElement>(null);
   const { word, tea } = strengths[strength - 1]!;
   const count = Number(cups);
 
-  // The timer keeps its own state; the scene follows it, so the cups steam while it runs.
+  // The timer keeps its own state; the scene follows it, so the cups steam and darken while it runs.
   useEffect(() => {
     const node = timer.current;
     if (!node) return;
-    const sync = () => setSteeping(node.dataset.status === "running");
+    const sync = () => setStatus(node.dataset.status ?? "idle");
     sync();
     const watch = new MutationObserver(sync);
     watch.observe(node, { attributes: true, attributeFilter: ["data-status"] });
     return () => watch.disconnect();
   }, [round]);
 
+  const steeping = status === "running";
+  // The cups hold hot water, faintly tinted toward the chosen tea, and take its full colour as it steeps.
+  const steeped = !!done.steep || status === "running" || status === "paused";
+  const colour = `color-mix(in oklab, ${tea} ${steeped ? 100 : 16}%, var(--card))`;
+
   const steps: ChecklistItemData[] = [
-    { id: "warm", label: "Warm the pot", checked: !!done.warm },
+    { id: "boil", label: "Boil the water", checked: !!done.boil },
     { id: "leaves", label: "Add the leaves", value: `${count} tsp`, checked: !!done.leaves },
-    { id: "steep", label: "Steep", description: "The timer ticks this off", checked: !!done.steep },
-    { id: "pour", label: count === 1 ? "Pour a cup" : `Pour ${count} cups`, checked: !!done.pour },
+    { id: "steep", label: "Steep", description: "The timer ticks this off", checked: !!done.steep, disabled: !done.steep },
+    { id: "out", label: "Take out the leaves", checked: !!done.out },
   ];
   const ready = steps.every((step) => step.checked);
 
@@ -79,10 +86,13 @@ export function OuroShowcase() {
       <div className="showcase-scene">
         <div className="showcase-cups" role="img" aria-label={`${count === 1 ? "One cup" : `${count} cups`} of ${word} tea${steeping ? ", steeping" : ready ? ", ready" : ""}.`}>
           {Array.from({ length: count }, (_, index) => (
-            <Cup key={index} index={index} tea={tea} />
+            <Cup key={index} index={index} tea={colour} />
           ))}
         </div>
         <Celebrate show={ready} message="Tea's ready" />
+        <p className="sr-only" aria-live="polite">
+          {steeping ? "Steeping." : done.steep ? "Steeped." : ""}
+        </p>
       </div>
       <div className="showcase-controls">
         <SegmentedControl label="Cups" fullWidth value={cups} onValueChange={setCups} items={cupChoices} />
@@ -91,13 +101,13 @@ export function OuroShowcase() {
           key={round}
           ref={timer}
           label="Steep"
-          duration={20}
+          duration={STEEP}
           onDone={() => {
             setDone((now) => ({ ...now, steep: true }));
             // Only if it is still showing its end: a Restart in the meantime keeps its new steep.
             window.setTimeout(() => {
               if (timer.current?.dataset.status === "done") setRound((n) => n + 1);
-            }, 2000);
+            }, 600);
           }}
         />
       </div>

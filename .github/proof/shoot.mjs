@@ -83,13 +83,13 @@ if (play) {
       await page.keyboard.press("ArrowRight");
       await frame("stronger-keyboard");
       await tap(page.getByRole("button", { name: "Start" }));
-      await page.waitForTimeout(1500);
+      await page.waitForTimeout(3000);
       await frame("steeping");
-      for (const step of ["Warm the pot", "Add the leaves"]) await tap(page.getByRole("checkbox", { name: step }));
+      for (const step of ["Boil the water", "Add the leaves"]) await tap(page.getByRole("checkbox", { name: step }));
       await frame("steps");
       await page.waitForFunction(() => document.querySelector('#ouro-ui [data-ouro="timer"]')?.dataset.status === "done", null, { timeout: 30000 });
       await frame("steeped");
-      await tap(page.getByRole("checkbox", { name: /Pour/ }));
+      await tap(page.getByRole("checkbox", { name: "Take out the leaves" }));
       await page.waitForTimeout(300);
       await frame("ready");
       await page.waitForTimeout(1500);
