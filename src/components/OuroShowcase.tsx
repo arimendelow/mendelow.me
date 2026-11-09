@@ -4,6 +4,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Button } from "@/components/ouro/button/button";
 import { Carousel } from "@/components/ouro/carousel/carousel";
+import { Item } from "@/components/ouro/item/item";
 import { Celebrate } from "@/components/ouro/celebrate/celebrate";
 import { Reorderable } from "@/components/ouro/reorderable/reorderable";
 import { Timer } from "@/components/ouro/timer/timer";
@@ -161,7 +162,17 @@ export function OuroShowcase() {
         </Carousel>
       </div>
       <div className="showcase-steps">
-        <Reorderable label="Steps" items={order.map((id) => ({ id, label: steps.find((step) => step.id === id)!.label }))} onReorder={(ids) => setOrder(ids)} />
+        <p className="showcase-label" aria-hidden="true">
+          Drag the steps into order
+        </p>
+        <Reorderable
+          label="Steps, to drag into order"
+          items={order.map((id) => {
+            const label = steps.find((step) => step.id === id)!.label;
+            return { id, label, content: <Item title={label} /> };
+          })}
+          onReorder={(ids) => setOrder(ids)}
+        />
       </div>
       <div className="showcase-steep">
         <Timer
