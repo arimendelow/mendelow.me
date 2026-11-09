@@ -87,7 +87,8 @@ if (play) {
       await frame("steeping");
       for (const step of ["Boil the water", "Add the leaves"]) await tap(page.getByRole("checkbox", { name: step }));
       await frame("steps");
-      await page.waitForFunction(() => document.querySelector('#ouro-ui [data-ouro="timer"]')?.dataset.status === "done", null, { timeout: 30000 });
+      const steep = page.getByRole("checkbox", { name: "Steep" });
+      for (let i = 0; i < 60 && !(await steep.isChecked()); i++) await page.waitForTimeout(250);
       await frame("steeped");
       await tap(page.getByRole("checkbox", { name: "Take out the leaves" }));
       await page.waitForTimeout(300);
