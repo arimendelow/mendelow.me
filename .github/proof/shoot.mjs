@@ -120,8 +120,9 @@ if (play) {
       await page.waitForTimeout(3000);
       await frame("brewing");
       await page.waitForFunction(() => document.querySelector("#ouro-ui .showcase")?.hasAttribute("data-ready"), null, { timeout: 15000 });
-      await page.waitForTimeout(250);
-      await frame("ready-burst");
+      // The burst itself lasts about half a second: shoot it straight away.
+      await page.waitForTimeout(220);
+      await lead.screenshot({ path: path.join(out, `play-${name}-${String(n++).padStart(2, "0")}-ready-burst.png`) });
       await page.waitForTimeout(1500);
       await frame("ready");
       await page.waitForTimeout(1200);

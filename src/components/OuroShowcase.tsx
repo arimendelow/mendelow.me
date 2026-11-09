@@ -147,7 +147,8 @@ export function OuroShowcase() {
   const [step, setStep] = useState(0);
   const [result, setResult] = useState<Brew | null>(null);
   const [pours, setPours] = useState(0);
-  const chosen = teas[tea]!;
+  // The tea the brew was made with: Celebrate bursts there once, not again on every swipe after.
+  const [brewed, setBrewed] = useState(0);
 
   // The brew: each step in the list's order is under way for STEP_MS, then ticked; after the last, the tea is poured.
   useEffect(() => {
@@ -157,9 +158,10 @@ export function OuroShowcase() {
       return () => window.clearTimeout(next);
     }
     setResult(brew(order));
+    setBrewed(tea);
     setPours((n) => n + 1);
     setPhase("done");
-  }, [phase, step, order]);
+  }, [phase, step, order, tea]);
 
   const start = () => {
     setResult(null);
@@ -188,25 +190,38 @@ export function OuroShowcase() {
       <CupDefs />
       <div className="showcase-stage">
         <Carousel label="Teas" slideLabel="{n} of {total}" onIndexChange={setTea}>
-          {teas.map((t) => (
-            <div key={t.id} className="showcase-slide">
-              <div className="showcase-cups" role="img" aria-label={`Two cups of ${t.name}${ready ? ", ready" : phase === "done" ? ", made" : ""}.`}>
-                <Cup tea={colour(t.tea)} pour={pours} />
-                <Cup tea={colour(t.tea)} pour={pours} />
+          {teas.map((t, index) => {
+            const here = index === brewed;
+            return (
+              <div key={t.id} className="showcase-slide" data-ready={ready && here ? "" : undefined}>
+                <div className="showcase-cups" role="img" aria-label={`Two cups of ${t.name}${ready ? ", ready" : phase === "done" ? ", not quite right" : ""}.`}>
+                  <Cup tea={colour(t.tea)} pour={pours} />
+                  <Cup tea={colour(t.tea)} pour={pours} />
+                  {/* The payoff bursts from the cups themselves, across their whole width, not from a chip. */}
+                  <span className="showcase-burst">
+                    <Celebrate show={ready && here} message={`Your ${t.name} is ready`} hideMessage className="absolute inset-0" />
+                  </span>
+                </div>
+                {ready ? (
+                  <>
+                    <p className="showcase-tea-name showcase-ready">Your {t.name} is ready.</p>
+                    <p className="showcase-tea-line">Fresh from the pot.</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="showcase-tea-name">{t.name}</p>
+                    <p className="showcase-tea-line">{phase === "done" ? "Not quite right this time." : t.line}</p>
+                  </>
+                )}
               </div>
-              <p className="showcase-tea-name">{t.name}</p>
-              <p className="showcase-tea-line">{t.line}</p>
-            </div>
-          ))}
+            );
+          })}
         </Carousel>
-        <div className="showcase-burst">
-          <Celebrate show={ready} message={`Your ${chosen.name} is ready`} hideMessage className="absolute inset-0" />
-        </div>
       </div>
       <div className="showcase-work">
         <p className="showcase-hint" id="showcase-hint">
           {ready ? (
-            <span className="showcase-ready">Your {chosen.name} is ready.</span>
+            "Just right. Swipe to try another tea, or brew again."
           ) : phase === "done" && result ? (
             <>
               <strong className="showcase-off">Not quite.</strong> {result.note} Drag the steps and brew again.
@@ -234,7 +249,9 @@ export function OuroShowcase() {
             {phase === "done" ? "Brew again" : "Brew"}
           </Button>
           <p className="showcase-doing" aria-live="polite">
-            {doing ? `${doing}…` : ready ? `Your ${chosen.name} is ready.` : phase === "done" ? "Not quite. See why above." : ""}
+            {doing ? `${doing}…` : ""}
+            {/* Celebrate says when it's ready; a tea that came out wrong says so here. */}
+            <span className="sr-only">{phase === "done" && result?.note ? `Not quite. ${result.note}` : ""}</span>
           </p>
         </div>
       </div>
