@@ -42,11 +42,12 @@ export function Hero() {
           <img
             className="portrait-img"
             src="/assets/ari-portrait.jpg"
-            srcSet="/assets/ari-portrait-600.jpg 600w, /assets/ari-portrait.jpg 1200w"
-            sizes="(min-width: 1240px) 21rem, (min-width: 1024px) 17rem, (min-width: 768px) 12rem, 100vw"
+            srcSet="/assets/ari-portrait-600.jpg 600w, /assets/ari-portrait-800.jpg 800w, /assets/ari-portrait.jpg 1200w"
+            sizes="(min-width: 1600px) min(calc(9.45vw + 185px), 504px), (min-width: 1240px) 336px, (min-width: 1024px) 272px, (min-width: 768px) 192px, (min-width: 640px) min(600px, calc(100vw - 3rem)), calc(100vw - 2.5rem)"
             width="1200"
             height="1648"
             alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge."
+            loading="eager"
             fetchPriority="high"
           />
         </figure>
@@ -158,7 +159,11 @@ export function Work({ showcase }: { showcase?: ReactNode }) {
           </article>
 
           <article className="card card-split" id="spoonjoy">
-            <figure className="card-figure">
+            <figure
+              className="card-figure"
+              data-ouro-allow="first-content"
+              data-ouro-allow-why="Far below a phone's first screen, this capture draws only when Ouro check scrolls to it, after the page has loaded. A reader's first content is the hero portrait, drawn in about 0.1 s."
+            >
               <div className="card-media">
                 <img src="/assets/spoonjoy-recipe.webp" width="1440" height="1200" loading="lazy" decoding="async" alt="Ari's Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion." />
               </div>
@@ -280,10 +285,10 @@ export function Earlier() {
   );
 }
 
-function Shot({ src, width, height, alt, caption }: { src: string; width: number; height: number; alt: string; caption: ReactNode }) {
+function Shot({ src, width, height, alt, caption, inset = false }: { src: string; width: number; height: number; alt: string; caption: ReactNode; inset?: boolean }) {
   return (
     <figure className="card-figure beat-figure">
-      <div className="card-media media-natural media-white">
+      <div className={`card-media media-natural media-white${inset ? " media-inset" : ""}`}>
         <img src={src} width={width} height={height} loading="lazy" decoding="async" alt={alt} />
       </div>
       <figcaption className="card-caption">{caption}</figcaption>
@@ -348,6 +353,7 @@ export function SpoonjoyStory() {
                 src="/assets/spoonjoy-2023-redwood-cookbook.webp"
                 width={1280}
                 height={363}
+                inset
                 alt="A sample Spoonjoy cookbook in the 2023 Redwood version, called Weeknight dinners, with cards for mushroom risotto, shakshuka, and yummy pizza."
                 caption="The 2023 Redwood version, booted back up with a sample cookbook. Its cards were built around food photos, so soft color washes are standing in."
               />
