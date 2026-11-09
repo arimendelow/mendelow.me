@@ -112,6 +112,8 @@ export function Work() {
                   height="360"
                   loading="lazy"
                   decoding="async"
+                  data-ouro-allow="blurry-image"
+                  data-ouro-allow-why="The storybook scene's largest file is 1536px wide, the size of the brand header it comes from; nothing larger exists."
                   alt="A woman and a little white robot build a big green switch panel on a wooden workbench at dawn, while Ouro, a smiling green snake curled into an O, watches from the glowing trail."
                 />
               </picture>

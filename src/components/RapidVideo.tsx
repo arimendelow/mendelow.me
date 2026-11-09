@@ -1,4 +1,4 @@
-// The RAPID demo: its title frame and a Play button, and no third-party script or autoplay until the visitor asks.
+// The RAPID demo: its title frame and a Play button under it, and no third-party script or autoplay until the visitor asks.
 // An island, because pressing Play swaps the frame for the video.
 import { useEffect, useRef, useState, type SVGProps } from "react";
 import { Button } from "@/components/ouro/button/button";
@@ -31,9 +31,11 @@ export function RapidVideo() {
       ) : (
         <>
           <img className="video-poster" src="/assets/rapid-video-poster.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="Title frame of the RAPID demo video, close on the robot with its logo." />
-          <Button className="video-play absolute end-3 bottom-3" startIcon={PlayIcon} aria-label="Play the RAPID demo video" onClick={() => setPlaying(true)}>
-            Play
-          </Button>
+          <div className="video-bar">
+            <Button size="sm" startIcon={PlayIcon} aria-label="Play the RAPID demo video" onClick={() => setPlaying(true)}>
+              Play
+            </Button>
+          </div>
         </>
       )}
     </div>

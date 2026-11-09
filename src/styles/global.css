@@ -24,12 +24,12 @@
 /* Metric-matched fallbacks, as on ouroboros.bot, so lines wrap the same before and after the swap. */
 @font-face {
   font-family: "Cormorant Fallback";
-  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Times");
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Times"), local("Liberation Serif");
   size-adjust: 96.5%;
 }
 @font-face {
   font-family: "Outfit Fallback";
-  src: local("Arial"), local("ArialMT"), local("Helvetica");
+  src: local("Arial"), local("ArialMT"), local("Helvetica"), local("Liberation Sans");
   size-adjust: 97.9%;
 }
 

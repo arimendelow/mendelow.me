@@ -69,7 +69,8 @@ p, li, figcaption { text-wrap: pretty; }
 .hero-copy { display: contents; }
 .hero-title { grid-area: title; }
 .hero-sub { grid-area: sub; margin: 0; font-size: 1.125rem; line-height: 1.5; color: var(--ink-soft); }
-.hero-pic { grid-area: pic; margin: 0; width: 100%; }
+/* On a phone the photo is as wide as the column, up to the width its file holds at 2x. */
+.hero-pic { grid-area: pic; margin: 0 auto; width: min(100%, 600px); }
 .hero-pic .portrait-img { aspect-ratio: 3 / 2; object-position: 50% 26%; }
 .hero-cta { grid-area: cta; justify-content: center; }
 @media (min-width: 768px) {
@@ -127,6 +128,9 @@ p, li, figcaption { text-wrap: pretty; }
 
 /* Spoonjoy: the recipe capture, cut to the card's shape, fills its frame from the top. */
 #spoonjoy .card-media { aspect-ratio: 6 / 5; background: #fbf9f4; }
+/* Stacked, the capture keeps to the width its file holds at 2x. */
+#spoonjoy .card-figure { width: min(100%, 720px); }
+@media (min-width: 1024px) { #spoonjoy .card-figure { width: auto; } }
 #spoonjoy .card-media img { object-position: center top; }
 
 /* Ouro: the description, then every tool in it as one list, each row linking to its section on ouroboros.bot.
@@ -164,6 +168,8 @@ p, li, figcaption { text-wrap: pretty; }
    visitor asks for the video. The frame ends on a hard edge; the button sits on it as a solid control. */
 .video { position: relative; margin: 0; border: 1px solid var(--border); border-radius: 0.9rem; overflow: hidden; background: var(--card); }
 .video-poster { width: 100%; }
+/* The Play button sits in a band under the title frame, as a caption does under a photo, never over the picture. */
+.video-bar { display: flex; align-items: center; padding: 0.5rem 0.75rem; background: var(--background); border-top: 1px solid var(--border); }
 .video iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; display: block; }
 
 /* ── Earlier ── */
