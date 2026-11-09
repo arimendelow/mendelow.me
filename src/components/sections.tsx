@@ -121,12 +121,12 @@ export function Work() {
             <h3 className="card-title lead-title">Ouro UI</h3>
             <div className="card-body lead-body">
               <p>
-                Ouro UI is how I build interfaces for both sides of the work: Ouro HX, components that feel right to people, and Ouro AX, tools that read clearly to agents. It grew out of <Link href="#redwoodjs">RedwoodUI</Link>, and this site is built on Ouro HX, which is still under construction.
+                Ouro UI is how I build interfaces for both sides of the work: Ouro HX, components that feel right to people, and Ouro AX, tools that read clearly to agents. It grew out of <Link href="#redwoodjs">RedwoodUI</Link>. This site is built on Ouro HX, which is still under construction, and Ouro AX comes next.
               </p>
             </div>
             <div className="card-links">
               <Out href="https://ui.ouroboros.bot/">Explore Ouro UI</Out>
-              <Out href="https://github.com/ourostack/ouro-ui">GitHub</Out>
+              <Out href="https://github.com/ourostack/ouro-ui">Ouro UI on GitHub</Out>
             </div>
           </article>
 
@@ -380,10 +380,8 @@ export function SpoonjoyStory() {
               </p>
             </li>
           </ol>
-          <div className="story-link">
-            <Button href="https://ouroboros.bot" variant="outline" tone="secondary">
-              How I build with agents&nbsp;&#8599;
-            </Button>
+          <div className="card-links story-link">
+            <Out href="https://ouroboros.bot">How I build with agents</Out>
           </div>
         </div>
       </div>
@@ -430,10 +428,8 @@ export function AgentsStory() {
               <p>Since June I've run three desks: my own, my solo work desk and my team's crew. On October 14 CIT got a shared repository, and now it runs on Crew too. That's about 18,000 commits and 3,700 merged pull requests since January, not counting the desks, and under all of it sits Slugger's to-do list.</p>
             </li>
           </ol>
-          <div className="story-link">
-            <Button href="https://ouroboros.bot/lab/how-desk-started/" variant="outline" tone="secondary">
-              The whole story&nbsp;&#8599;
-            </Button>
+          <div className="card-links story-link">
+            <Out href="https://ouroboros.bot/lab/how-desk-started/">The whole story</Out>
           </div>
         </div>
       </div>

@@ -85,8 +85,20 @@ if (process.env.MENUS) {
     await page.waitForTimeout(600);
     await page.screenshot({ path: path.join(out, `${label}-laptop-dark-scheme-menu.png`) });
     await page.keyboard.press("Escape");
+    await page.waitForTimeout(400);
+    await page.screenshot({ path: path.join(out, `${label}-laptop-dark-toggle-focus.png`) });
+  });
+  await withPage({ width: 1440, height: 900 }, "light", async page => {
+    await page.waitForTimeout(1500);
     await page.keyboard.press("Tab");
-    await page.screenshot({ path: path.join(out, `${label}-laptop-dark-focus.png`) });
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: path.join(out, `${label}-laptop-light-focus-skip.png`) });
+    await page.keyboard.press("Tab");
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: path.join(out, `${label}-laptop-light-focus-family.png`) });
+    for (let i = 0; i < 8; i++) await page.keyboard.press("Tab");
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: path.join(out, `${label}-laptop-light-focus-nav.png`) });
   });
   await withPage({ width: 1440, height: 900 }, "light", async page => {
     await page.locator("#about").scrollIntoViewIfNeeded();

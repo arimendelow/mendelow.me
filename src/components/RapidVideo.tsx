@@ -32,7 +32,18 @@ export function RapidVideo() {
         <>
           <img className="video-poster" src="/assets/rapid-video-poster.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="Title frame of the RAPID demo video, close on the robot with its logo." />
           <div className="video-bar">
-            <Button size="sm" startIcon={PlayIcon} aria-label="Play the RAPID demo video" onClick={() => setPlaying(true)}>
+            {/* A link to the video on YouTube, so it plays without script too; with script it plays here instead. */}
+            <Button
+              href="https://www.youtube.com/watch?v=hC0A2Tu9k94"
+              size="sm"
+              startIcon={PlayIcon}
+              aria-label="Play the RAPID demo video"
+              onClick={(event) => {
+                if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                event.preventDefault();
+                setPlaying(true);
+              }}
+            >
               Play
             </Button>
           </div>

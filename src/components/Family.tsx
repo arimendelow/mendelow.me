@@ -4,12 +4,12 @@ import { FamilyBar } from "@/components/ouro/family-bar/family-bar";
 import { FamilyFooter } from "@/components/ouro/family-bar/family-footer";
 import { Link } from "@/components/ouro/link/link";
 import family from "@/family.json";
-import { gutters } from "@/site";
+import { familyBarGutters, gutters } from "@/site";
 
 const current = "ari";
 
 export function SiteFamilyBar() {
-  return <FamilyBar links={family.links} current={current} className={gutters} />;
+  return <FamilyBar links={family.links} current={current} className={familyBarGutters} />;
 }
 
 export function SiteFooter() {

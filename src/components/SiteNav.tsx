@@ -26,7 +26,7 @@ export function SiteNav() {
           </a>
         }
         items={items}
-        actions={<ColorSchemeToggle label="Light or dark" />}
+        actions={<ColorSchemeToggle label="Light, dark or system" />}
       />
     </ColorSchemeProvider>
   );

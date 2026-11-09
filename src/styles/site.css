@@ -138,7 +138,7 @@ p, li, figcaption { text-wrap: pretty; }
 
 /* ── Timeline ── */
 .story-grid { display: grid; gap: 2.5rem; }
-.story-link { margin: 2.5rem 0 0; padding-left: calc(7px + 1.75rem); }
+.story-link { margin: 2rem 0 0; padding-left: calc(7px + 1.75rem); }
 .timeline { list-style: none; margin: 0; padding: 0 0 0 7px; }
 .beat { position: relative; padding: 0 0 2rem 1.75rem; border-left: 2px solid color-mix(in srgb, var(--primary) 45%, transparent); }
 .beat:last-child { padding-bottom: 0; border-left-color: transparent; }
@@ -168,7 +168,7 @@ p, li, figcaption { text-wrap: pretty; }
 .video { position: relative; margin: 0; border: 1px solid var(--border); border-radius: 0.9rem; overflow: hidden; background: var(--card); }
 .video-poster { width: 100%; }
 /* The Play button sits in a band under the title frame, as a caption does under a photo, never over the picture. */
-.video-bar { display: flex; align-items: center; padding: 0.5rem 0.75rem; background: var(--background); border-top: 1px solid var(--border); }
+.video-bar { display: flex; align-items: center; padding: 0.6rem 0.9rem; background: var(--background); border-top: 1px solid var(--border); }
 .video iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; display: block; }
 
 /* ── Earlier ── */
@@ -176,8 +176,8 @@ p, li, figcaption { text-wrap: pretty; }
 @media (min-width: 768px) { .earlier-grid { gap: 3.5rem; margin-top: 3rem; } }
 .earlier-item .card-title { margin-bottom: 0.8rem; }
 .earlier-item p { margin: 0 0 1rem; color: var(--ink-soft); }
-/* A picture keeps a readable size under the full-width text. */
-.earlier-figure { margin: 1.25rem 0 0; width: min(100%, 52rem); }
+/* A picture keeps the same readable size as the timeline's, under the full-width text. */
+.earlier-figure { margin: 1.25rem 0 0; width: min(100%, 44rem); }
 
 /* ── Contact ── */
 .contact { background: var(--card); }
@@ -198,5 +198,10 @@ p, li, figcaption { text-wrap: pretty; }
 }
 
 /* The wordmark in the navbar: the way home, in the display face. */
-.wordmark { display: inline-flex; align-items: center; min-height: 2.75rem; font-family: var(--font-heading); font-size: 1.6rem; line-height: 1; color: var(--foreground); text-decoration: none; border-radius: 0.375rem; }
+.wordmark { display: inline-flex; margin-inline-end: 1.25rem; align-items: center; min-height: 2.75rem; font-family: var(--font-heading); font-size: 1.6rem; line-height: 1; color: var(--foreground); text-decoration: none; border-radius: 0.375rem; }
 .wordmark:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+/* Without script the phone menu and the light or dark menu cannot open, so they are not shown. */
+html:not(.js) [data-ouro-navbar-menu], html:not(.js) [data-ouro="color-scheme-toggle"] { display: none; }
+/* The skip link and the section links land on <main> and the sections without an outline round the whole page. */
+main:focus { outline: none; }
