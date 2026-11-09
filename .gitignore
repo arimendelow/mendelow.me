@@ -1,1 +1,8 @@
-assets/social-card.png
+node_modules/
+dist/
+_site/
+.astro/
+public/assets/social-card.png
+.preview-build/
+.favicon-work/
+ouro-check-report/

@@ -1,12 +1,9 @@
-// Renders assets/social-card.png (1200x630) from the built page: the name, the
-// hero headline and the portrait, in the site's own palette and serif. Run by
-// build-site.mjs on every deploy; there is no hand-made card to keep in sync.
+// Renders assets/social-card.png (1200x630) from the built page: the name, the hero headline and the portrait,
+// in the site's own palette and type (Cormorant Garamond and Outfit, the family's faces, loaded from the build's
+// own font files). Run by build-site.mjs on every deploy; there is no hand-made card to keep in sync.
 //
-// Needs a Chrome or Chromium binary (CHROME=/path overrides the search). The
-// card is set in Charter (macOS) or Charis SIL, its open-licence twin (Linux CI
-// installs fonts-sil-charis), so it looks the same wherever it is built.
+// Needs a Chrome or Chromium binary (CHROME=/path overrides the search).
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import { spawn, execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
@@ -14,7 +11,7 @@ import { pathToFileURL } from 'node:url';
 export const CARD = { width: 1200, height: 630 };
 
 const decode = s => s.replace(/&nbsp;/g, ' ').replace(/&rsquo;|&#8217;/g, '\u2019').replace(/&amp;/g, '&')
-  .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+  .replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 const text = s => decode(s.replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim();
 const escape = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -37,30 +34,35 @@ function findChrome() {
   throw new Error('social card: no Chrome or Chromium found (set CHROME)');
 }
 
-function template({ name, headline, domain }, portraitUrl) {
+function template({ name, headline, domain }, portraitUrl, fontsUrl) {
   return `<!DOCTYPE html><html><head><meta charset="utf-8"><style>
-  :root { --bg: #f6f2ea; --ink: #211f1b; --ink-soft: #37342d; --muted: #6f6659; --line: #e2dccf; --accent: #a8431f;
-    --serif: "Charter", "Charis SIL", "Iowan Old Style", Georgia, serif; }
+  @font-face { font-family: "Cormorant Garamond"; font-weight: 400; src: url("${fontsUrl}/cormorant-regular.woff2") format("woff2"); }
+  @font-face { font-family: "Outfit"; font-weight: 300 600; src: url("${fontsUrl}/outfit.woff2") format("woff2"); }
+  :root { --bg: #f5efe0; --ink: #1a2118; --ink-soft: #3d4839; --muted: #535e50; --line: rgb(31 106 55 / 0.25); --accent: #1f6a37;
+    --display: "Cormorant Garamond", Georgia, serif; --sans: "Outfit", Arial, sans-serif; }
   * { box-sizing: border-box; margin: 0; }
   html, body { width: ${CARD.width}px; height: ${CARD.height}px; overflow: hidden; background: var(--bg); }
-  body { display: grid; grid-template-columns: 1fr 470px; font-family: var(--serif); -webkit-font-smoothing: antialiased; }
+  body { display: grid; grid-template-columns: 1fr 470px; -webkit-font-smoothing: antialiased; }
   .text { display: flex; flex-direction: column; justify-content: center; gap: 30px; padding: 0 64px 0 80px; position: relative; }
-  .name { font-size: 96px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; }
-  .headline { font-size: 40px; line-height: 1.22; color: var(--ink-soft); text-wrap: balance; }
-  .domain { position: absolute; left: 80px; bottom: 56px; font-size: 30px; font-style: italic; color: var(--muted); }
+  .name { font-family: var(--display); font-size: 104px; font-weight: 400; line-height: 1; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; }
+  .headline { font-family: var(--sans); font-size: 38px; font-weight: 400; line-height: 1.25; color: var(--ink-soft); text-wrap: balance; }
+  .domain { position: absolute; left: 80px; bottom: 56px; font-family: var(--sans); font-size: 28px; font-weight: 500; color: var(--accent); }
   .photo { border-left: 3px solid var(--line); background: url("${portraitUrl}") center 12% / cover no-repeat; }
   </style></head><body>
   <div class="text"><div class="name">${escape(name)}</div><div class="headline">${escape(headline)}</div><div class="domain">${escape(domain)}</div></div>
   <div class="photo"></div></body></html>`;
 }
 
-export async function renderSocialCard({ html, assets, out }) {
+export async function renderSocialCard({ html, assets, fonts, out }) {
   const content = cardContent(fs.readFileSync(html, 'utf8'));
   const portrait = path.join(assets, 'ari-portrait-wide.jpg');
   if (!fs.existsSync(portrait)) throw new Error(`social card: missing ${portrait}`);
-  const work = fs.mkdtempSync(path.join(os.tmpdir(), 'social-card-'));
+  // Chrome's scratch profile lives in the project, not the system's temporary folder, and goes when the card is drawn.
+  const cache = path.join(process.cwd(), 'node_modules', '.cache');
+  fs.mkdirSync(cache, { recursive: true });
+  const work = fs.mkdtempSync(path.join(cache, 'social-card-'));
   const page = path.join(work, 'card.html');
-  fs.writeFileSync(page, template(content, pathToFileURL(portrait).href));
+  fs.writeFileSync(page, template(content, pathToFileURL(portrait).href, pathToFileURL(fonts).href));
 
   // Our own headless browser on a random port, read back from its own profile.
   const profile = path.join(work, 'profile');
@@ -91,6 +93,7 @@ export async function renderSocialCard({ html, assets, out }) {
     await s('Page.navigate', { url: pathToFileURL(page).href });
     for (let i = 0; i < 300 && !events.includes('Page.loadEventFired'); i++) await new Promise(r => setTimeout(r, 50));
     const probe = await s('Runtime.evaluate', { awaitPromise: true, returnByValue: true, expression: `(async () => {
+      await Promise.all([...document.fonts].map(f => f.load()));
       await document.fonts.ready;
       const img = new Image(); img.src = getComputedStyle(document.querySelector('.photo')).backgroundImage.slice(5, -2);
       await img.decode();
@@ -98,6 +101,7 @@ export async function renderSocialCard({ html, assets, out }) {
       return { overflow: n.scrollWidth > n.clientWidth || document.querySelector('.headline').getBoundingClientRect().bottom > ${CARD.height} - 110,
         fonts: [...document.fonts].filter(f => f.status === 'loaded').map(f => f.family) };
     })()` });
+    if (probe.result?.value?.fonts?.length !== 2) throw new Error(`social card: the family fonts did not load (${JSON.stringify(probe.result?.value?.fonts)})`);
     if (probe.result?.value?.overflow) throw new Error(`social card: "${content.headline}" does not fit the card; shorten it or adjust the template`);
     const shot = await s('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, ...CARD, scale: 1 } });
     fs.writeFileSync(out, Buffer.from(shot.data, 'base64'));
@@ -105,6 +109,8 @@ export async function renderSocialCard({ html, assets, out }) {
     ws.close();
   } finally {
     proc.kill();
+    await new Promise(r => setTimeout(r, 200));
+    fs.rmSync(work, { recursive: true, force: true });
   }
   console.log(`social card: ${path.relative(process.cwd(), out)} (${content.name}: ${content.headline})`);
   return content;

@@ -1,0 +1,66 @@
+---
+import Base from "@/layouts/Base.astro";
+import { AboutStory, AgentsStory, Contact, Earlier, Hero, Now, RapidLinks, RapidPhoto, SpoonjoyStory, Work } from "@/components/sections";
+import { RapidVideo } from "@/components/RapidVideo";
+
+const title = "Ari Mendelow | Building products for humans + agents";
+const description = "Ari Mendelow builds products that help humans and agents do more together, on Microsoft's Customer Innovation Team and through his own projects, Ouro and Spoonjoy.";
+// The card is generated from this page by scripts/social-card.mjs on every build; scripts/check-site.mjs holds these tags to it.
+const cardAlt = "Ari Mendelow: I build products that help humans and agents do more together.";
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", "@id": "https://mendelow.me/#website", url: "https://mendelow.me/", name: "Ari Mendelow", description: "Building products for humans + agents." },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://mendelow.me/#profilepage",
+      url: "https://mendelow.me/",
+      mainEntity: { "@type": "Person", name: "Ari Mendelow", url: "https://mendelow.me/", sameAs: ["https://www.linkedin.com/in/arimendelow", "https://github.com/arimendelow"] },
+    },
+  ],
+};
+---
+<Base title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="canonical" href="https://mendelow.me/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Ari Mendelow">
+    <meta property="og:url" content="https://mendelow.me/">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:image" content="https://mendelow.me/assets/social-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content={cardAlt}>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={description}>
+    <meta name="twitter:image" content="https://mendelow.me/assets/social-card.png">
+    <meta name="twitter:image:alt" content={cardAlt}>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+  </Fragment>
+
+  <Hero />
+  <Now />
+  <Work />
+
+  <section class="section about" id="about" aria-labelledby="about-heading">
+    <div class="wrap about-grid">
+      <AboutStory />
+      <div class="about-media">
+        <RapidPhoto />
+        <RapidVideo client:visible />
+      </div>
+      <RapidLinks />
+    </div>
+  </section>
+
+  <Earlier />
+  <SpoonjoyStory />
+  <AgentsStory />
+  <Contact />
+
+  <Fragment slot="end">
+    <!-- Cloudflare Web Analytics --><script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dbc5c3f489694cfd8a3eb868154c414a"}'></script><!-- End Cloudflare Web Analytics -->
+  </Fragment>
+</Base>

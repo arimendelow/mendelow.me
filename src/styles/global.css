@@ -1,0 +1,152 @@
+@import "tailwindcss";
+/* The site's own layout, under Tailwind's utilities so an Ouro HX component's classes always win. */
+@import "./site.css" layer(components);
+
+/* Ouro HX switches schemes with the .dark class on <html> (lib/ouro/color-scheme). */
+@custom-variant dark (&:is(.dark *));
+
+/* ── Fonts: the family's own, self-hosted as on ouroboros.bot ──
+   Cormorant Garamond for display, regular weight only and never italic; Outfit for everything else. */
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/cormorant-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url("/fonts/outfit.woff2") format("woff2");
+}
+/* Metric-matched fallbacks, as on ouroboros.bot, so lines wrap the same before and after the swap. */
+@font-face {
+  font-family: "Cormorant Fallback";
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Times");
+  size-adjust: 96.5%;
+}
+@font-face {
+  font-family: "Outfit Fallback";
+  src: local("Arial"), local("ArialMT"), local("Helvetica");
+  size-adjust: 97.9%;
+}
+
+/* ── Ouro theme tokens, in ouroboros.bot's palette ──
+   Light is its warm paper (void, deep, undergrowth, canopy, scale, bone); dark is its night serpent palette.
+   Every text pair passes WCAG AA. */
+:root {
+  --radius: 0.75rem;
+  --background: #f5efe0;
+  --foreground: #1a2118;
+  --card: #fffaf0;
+  --card-foreground: #1a2118;
+  --popover: #fffaf0;
+  --popover-foreground: #1a2118;
+  --primary: #1f6a37;
+  --primary-foreground: #fffaf0;
+  --secondary: #ece3cc;
+  --secondary-foreground: #1a2118;
+  --muted: #ece3cc;
+  --muted-foreground: #535e50;
+  --accent: #ece3cc;
+  --accent-foreground: #1a2118;
+  --destructive: #a8352a;
+  --border: rgb(31 106 55 / 0.2);
+  --input: #8f8466;
+  --ring: #1f6a37;
+  /* The site's own: the second voice of the text, and the hover green. */
+  --ink-soft: #3d4839;
+  --primary-hover: #14502a;
+}
+
+.dark {
+  --background: #050a07;
+  --foreground: #edf2ee;
+  --card: #0d1f13;
+  --card-foreground: #edf2ee;
+  --popover: #0d1f13;
+  --popover-foreground: #edf2ee;
+  --primary: #36a452;
+  --primary-foreground: #050a07;
+  --secondary: #152a1c;
+  --secondary-foreground: #edf2ee;
+  --muted: #152a1c;
+  --muted-foreground: #9aae9f;
+  --accent: #152a1c;
+  --accent-foreground: #edf2ee;
+  --destructive: #e5625a;
+  --border: rgb(54 164 82 / 0.22);
+  --input: #4f7a5a;
+  --ring: #4ae36c;
+  --ink-soft: #c9d4cb;
+  --primary-hover: #4ae36c;
+}
+
+/* Without script the head never sets .dark, so the system's dark setting applies here instead. */
+@media (prefers-color-scheme: dark) {
+  html:not(.js) {
+    color-scheme: dark;
+    --background: #050a07;
+    --foreground: #edf2ee;
+    --card: #0d1f13;
+    --card-foreground: #edf2ee;
+    --popover: #0d1f13;
+    --popover-foreground: #edf2ee;
+    --primary: #36a452;
+    --primary-foreground: #050a07;
+    --secondary: #152a1c;
+    --secondary-foreground: #edf2ee;
+    --muted: #152a1c;
+    --muted-foreground: #9aae9f;
+    --accent: #152a1c;
+    --accent-foreground: #edf2ee;
+    --destructive: #e5625a;
+    --border: rgb(54 164 82 / 0.22);
+    --input: #4f7a5a;
+    --ring: #4ae36c;
+    --ink-soft: #c9d4cb;
+    --primary-hover: #4ae36c;
+  }
+}
+
+@theme inline {
+  --font-sans: "Outfit", "Outfit Fallback", system-ui, sans-serif;
+  --font-heading: "Cormorant Garamond", "Cormorant Fallback", Georgia, serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+

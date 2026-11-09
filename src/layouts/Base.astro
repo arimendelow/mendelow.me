@@ -1,0 +1,50 @@
+---
+// The page shell: head and share metadata, the family bar, the site's navigation, the page, the family footer.
+import "@/styles/global.css";
+import { SkipLink } from "@/components/ouro/skip-link/skip-link";
+import { colorSchemeScript } from "@/lib/ouro/color-scheme-script";
+import { SiteFamilyBar, SiteFooter } from "@/components/Family";
+import { SiteNav } from "@/components/SiteNav";
+import { schemeKey } from "@/site";
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+const { title, description, noindex = false } = Astro.props;
+// Marks that script runs, so the stylesheet's no-script dark fallback steps aside, then sets the scheme before paint.
+const headScript = `document.documentElement.classList.add("js");${colorSchemeScript({ storageKey: schemeKey })}`;
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5efe0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#050a07">
+<meta name="color-scheme" content="light dark">
+{noindex && <meta name="robots" content="noindex">}
+<title>{title}</title>
+{description && <meta name="description" content={description}>}
+<slot name="head" />
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/fonts/cormorant-regular.woff2" as="font" type="font/woff2" crossorigin>
+<script is:inline set:html={headScript}></script>
+</head>
+<body>
+<SkipLink />
+<SiteFamilyBar />
+<SiteNav client:load />
+<main id="main">
+  <slot />
+</main>
+<footer class="site-footer">
+  <SiteFooter />
+</footer>
+<slot name="end" />
+</body>
+</html>

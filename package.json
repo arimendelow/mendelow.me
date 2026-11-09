@@ -1,0 +1,12 @@
+{
+  "name": "mendelow-me",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.18" },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "rm -rf dist && node scripts/build-site.mjs dist",
+    "check": "node scripts/check-fades.mjs && node --test 'tests/*.test.mjs' && node scripts/check-hx.mjs dist",
+    "check:screens": "node src/lib/ouro/check/check.ts dist --out ouro-check-report"
+  }
+}
