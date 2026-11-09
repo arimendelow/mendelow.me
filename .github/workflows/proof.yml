@@ -26,6 +26,9 @@ jobs:
         run: node scripts/build-site.mjs _site
       - name: After (this branch)
         run: MENUS=1 node .github/proof/shoot.mjs after _site proof/after
+      - name: Ouro check
+        continue-on-error: true
+        run: node lib/ouro/check/check.ts _site --out proof/ouro-check 2>&1 | tail -80
       - uses: actions/upload-artifact@v4
         if: always()
         with:
