@@ -41,7 +41,7 @@ jobs:
       - name: Install Chromium for the screen check
         run: npx playwright install --with-deps chromium
       - name: Check every screen size from 320 to 3840 wide, light and dark (Ouro check)
-        run: node src/lib/ouro/check/check.ts _site --out ouro-check-report
+        run: node lib/ouro/check/check.ts _site --out ouro-check-report
       - uses: actions/upload-artifact@v4
         if: always()
         with:

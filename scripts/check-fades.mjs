@@ -7,5 +7,5 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const run = spawnSync(process.execPath, ['src/lib/ouro/check/fades.ts', 'src'], { cwd: root, stdio: 'inherit' });
+const run = spawnSync(process.execPath, ['lib/ouro/check/fades.ts', 'src'], { cwd: root, stdio: 'inherit' });
 process.exit(run.status ?? 1);

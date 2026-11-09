@@ -19,14 +19,14 @@ npm run build      # into dist/, with the social card
 npm run check      # the fade check, the family test and the page checks on dist/
 ```
 
-To move Ouro HX to a newer release, add every installed item again at the new tag in one go, so all of them are on the same release: `npx shadcn@latest add ourostack/ouro-ui/<item>#vX.Y.Z --overwrite` for each item in `src/components/ouro/` and `src/lib/ouro/check/`.
+To move Ouro HX to a newer release, add every installed item again at the new tag in one go, so all of them are on the same release: `npx shadcn@latest add ourostack/ouro-ui/<item>#vX.Y.Z --overwrite` for each item in `src/components/ouro/` and `lib/ouro/check/`.
 
 ## Checks
 
 - `scripts/check-fades.mjs` runs Ouro check's fade check over `src/`: no picture fades into the page or into nothing, at any edge.
 - `scripts/check-hx.mjs <built folder>`: Ouro UI leads Selected work, Ouro lists every tool, the family bar and footer carry the family's links in order, every link and button is an Ouro HX component, no text has its own width cap, every section reads top to bottom, and `/favicon.ico` is served.
 - `scripts/check-site.mjs`, run by the build: every title, description and image tag agrees, and the card matches the page.
-- Ouro check (`src/lib/ouro/check/check.ts`) opens the built site at every screen size from 320 to 3840 wide, light and dark, and fails on sideways scroll, overlap, clipped text, blurry pictures and serious accessibility faults. It runs in CI.
+- Ouro check (`lib/ouro/check/check.ts`) opens the built site at every screen size from 320 to 3840 wide, light and dark, and fails on sideways scroll, overlap, clipped text, blurry pictures and serious accessibility faults. It runs in CI.
 
 ## Deploys
 
