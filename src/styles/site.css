@@ -56,7 +56,7 @@ p, li, figcaption { text-wrap: pretty; }
    the RAPID photo and video. */
 
 /* ── Hero ── */
-.hero { padding: 2.5rem 0 3rem; }
+.hero { padding: 1.75rem 0 2.75rem; }
 @media (min-width: 768px) { .hero { padding: 4rem 0 3.5rem; } }
 /* On a phone the photo leads, full width and cropped wide around the face, and the text stacks centered under
    it. From 768px the copy is one block beside a portrait-shaped photo. Shared with ouroboros.bot's hero. */
@@ -123,7 +123,7 @@ p, li, figcaption { text-wrap: pretty; }
    the cups, the controls and the steps. One column on a phone; from 48rem the cups sit beside the steps with the
    controls in a row under them; from 64rem the cups, the controls and the steps sit in three columns. */
 .showcase-figure { margin: 0.5rem 0 0.25rem; display: grid; gap: 1rem; }
-.showcase-caption { margin: 0; color: var(--ink-soft); font-size: 1.0625rem; }
+.showcase-caption { margin: 0; color: var(--ink-soft); font-size: 1rem; }
 html:not(.js) .when-script, html.js .when-no-script { display: none; }
 .showcase {
   display: grid; gap: 1.25rem 2rem; padding: 1rem;
@@ -186,6 +186,10 @@ html:not(.js) .when-script, html.js .when-no-script { display: none; }
 .beat p { margin: 0; color: var(--ink-soft); }
 /* Each era of Spoonjoy shows its own screen, running again from its old code. */
 .beat-figure { margin: 1rem 0 0; width: min(100%, 44rem); }
+/* On a sharp screen a picture is never shown wider than its pixels hold at 2x: the timeline's 1280px captures at
+   640px, Sulis and the RedwoodJS homepage (1200px) at 600px. A 1x screen, such as most 4K displays, shows them at
+   the full 44rem. */
+@media (min-resolution: 2dppx) { .beat-figure { width: min(100%, 640px); } }
 
 /* ── About ── */
 .about-media { display: grid; gap: 1.5rem; margin-top: 2.5rem; align-items: start; }
@@ -217,6 +221,7 @@ html:not(.js) .when-script, html.js .when-no-script { display: none; }
 .earlier-item p { margin: 0 0 1rem; color: var(--ink-soft); }
 /* A picture keeps the same readable size as the timeline's, under the full-width text. */
 .earlier-figure { margin: 1.25rem 0 0; width: min(100%, 44rem); }
+@media (min-resolution: 2dppx) { .earlier-figure { width: min(100%, 600px); } }
 
 /* ── Contact ── */
 .contact { background: var(--card); }
