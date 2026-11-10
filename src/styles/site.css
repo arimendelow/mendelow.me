@@ -210,8 +210,12 @@ html:not(.js) .showcase-work { display: none; }
 
 /* Spoonjoy: the recipe capture, cut to the card's shape, fills its frame from the top. */
 #spoonjoy .card-media { aspect-ratio: 6 / 5; background: #fbf9f4; }
-/* The capture keeps to the width its file holds at 2x, stacked or beside its text. */
-#spoonjoy .card-figure { width: min(100%, 720px); }
+/* In dark, the capture and its mat dim together, as the other screenshots do. */
+.dark #spoonjoy .card-media { filter: brightness(0.88); }
+/* The capture fills its column. On a sharp screen it is never shown wider than its 1440px file holds at 2x; a 1x
+   screen, such as most 4K displays, shows it at up to its full width. */
+#spoonjoy .card-figure { width: min(100%, 1440px); }
+@media (min-resolution: 2dppx) { #spoonjoy .card-figure { width: min(100%, 720px); } }
 #spoonjoy .card-media img { object-position: center top; }
 
 /* Ouro: the description, then every tool in it as one list, each row linking to its section on ouroboros.bot.
