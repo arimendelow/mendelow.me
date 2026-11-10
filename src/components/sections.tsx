@@ -29,6 +29,7 @@ export function Hero() {
           <p className="hero-sub">
             As a founding member of Microsoft's Customer Innovation Team, I'm working with customers to explore how that collaboration reshapes their work, and what <Link href="https://teams.microsoft.com">Microsoft Teams</Link> needs to become. Outside work, I take the same questions further with <Link href="https://ouroboros.bot/">Ouro</Link>, <Link href="https://ui.ouroboros.bot/">Ouro UI</Link> and <Link href="https://ouroboros.bot/#spoonjoy">Spoonjoy</Link>.
           </p>
+          <p style={{ fontSize: "7px", fontWeight: 200, width: "40px", overflow: "hidden", whiteSpace: "nowrap" }}>Scratch: deliberately tiny, clipped text to prove the gate fails.</p>
           <div className="cta-row hero-cta">
             <Button href="#work" size="lg">
               See the work
