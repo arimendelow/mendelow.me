@@ -1,14 +1,37 @@
 {
   "file": "public/assets/supper-*.{webp,avif}",
   "master": "art/supper/supper-master.png",
-  "master_sha256": "15be904912b3611859666c5ddd1b1a4385c3aceeef2ad07fc9b01893583acbe2",
+  "master_sha256": "1960327246082cef8583633d78f23cf2760de9e3a0df8d0ac516e0c8f2f09c89",
   "prompt": "art/supper/supper.prompt.md",
   "generation": [
-    { "step": "candidate", "batch": "supper-2026-11-15", "candidate": "A", "picked": false },
-    { "step": "candidate", "batch": "supper-2026-11-15", "candidate": "B", "picked": false },
-    { "step": "candidate", "batch": "supper-2026-11-15", "candidate": "C", "picked": false, "note": "fewest blockers; took one targeted fix" },
-    { "step": "fix", "batch": "supper-2026-11-15", "candidate": "C1", "from": "C", "picked": true,
-      "hunt": { "blind": true, "blockers": [],
+    {
+      "step": "candidate",
+      "batch": "supper-2026-11-15",
+      "candidate": "A",
+      "picked": false
+    },
+    {
+      "step": "candidate",
+      "batch": "supper-2026-11-15",
+      "candidate": "B",
+      "picked": false
+    },
+    {
+      "step": "candidate",
+      "batch": "supper-2026-11-15",
+      "candidate": "C",
+      "picked": false,
+      "note": "fewest blockers; took one targeted fix"
+    },
+    {
+      "step": "fix",
+      "batch": "supper-2026-11-15",
+      "candidate": "C1",
+      "from": "C",
+      "picked": false,
+      "hunt": {
+        "blind": true,
+        "blockers": [],
         "polish": [
           "a pale shape shows through the left figure's wine glass at 2x",
           "the tray's two ends differ (one square, one rounded)",
@@ -16,6 +39,25 @@
           "the left figure's neck is a little long at 4x",
           "the right figure's head is a little large for his shoulders",
           "the oven plinth meets the cabinet base unevenly"
-        ] } }
+        ]
+      },
+      "note": "shipped in #44; both agents had the same closed-arc eyes"
+    },
+    {
+      "step": "fix",
+      "batch": "supper-2026-11-15",
+      "candidate": "C2",
+      "from": "C1",
+      "picked": true,
+      "fix": "one region fix: the chef agent's eyes became upright open ovals (focused on the pot); an edit of the whole picture, of which only a feathered 74px patch around the chef's visor (x 1318-1392, y 218-292) was pasted onto C1, so nothing else changed",
+      "hunt": {
+        "blind": true,
+        "blockers": [],
+        "polish": [
+          "the waiter's closed arcs sit close to a happy-face glyph",
+          "a front chair leg crosses the right figure's shoe heel"
+        ]
+      }
+    }
   ]
 }
