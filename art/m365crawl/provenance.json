@@ -1,0 +1,14 @@
+{
+  "file": "public/assets/m365crawl-render-{128,256}.webp",
+  "master": "art/m365crawl/master.png",
+  "master_sha256": "9f2ac5074fc05adf6983cdc8d3b8d5cc0f1135d92d52ac66ac776f863b923eb7",
+  "prompt": "art/m365crawl/crawl-render.prompt.md",
+  "prompt_lint": "0 errors, 0 warnings",
+  "cutout": "The model painted a checkerboard instead of transparency. Background = light neutral pixels flood-filled from the corners; neutral pixels within 5px of the edge cleared to remove the checker fringe.",
+  "generation": [
+    { "step": "candidate", "batch": "m365crawl-render-2026-11-15", "candidate": "A", "picked": true,
+      "hunt": { "blind": true, "blockers": [], "polish": ["a 1px light fringe at 15-24% opacity, visible only at 4x on dark", "the glow between the cards has no visible source"] } },
+    { "step": "candidate", "batch": "m365crawl-render-2026-11-15", "candidate": "B", "picked": false, "note": "white shadow fringe under the drawer in dark mode" },
+    { "step": "candidate", "batch": "m365crawl-render-2026-11-15", "candidate": "C", "picked": false, "note": "its back wall rises above the sides, and its cards are too light to cut out from the painted background" }
+  ]
+}

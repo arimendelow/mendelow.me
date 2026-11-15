@@ -51,9 +51,9 @@ console.log('PASS: Ouro UI leads Selected work with a live showcase that hydrate
 const list = doc.querySelector('#ouro #ouro-tools');
 assert.ok(list, 'Missing the list of Ouro tools');
 const rows = list.querySelectorAll('li').map(li => ({ href: li.querySelector('a[href]')?.getAttribute('href'), name: text(li.querySelector('a[href]')), summary: text(li).slice(text(li.querySelector('a[href]')).length).trim(), img: li.querySelector('img')?.getAttribute('src') }));
-assert.deepEqual(rows.map(row => row.name), ['Ouroboros', 'Desk', 'Ouro MD', 'Ouro HX', 'Ouro Shepherd', 'Ouro Butler', 'Friends', 'The factory']);
+assert.deepEqual(rows.map(row => row.name), ['Ouroboros', 'Desk', 'Ouro MD', 'Ouro HX', 'm365crawl', 'Ouro Shepherd', 'Ouro Butler', 'Friends', 'The factory']);
 for (const row of rows) {
-  assert.match(row.href, /^https:\/\/ouroboros\.bot\/#[a-z-]+$/, `${row.name} links to its section on ouroboros.bot`);
+  assert.match(row.href, /^https:\/\/ouroboros\.bot\/#[a-z0-9-]+$/, `${row.name} links to its section on ouroboros.bot`);
   assert.ok(row.img && served(row.img), `${row.name} shows its art`);
 }
 const hx = rows.find(row => row.name === 'Ouro HX');
