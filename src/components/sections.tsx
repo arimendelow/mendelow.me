@@ -430,7 +430,7 @@ export function AgentsStory() {
           <ol className="timeline">
             <li className="beat">
               <h3 className="beat-when">January 2026, a raccoon with a to-do list.</h3>
-              <p>Slugger spent his first week on my Grubhub orders, HomeKit, flight status and my iMessage group chats, and on his first afternoon he drew himself a raccoon for an icon. Right after he rebuilt Spoonjoy, he opened a to-do list for it: tests for 27 components. The next morning he wrote a README called “How Slugger manages work,” and two days later he split his tasks into planning docs and doing docs. My agents still write both.</p>
+              <p>Slugger spent his first week on my Grubhub orders, HomeKit, flight status, and my iMessage group chats, and on his first afternoon he drew himself a raccoon for an icon. Right after he rebuilt Spoonjoy, he opened a to-do list for it: tests for 27 components. The next morning he wrote a README called “How Slugger manages work,” and two days later he split his tasks into planning docs and doing docs. My agents still write both.</p>
             </li>
             <li className="beat">
               <h3 className="beat-when">February 2026, to work and back.</h3>
@@ -452,7 +452,7 @@ export function AgentsStory() {
             </li>
             <li className="beat">
               <h3 className="beat-when">October 2026 to now.</h3>
-              <p>Since June I've run three desks: my own, my solo work desk and my team's crew. On October 14 CIT got a shared repository, and now it runs on Crew too. That's about 18,000 commits and 3,700 merged pull requests since January, not counting the desks, and under all of it sits Slugger's to-do list.</p>
+              <p>Since June I've run three desks: my own, my solo work desk, and my team's crew. On October 14 CIT got a shared repository, and now it runs on Crew too. By mid-November that's about 35,000 commits and 13,000 merged pull requests since January, not counting the desks, and under all of it sits Slugger's to-do list.</p>
             </li>
           </ol>
           <div className="card-links story-link">
