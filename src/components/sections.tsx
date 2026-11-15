@@ -181,6 +181,7 @@ export function Work({ showcase }: { showcase?: ReactNode }) {
             </div>
             <div className="card-links">
               <Out href="https://spoonjoy.app">Open Spoonjoy</Out>
+              <Out href="https://apps.apple.com/us/app/spoonjoy-recipes-cookbooks/id6787505444">On the App Store</Out>
               <Link href="#spoonjoy-story">
                 The whole story<span aria-hidden="true">&nbsp;&#8595;</span>
               </Link>
@@ -388,7 +389,7 @@ export function SpoonjoyStory() {
             <li className="beat">
               <h3 className="beat-when">May 2026 to now.</h3>
               <p>
-                The recipe form I'd handbuilt on Redwood didn't make sense anymore. Writing up a recipe should just go to an agent, so Spoonjoy got an MCP server that Claude or ChatGPT can drive, and the new version took over spoonjoy.app. It became my first real playground for working with agents on long-running work. In June it got a <Link href="https://github.com/spoonjoy/spoonjoy-apple">native app</Link> for iPhone and Mac, which is in testing on TestFlight now.
+                The recipe form I'd handbuilt on Redwood didn't make sense anymore. Writing up a recipe should just go to an agent, so Spoonjoy got an MCP server that Claude or ChatGPT can drive, and the new version took over spoonjoy.app. It became my first real playground for working with agents on long-running work. In June it got a <Link href="https://github.com/spoonjoy/spoonjoy-apple">native app</Link> for iPhone, iPad, and Mac, and on November 9 it went live on the <Link href="https://apps.apple.com/us/app/spoonjoy-recipes-cookbooks/id6787505444">App Store</Link>.
               </p>
             </li>
           </ol>
