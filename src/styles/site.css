@@ -62,7 +62,7 @@ p, li, figcaption { text-wrap: pretty; }
 .hero-grid {
   display: grid; gap: 1.5rem;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-areas: "pic" "title" "sub" "cta";
+  grid-template-areas: "pic" "title" "sub";
   text-align: center;
 }
 .hero-copy { display: contents; }
@@ -71,12 +71,10 @@ p, li, figcaption { text-wrap: pretty; }
 /* On a phone the photo is as wide as the column, up to the width its file holds at 2x. */
 .hero-pic { grid-area: pic; margin: 0 auto; width: min(100%, 600px); }
 .hero-pic .portrait-img { aspect-ratio: 3 / 2; object-position: 50% 26%; }
-.hero-cta { grid-area: cta; justify-content: center; }
 @media (min-width: 768px) {
   .hero-grid { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "copy pic"; column-gap: 3rem; align-items: center; text-align: left; }
   .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
-  .hero-copy > .hero-title, .hero-copy > .hero-sub, .hero-copy > .hero-cta { grid-area: auto; }
-  .hero-cta { justify-content: flex-start; }
+  .hero-copy > .hero-title, .hero-copy > .hero-sub { grid-area: auto; }
   .hero-sub { font-size: 1.5rem; }
   .hero-pic { width: 12rem; }
   .hero-pic .portrait-img { aspect-ratio: 3 / 4; }
