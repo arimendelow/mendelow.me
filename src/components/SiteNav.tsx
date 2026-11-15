@@ -10,6 +10,7 @@ import { ColorSchemeProvider } from "@/lib/ouro/color-scheme";
 import { gutters, schemeKey } from "@/site";
 
 const items = [
+  { label: "Agents", href: "/#working-with-agents" },
   { label: "Work", href: "/#work" },
   { label: "About", href: "/#about" },
   { label: "Earlier", href: "/#earlier" },

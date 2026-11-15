@@ -1,0 +1,21 @@
+{
+  "file": "public/assets/supper-*.{webp,avif}",
+  "master": "art/supper/supper-master.png",
+  "master_sha256": "15be904912b3611859666c5ddd1b1a4385c3aceeef2ad07fc9b01893583acbe2",
+  "prompt": "art/supper/supper.prompt.md",
+  "generation": [
+    { "step": "candidate", "batch": "supper-2026-11-15", "candidate": "A", "picked": false },
+    { "step": "candidate", "batch": "supper-2026-11-15", "candidate": "B", "picked": false },
+    { "step": "candidate", "batch": "supper-2026-11-15", "candidate": "C", "picked": false, "note": "fewest blockers; took one targeted fix" },
+    { "step": "fix", "batch": "supper-2026-11-15", "candidate": "C1", "from": "C", "picked": true,
+      "hunt": { "blind": true, "blockers": [],
+        "polish": [
+          "a pale shape shows through the left figure's wine glass at 2x",
+          "the tray's two ends differ (one square, one rounded)",
+          "both agents use the same closed-arc eyes",
+          "the left figure's neck is a little long at 4x",
+          "the right figure's head is a little large for his shoulders",
+          "the oven plinth meets the cabinet base unevenly"
+        ] } }
+  ]
+}

@@ -79,7 +79,7 @@ for (const { run } of runs) {
 const navbar = doc.querySelector('[data-ouro="navbar"]');
 assert.ok(navbar, 'Missing the site navigation');
 const navLinks = navbar.querySelectorAll('nav a[href]').map(a => [text(a), a.getAttribute('href')]);
-assert.deepEqual(navLinks, [['Work', '/#work'], ['About', '/#about'], ['Earlier', '/#earlier'], ['Contact', '/#contact']]);
+assert.deepEqual(navLinks, [['Agents', '/#working-with-agents'], ['Work', '/#work'], ['About', '/#about'], ['Earlier', '/#earlier'], ['Contact', '/#contact']]);
 assert.ok(anchors.indexOf(runs[0].run[0]) < anchors.indexOf(navbar.querySelector('a[href]')), 'The family bar sits above the site navigation');
 assert.ok(doc.querySelector('footer')?.querySelectorAll('a[href]').some(a => a === runs[1].run[0]), 'The family footer is the page footer');
 // The same landmarks on every family site: the bar "Sites", the footer "All sites", the site's own nav "Primary".
