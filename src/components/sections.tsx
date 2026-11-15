@@ -410,6 +410,22 @@ export function AgentsStory() {
           </h2>
           <p className="dek">The way I work with agents came from Slugger, my OpenClaw agent, and the to-do list he wrote himself.</p>
         </div>
+        <figure className="card-figure story-art">
+          <picture>
+            <source type="image/avif" srcSet="/assets/supper-768.avif 768w, /assets/supper-1152.avif 1152w, /assets/supper-1536.avif 1536w" sizes="min(100vw, 1152px)" />
+            <img
+              src="/assets/supper-1152.webp"
+              srcSet="/assets/supper-768.webp 768w, /assets/supper-1152.webp 1152w, /assets/supper-1536.webp 1536w"
+              sizes="min(100vw, 1152px)"
+              width="1536"
+              height="1024"
+              loading="lazy"
+              decoding="async"
+              alt="Illustration: two faceless glass figures talk over wine at a round dining table at sunset, while a small amber agent in an apron carries two plates of risotto to them and a small teal agent in a chef's hat stirs a pot at the stove."
+            />
+          </picture>
+          <figcaption className="card-caption">The agents cook and serve, and we get to talk.</figcaption>
+        </figure>
         <div className="story-body">
           <ol className="timeline">
             <li className="beat">

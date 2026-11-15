@@ -225,6 +225,12 @@ html:not(.js) .showcase-work { display: none; }
 
 /* ── Timeline ── */
 .story-grid { display: grid; gap: 2.5rem; }
+/* The supper scene sits between the story's intro and its timeline. On a sharp screen it is never wider than its
+   1536px master holds at 2x; in dark it dims with its mat, like the Spoonjoy capture. */
+.story-art { margin: 0; width: 100%; }
+@media (min-resolution: 2dppx) { .story-art { width: min(100%, 768px); } }
+.story-art img { width: 100%; aspect-ratio: 3 / 2; }
+.dark .story-art img { filter: brightness(0.88); }
 .story-link { margin: 2rem 0 0; padding-left: calc(7px + 1.75rem); }
 .timeline { list-style: none; margin: 0; padding: 0 0 0 7px; }
 .beat { position: relative; padding: 0 0 2rem 1.75rem; border-left: 2px solid color-mix(in srgb, var(--primary) 45%, transparent); }
