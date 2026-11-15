@@ -412,11 +412,11 @@ export function AgentsStory() {
         </div>
         <figure className="card-figure story-art">
           <picture>
-            <source type="image/avif" srcSet="/assets/supper-768.avif 768w, /assets/supper-1152.avif 1152w, /assets/supper-1536.avif 1536w" sizes="min(100vw, 1152px)" />
+            <source type="image/avif" srcSet="/assets/supper-768.avif 768w, /assets/supper-1152.avif 1152w, /assets/supper-1536.avif 1536w" sizes="min(100vw, 1536px)" />
             <img
               src="/assets/supper-1152.webp"
               srcSet="/assets/supper-768.webp 768w, /assets/supper-1152.webp 1152w, /assets/supper-1536.webp 1536w"
-              sizes="min(100vw, 1152px)"
+              sizes="min(100vw, 1536px)"
               width="1536"
               height="1024"
               loading="lazy"
