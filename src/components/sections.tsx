@@ -27,7 +27,7 @@ export function Hero() {
             <h1 id="hero-heading">I work with agents every day, and build what they need.</h1>
           </div>
           <p className="hero-sub">
-            On Microsoft's Customer Innovation Team, I work with the people at our customers who are building with agents: how their work is really changing, and what <Link href="https://teams.microsoft.com">Microsoft Teams</Link> needs to become for it. My team runs on Crew, the shared workspace I built for us and our agents. Outside work, I keep going with <Link href="https://ouroboros.bot/">Ouro</Link>, my open-source workshop, and <Link href="https://spoonjoy.app">Spoonjoy</Link>, my recipe app.
+            On Microsoft's Customer Innovation Team, I work with the people at our customers who are building with agents, and on what <Link href="https://teams.microsoft.com">Microsoft Teams</Link> needs to become for them. Outside work, I keep going with <Link href="https://ouroboros.bot/">Ouro</Link>, my open-source workshop, and <Link href="https://spoonjoy.app">Spoonjoy</Link>, my recipe app.
           </p>
         </div>
         <figure className="hero-pic">
@@ -57,10 +57,10 @@ export function Now() {
         </h2>
         <div className="prose">
           <p>
-            I'm a founding member of Microsoft's Customer Innovation Team, and most of my work starts before any code: sitting with the builders, product owners, and collaborators at our customers, and listening to how their work is actually changing now that agents are part of it. That habit goes back to <Link href="https://www.nsf.gov/funding/initiatives/i-corps">NSF I-Corps</Link> with <Link href="#sulis">Sulis</Link>, my solar water-sanitization startup: ask for specific stories about what already happened, don't put words in anyone's mouth, and keep digging past the first answer.
+            I'm a founding member of the team, and most of my work starts before any code: sitting with the builders, product owners, and collaborators at our customers, and listening to how their work is actually changing now that agents are part of it. That habit goes back to <Link href="https://www.nsf.gov/funding/initiatives/i-corps">NSF I-Corps</Link> with <Link href="#sulis">Sulis</Link>, my solar water-sanitization startup: ask for specific stories about what already happened, don't put words in anyone's mouth, and keep digging past the first answer.
           </p>
           <p>
-            The rest is building for agents: helping them stay oriented, organizing the work around them, and measuring whether the new way of working is better. I run my own work that way every day, on <Link href="https://ouroboros.bot/desk/">Desk</Link>, and my team runs on Crew, its shared version. I share how I do it in <Link href="https://ouroboros.bot/approach/">How I work</Link>, and how it started in <Link href="https://ouroboros.bot/blog/stop-being-the-glue/">Stop being the glue</Link>.
+            The rest is building for agents: helping them stay oriented, organizing the work around them, and measuring whether the new way of working is better. I run my own work that way every day, on <Link href="https://ouroboros.bot/desk/">Desk</Link>, and my team runs on Crew, the shared workspace I built on top of it for us and our agents. I share how I do it in <Link href="https://ouroboros.bot/approach/">How I work</Link>, and how it started in <Link href="https://ouroboros.bot/blog/stop-being-the-glue/">Stop being the glue</Link>.
           </p>
         </div>
       </div>
