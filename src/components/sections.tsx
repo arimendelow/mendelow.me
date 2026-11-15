@@ -73,6 +73,7 @@ const ouroTools = [
   { href: "https://ouroboros.bot/#desk", art: "desk-render", name: "Desk", summary: "Where agents keep their work, with Crew for teams" },
   { href: "https://ouroboros.bot/#ouro-md", art: "ouro-md-icon", name: "Ouro MD", summary: "A Mac Markdown editor for reading what agents write" },
   { href: "https://ouroboros.bot/#ouro-ui", art: "ouro-hx-render", name: "Ouro HX", summary: "Components for humans and the agents building with them, ready to use today" },
+  { href: "https://ouroboros.bot/#m365crawl", art: "m365crawl-render", name: "m365crawl", summary: "Teams chats, mail, and meetings in one archive agents can search" },
   { href: "https://ouroboros.bot/#shepherd", art: "shepherd-render", name: "Ouro Shepherd", summary: "Keeps agents on task" },
   { href: "https://ouroboros.bot/#butler", art: "butler-render", name: "Ouro Butler", summary: "Looks after a home server" },
   { href: "https://ouroboros.bot/#friends", art: "friends-render", name: "Friends", summary: "Who agents know, and how they reach each other" },
