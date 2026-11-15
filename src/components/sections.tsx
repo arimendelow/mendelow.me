@@ -57,10 +57,10 @@ export function Now() {
         </h2>
         <div className="prose">
           <p>
-            I'm a Senior Software Engineer, and much of my work starts before any code: listening to customers describe how their work is actually changing. That habit goes back to <Link href="https://www.nsf.gov/funding/initiatives/i-corps">NSF I-Corps</Link> with <Link href="#sulis">Sulis</Link>, my solar water-sanitization startup: ask for specific stories about what already happened, don't put words in anyone's mouth, and keep digging past the first answer.
+            I'm a founding member of Microsoft's Customer Innovation Team, and most of my work starts before any code: sitting with the builders, product owners, and collaborators at our customers, and listening to how their work is actually changing now that agents are part of it. That habit goes back to <Link href="https://www.nsf.gov/funding/initiatives/i-corps">NSF I-Corps</Link> with <Link href="#sulis">Sulis</Link>, my solar water-sanitization startup: ask for specific stories about what already happened, don't put words in anyone's mouth, and keep digging past the first answer.
           </p>
           <p>
-            As agents take on more of the work, I spend a lot of time figuring out how to help them stay oriented, organize the work around them, and measure whether the new way of working is better. I share how I do it in <Link href="https://ouroboros.bot/approach/">How I work</Link>, and how it started in <Link href="https://ouroboros.bot/blog/stop-being-the-glue/">Stop being the glue</Link>.
+            The rest is building for agents: helping them stay oriented, organizing the work around them, and measuring whether the new way of working is better. I run my own work that way every day, on <Link href="https://ouroboros.bot/desk/">Desk</Link>, and my team runs on Crew, its shared version. I share how I do it in <Link href="https://ouroboros.bot/approach/">How I work</Link>, and how it started in <Link href="https://ouroboros.bot/blog/stop-being-the-glue/">Stop being the glue</Link>.
           </p>
         </div>
       </div>
