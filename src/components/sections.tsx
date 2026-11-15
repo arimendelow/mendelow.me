@@ -285,11 +285,27 @@ export function Earlier() {
   );
 }
 
-function Shot({ src, width, height, alt, caption, inset = false }: { src: string; width: number; height: number; alt: string; caption: ReactNode; inset?: boolean }) {
+type PhoneCrop = { src: string; width: number; height: number; why: string };
+
+// A capture too wide to read in a phone's column can name a phone crop: below 640px the figure shows that crop instead,
+// at a size its words read.
+function Shot({ src, width, height, alt, caption, inset = false, phone }: { src: string; width: number; height: number; alt: string; caption: ReactNode; inset?: boolean; phone?: PhoneCrop }) {
+  const img = <img src={src} width={width} height={height} loading="lazy" decoding="async" alt={alt} />;
   return (
     <figure className="card-figure beat-figure">
-      <div className={`card-media media-natural media-white${inset ? " media-inset" : ""}`}>
-        <img src={src} width={width} height={height} loading="lazy" decoding="async" alt={alt} />
+      <div
+        className={`card-media media-natural media-white${inset ? " media-inset" : ""}${phone ? " media-phone-crop" : ""}`}
+        data-ouro-allow={phone ? "blurry-image" : undefined}
+        data-ouro-allow-why={phone?.why}
+      >
+        {phone ? (
+          <picture>
+            <source media="(max-width: 639.98px)" srcSet={phone.src} width={phone.width} height={phone.height} />
+            {img}
+          </picture>
+        ) : (
+          img
+        )}
       </div>
       <figcaption className="card-caption">{caption}</figcaption>
     </figure>
@@ -354,6 +370,12 @@ export function SpoonjoyStory() {
                 width={1280}
                 height={363}
                 inset
+                phone={{
+                  src: "/assets/spoonjoy-2023-redwood-cookbook-phone.webp",
+                  width: 453,
+                  height: 363,
+                  why: "On a phone the 1280px strip drew its words about 3px tall, so the phone gets the cookbook's title and first card from the same 1x capture, drawn larger than its pixels so they read. There is no sharper capture of the 2023 app.",
+                }}
                 alt="A sample Spoonjoy cookbook in the 2023 Redwood version, called Weeknight dinners, with cards for mushroom risotto, shakshuka, and yummy pizza."
                 caption="The 2023 Redwood version, booted back up with a sample cookbook. Its cards were built around food photos, so soft color washes are standing in."
               />
