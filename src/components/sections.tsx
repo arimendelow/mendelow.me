@@ -24,19 +24,11 @@ export function Hero() {
         <div className="hero-copy">
           <div className="hero-title">
             <p className="eyebrow">Hello!! I'm Ari.</p>
-            <h1 id="hero-heading">I build products that help humans and agents do more together.</h1>
+            <h1 id="hero-heading">I work with agents every day, and build what they need.</h1>
           </div>
           <p className="hero-sub">
-            As a founding member of Microsoft's Customer Innovation Team, I'm working with customers to explore how that collaboration reshapes their work, and what <Link href="https://teams.microsoft.com">Microsoft Teams</Link> needs to become. Outside work, I take the same questions further with <Link href="https://ouroboros.bot/">Ouro</Link>, <Link href="https://ui.ouroboros.bot/">Ouro UI</Link> and <Link href="https://ouroboros.bot/#spoonjoy">Spoonjoy</Link>.
+            On Microsoft's Customer Innovation Team, I work with the people at our customers who are building with agents: how their work is really changing, and what <Link href="https://teams.microsoft.com">Microsoft Teams</Link> needs to become for it. My team runs on Crew, the shared workspace I built for us and our agents. Outside work, I keep going with <Link href="https://ouroboros.bot/">Ouro</Link>, my open-source workshop, and <Link href="https://spoonjoy.app">Spoonjoy</Link>, my recipe app.
           </p>
-          <div className="cta-row hero-cta">
-            <Button href="#work" size="lg">
-              See the work
-            </Button>
-            <Button href="#contact" size="lg" variant="outline" tone="secondary">
-              Say hello
-            </Button>
-          </div>
         </div>
         <figure className="hero-pic">
           <img
