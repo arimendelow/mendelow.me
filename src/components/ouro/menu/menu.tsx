@@ -730,6 +730,7 @@ export function Menu(props: MenuProps): JSX.Element {
         <ContextMenu.Trigger
           render={contextTrigger}
           className={menuContextTriggerClass}
+          {...holdPageAtPress.contextMenu}
           // Base UI turns the callout off for good; Ouro UI turns it off only while pressing.
           style={{ WebkitTouchCallout: undefined }}
           onTouchStart={pressing(true)}
@@ -747,17 +748,42 @@ export function Menu(props: MenuProps): JSX.Element {
     // A MenuBar's menu takes no `modal` (Base UI warns): the bar decides.
     <BaseMenu.Root {...control} actionsRef={actions} modal={label === undefined ? sheet || modal : undefined}>
       {label !== undefined ? (
-        <BaseMenu.Trigger data-ouro-control="menu" data-ouro-part="bar-trigger" className={menuBarTriggerClass}>
+        <BaseMenu.Trigger data-ouro-control="menu" data-ouro-part="bar-trigger" className={menuBarTriggerClass} {...holdPageAtPress.listButton}>
           {label}
         </BaseMenu.Trigger>
       ) : (
         <BaseMenu.Trigger ref={triggerRef} render={trigger} {...holdPageAtPress.listButton} />
       )}
-      <MenuSurface sheet={sheet} context={false} side={side} align={align} className={className} closeLabel={closeLabel}>
+      <MenuSurface
+        sheet={sheet}
+        context={false}
+        side={side}
+        align={align}
+        className={className}
+        closeLabel={closeLabel}
+        finalFocus={backToTrigger}
+      >
         {body}
       </MenuSurface>
     </BaseMenu.Root>
   );
+}
+
+/**
+ * Where a dropdown, or a menubar's menu, gives focus as it leaves the page: back to its trigger, as Base UI does, unless
+ * focus has gone on elsewhere or another menu has opened while it closed. That menu closes when
+ * focus lands outside it, so a press on its trigger, which takes no focus in Safari, would open it
+ * only for this one's focus return to close it again.
+ *
+ * @claim "That menu closes when focus lands outside it, so a press on its trigger, which takes no focus in Safari, would open it only for this one's focus return to close it again." registry/ouro/components/ouro/menu/menu.test.tsx verify:testExists(registry/ouro/components/ouro/menu/menu.test.tsx::Menu modal > leaves a menu that opened while another closed open, when the closing one would give focus back to its trigger)
+ * @claim "back to its trigger, as Base UI does, unless focus has gone on elsewhere" registry/ouro/components/ouro/menu/menu.test.tsx verify:testExists(registry/ouro/components/ouro/menu/menu.test.tsx::Menu modal > gives focus back to its trigger when a press on the page's blank space closes it, and leaves focus that moved on)
+ */
+function backToTrigger(): boolean {
+  if (document.querySelector('[data-ouro="menu"][data-open]') !== null) return false;
+  // The body when nothing has focus: null only in a document with no body, which a menu's page always has.
+  const active = document.activeElement!;
+  // Stryker disable next-line ConditionalExpression: React takes the popup out of the page before Base UI asks, so focus that was in it is on the body by then; this keeps a popup still in the page returning focus too.
+  return active === document.body || active.closest('[data-ouro="menu"]') !== null;
 }
 
 /**

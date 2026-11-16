@@ -39,6 +39,8 @@ export function Hero() {
             width="1200"
             height="1648"
             alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge."
+            data-ouro-allow="dark-art"
+            data-ouro-allow-why="This is a photograph of a person, which has no dark version, so the same photo shows in both themes."
             loading="eager"
             fetchPriority="high"
           />
@@ -249,7 +251,7 @@ export function Earlier() {
               I cofounded Sulis as its Chief Design Officer, working across branding, CAD, manufacturing, and product design for a solar water-sanitization device. It was for communities in India that had water, just not clean water, and designed so nobody had to change their habits. I pitched it in competitions and funding meetings: we <Link href="https://www.rutgers.edu/news/rutgers-teams-advance-hult-prize-competition-after-regional-victories">won the 2018 Hult Prize Boston Regional</Link>, went through its <Link href="https://honorscollege.rutgers.edu/features/team-sulis-shares-india-pilot-progress-and-finishes-first-week-hult-prize-accelerator-program">accelerator in the UK</Link>, and raised $45k. The work took us to <Link href="https://honorscollege.rutgers.edu/features/team-sulis-shares-india-pilot-progress-and-finishes-first-week-hult-prize-accelerator-program">India for customer discovery and prototype testing</Link>, and eventually to {patent}, which I'm a co-inventor on.
             </p>
             <figure className="card-figure earlier-figure">
-              <div className="card-media media-natural media-white">
+              <div className="card-media media-natural media-white" data-ouro-allow="dark-miss" data-ouro-allow-why={WHITE_BACKDROP_WHY}>
                 <img src="/assets/sulis.png" width="1200" height="495" loading="lazy" decoding="async" alt="A render of the Sulis solar water-sanitization device beside line drawings from its US patent." />
               </div>
               <figcaption className="card-caption">The Sulis device twice over: in CAD, and in the drawings of {patent}.</figcaption>
@@ -265,7 +267,7 @@ export function Earlier() {
               That led the Core Team to invite me to join them. On the team I moderated the community, shipped the <Link href="https://github.com/redwoodjs/graphql/pull/10064">framework package that moved Storybook onto Vite</Link> in <Link href="https://community.redwoodjs.com/t/storybook-in-redwood-is-moving-to-vite/7212">version 7.7</Link>, and built a <Link href="https://github.com/spoonjoy/redwoodjs-dbauth-oauth">dbAuth OAuth plugin</Link>. The moderation is the part I point to first. Keeping other builders unstuck in the forum is its own kind of product work. Redwood has since <Link href="https://community.redwoodjs.com/t/the-future-of-redwood-launches-today/7938">wound down</Link>.
             </p>
             <figure className="card-figure earlier-figure">
-              <div className="card-media media-natural media-white">
+              <div className="card-media media-natural media-white" data-ouro-allow="dark-miss" data-ouro-allow-why={WHITE_BACKDROP_WHY}>
                 <img src="/assets/redwoodjs-homepage.webp" width="1200" height="600" loading="lazy" decoding="async" alt="The original RedwoodJS homepage: 'The JS App Framework for Startups' beside the Redwood logo, with buttons to start the tutorial and read the docs." />
               </div>
               <figcaption className="card-caption">
@@ -279,7 +281,10 @@ export function Earlier() {
   );
 }
 
-type PhoneCrop = { src: string; width: number; height: number; why: string };
+type PhoneCrop = { src: string; width: number; height: number };
+
+// The white backdrop a light-theme capture is drawn on. Dark mode dims these pictures rather than repainting the backdrop.
+const WHITE_BACKDROP_WHY = "These captures were drawn on a white backdrop, which dark mode dims with the picture rather than repainting.";
 
 // A capture too wide to read in a phone's column can name a phone crop: below 640px the figure shows that crop instead,
 // at a size its words read.
@@ -289,8 +294,8 @@ function Shot({ src, width, height, alt, caption, inset = false, phone }: { src:
     <figure className="card-figure beat-figure">
       <div
         className={`card-media media-natural media-white${inset ? " media-inset" : ""}${phone ? " media-phone-crop" : ""}`}
-        data-ouro-allow={phone ? "blurry-image" : undefined}
-        data-ouro-allow-why={phone?.why}
+        data-ouro-allow="dark-miss"
+        data-ouro-allow-why={WHITE_BACKDROP_WHY}
       >
         {phone ? (
           <picture>
@@ -368,7 +373,6 @@ export function SpoonjoyStory() {
                   src: "/assets/spoonjoy-2023-redwood-cookbook-phone.webp",
                   width: 453,
                   height: 363,
-                  why: "On a phone the 1280px strip drew its words about 3px tall, so the phone gets the cookbook's title and first card from the same 1x capture, drawn larger than its pixels so they read. There is no sharper capture of the 2023 app.",
                 }}
                 alt="A sample Spoonjoy cookbook in the 2023 Redwood version, called Weeknight dinners, with cards for mushroom risotto, shakshuka, and yummy pizza."
                 caption="The 2023 Redwood version, booted back up with a sample cookbook. Its cards were built around food photos, so soft color washes are standing in."

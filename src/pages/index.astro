@@ -64,6 +64,14 @@ const jsonLd = {
   <Contact />
 
   <Fragment slot="end">
-    <!-- Cloudflare Web Analytics --><script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dbc5c3f489694cfd8a3eb868154c414a"}'></script><!-- End Cloudflare Web Analytics -->
+    <!-- Cloudflare Web Analytics, loaded only on the live site, so local and CI builds make no request to Cloudflare. -->
+    <script is:inline>
+      if (location.hostname === "mendelow.me") {
+        const beacon = document.createElement("script");
+        beacon.src = "https://static.cloudflareinsights.com/beacon.min.js";
+        beacon.dataset.cfBeacon = '{"token": "dbc5c3f489694cfd8a3eb868154c414a"}';
+        document.body.append(beacon);
+      }
+    </script>
   </Fragment>
 </Base>
