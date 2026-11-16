@@ -1,4 +1,4 @@
-export { ALIASES, boxOf, decodeImages, isReady, listAllowances, listenForReady, outline, runAxe };
+export { ALIASES, behindModal, boxOf, decodeImages, isReady, listAllowances, listenForReady, outline, runAxe };
 export type { Allowance, AxeIssue, Box };
 
 import type { PageIssue } from "./size-check.ts";
@@ -27,7 +27,7 @@ const ALIASES: Record<string, string> = {
   "data-long-lines-ok": "long-lines",
   "data-clip-ok": "clipped-text",
   "data-scroll-x": "sideways-scroll",
-  "data-size-ignore": "sideways-scroll clipped-text long-lines blurry-image",
+  "data-size-ignore": "sideways-scroll clipped-text long-lines stretched-image",
   "data-image-fade-ok": "image-fade",
 };
 
@@ -66,6 +66,18 @@ async function decodeImages(): Promise<void> {
   await Promise.race([Promise.all([...document.images].map((img) => img.decode().catch(() => undefined))), new Promise((done) => setTimeout(done, 3000))]);
 }
 
+// The refs, of those given, whose every marked element sits outside an open modal ([aria-modal="true"] or a modal
+// <dialog>) while one is open: the page behind a modal, which a person can't reach until it closes, and which the
+// page's own run checks as it is then. None while no modal is open, or for a ref that marks nothing.
+function behindModal(refs: string[]): string[] {
+  const modals = [...document.querySelectorAll('[aria-modal="true"], dialog:modal')].filter((m) => m.getClientRects().length);
+  if (!modals.length) return [];
+  return refs.filter((ref) => {
+    const els = [...document.querySelectorAll(`[data-ouro-check-ref~="${ref}"]`)];
+    return els.length > 0 && els.every((el) => !modals.some((m) => m.contains(el) || el.contains(m)));
+  });
+}
+
 // The box, in page coordinates and padded, around the elements a finding marked, scrolled into view; the screen when it
 // marked none, or marked only the page itself.
 function boxOf({ ref, width, height }: { ref: string; width: number; height: number }): Box {
@@ -91,7 +103,9 @@ function outline({ ref, on }: { ref: string; on: boolean }): void {
 }
 
 // Runs axe-core (already on window.axe) and returns its serious and critical violations, one per rule, the first
-// element it names marked for the close-up. Elements with data-ouro-allow="axe" and a reason are left out.
+// element it names marked for the close-up. Elements with data-ouro-allow="axe" and a reason are left out, and so are
+// Base UI's focus guards, as Ouro's axe kit leaves them out (axeExclude): visually hidden spans that hand focus on the
+// moment they get it, aria-hidden so a screen reader skips them, and a button for VoiceOver in WebKit.
 async function runAxe(): Promise<AxeIssue[]> {
   const axe = (window as unknown as { axe: { run: (context: unknown, options: unknown) => Promise<{ violations: AxeResult[] }> } }).axe;
   // The elements that opt out, read with their reasons trimmed (a reason of spaces is none), never rewritten.
@@ -99,6 +113,7 @@ async function runAxe(): Promise<AxeIssue[]> {
     const rules = el.getAttribute("data-ouro-allow")!.trim().split(/\s+/);
     return (rules.includes("axe") || rules.includes("all")) && (el.getAttribute("data-ouro-allow-why") ?? "").trim();
   });
+  exclude.push(...document.querySelectorAll("[data-base-ui-focus-guard]"));
   const { violations } = await axe.run({ exclude }, { resultTypes: ["violations"] });
   const counter = window as unknown as { __ouroCheckRef?: number };
   return violations
@@ -123,7 +138,9 @@ function listAllowances(aliases: Record<string, string>): Allowance[] {
   const found: Allowance[] = [];
   for (const el of document.querySelectorAll("[data-ouro-allow][data-ouro-allow-why]")) {
     const reason = el.getAttribute("data-ouro-allow-why")!.trim();
-    if (reason) found.push({ rules: el.getAttribute("data-ouro-allow")!, element: describe(el), reason });
+    // blurry-image is never allowed, so naming it allows nothing: the size check reports the attempt instead.
+    const rules = el.getAttribute("data-ouro-allow")!.split(/\s+/).filter((rule) => rule && rule !== "blurry-image").join(" ");
+    if (reason && rules) found.push({ rules, element: describe(el), reason });
   }
   for (const [name, rules] of Object.entries(aliases)) {
     for (const el of document.querySelectorAll(`[${name}]`)) {
