@@ -38,7 +38,7 @@ p, li, figcaption { text-wrap: pretty; }
 .section { padding: 3.5rem 0; border-top: 1px solid var(--border); }
 @media (min-width: 768px) { .section { padding: 6rem 0; } }
 
-.heading-section { font-size: 2.25rem; line-height: 1.02; letter-spacing: -0.015em; margin: 0; color: var(--foreground); }
+.heading-section { font-size: 2.25rem; line-height: 1.02; letter-spacing: -0.015em; margin: 0; color: var(--foreground); text-wrap: balance; }
 @media (min-width: 768px) { .heading-section { font-size: 3rem; } }
 @media (min-width: 1024px) { .heading-section { font-size: 4rem; } }
 .dek { color: var(--muted-foreground); font-size: 1.25rem; margin: 1.1rem 0 0; }
@@ -211,8 +211,8 @@ html:not(.js) .showcase-work { display: none; }
 
 /* Spoonjoy: the recipe capture, cut to the card's shape, fills its frame from the top. */
 #spoonjoy .card-media { aspect-ratio: 6 / 5; background: #fbf9f4; }
-/* In dark, the capture and its mat dim together, as the other screenshots do. */
-.dark #spoonjoy .card-media { filter: brightness(0.88); }
+/* In dark, the capture and its mat dim together, as the other screenshots do; the mat takes the dark card color. */
+.dark #spoonjoy .card-media { filter: brightness(0.88); background: var(--card); }
 /* The capture fills its column. On a sharp screen it is never shown wider than its 1440px file holds at 2x; a 1x
    screen, such as most 4K displays, shows it at up to its full width. */
 #spoonjoy .card-figure { width: min(100%, 1440px); }
