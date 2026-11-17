@@ -35,18 +35,18 @@ p, li, figcaption { text-wrap: pretty; }
 .wrap { width: 100%; max-width: calc(var(--maxw) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
 
 /* ── Section ── */
-.section { padding: 3.5rem 0; border-top: 1px solid var(--border); }
-@media (min-width: 768px) { .section { padding: 6rem 0; } }
+.section { padding: calc(var(--spacing) * 14) 0; border-top: 1px solid var(--border); }
+@media (min-width: 768px) { .section { padding: calc(var(--spacing) * 24) 0; } }
 
 .heading-section { font-size: 2.25rem; line-height: 1.02; letter-spacing: -0.015em; margin: 0; color: var(--foreground); text-wrap: balance; }
 @media (min-width: 768px) { .heading-section { font-size: 3rem; } }
 @media (min-width: 1024px) { .heading-section { font-size: 4rem; } }
-.dek { color: var(--muted-foreground); font-size: 1.25rem; margin: 1.1rem 0 0; }
+.dek { color: var(--muted-foreground); font-size: 1.25rem; margin: calc(var(--spacing) * 4) 0 0; }
 
-.prose { margin-top: 2rem; }
+.prose { margin-top: calc(var(--spacing) * 8); }
 /* A stacked section: the heading, then its text under it at the full width of the page. */
-.stack > .heading-section + * { margin-top: 1.5rem; }
-.prose p { font-size: 1.25rem; margin: 0 0 1.1rem; color: var(--ink-soft); }
+.stack > .heading-section + * { margin-top: calc(var(--spacing) * 6); }
+.prose p { font-size: 1.25rem; margin: 0 0 calc(var(--spacing) * 4); color: var(--ink-soft); }
 .prose p:last-child { margin-bottom: 0; }
 
 /* ── Reading order: every section reads top to bottom ──
@@ -55,12 +55,12 @@ p, li, figcaption { text-wrap: pretty; }
    the RAPID photo and video. */
 
 /* ── Hero ── */
-.hero { padding: 1.75rem 0 2.75rem; }
-@media (min-width: 768px) { .hero { padding: 4rem 0 3.5rem; } }
+.hero { padding: calc(var(--spacing) * 7) 0 calc(var(--spacing) * 11); }
+@media (min-width: 768px) { .hero { padding: calc(var(--spacing) * 16) 0 calc(var(--spacing) * 14); } }
 /* On a phone the photo leads, full width and cropped wide around the face, and the text stacks centered under
    it. From 768px the copy is one block beside a portrait-shaped photo. Shared with ouroboros.bot's hero. */
 .hero-grid {
-  display: grid; gap: 1.5rem;
+  display: grid; gap: calc(var(--spacing) * 6);
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas: "pic" "title" "sub";
   text-align: center;
@@ -72,8 +72,8 @@ p, li, figcaption { text-wrap: pretty; }
 .hero-pic { grid-area: pic; margin: 0 auto; width: min(100%, 600px); }
 .hero-pic .portrait-img { aspect-ratio: 3 / 2; object-position: 50% 26%; }
 @media (min-width: 768px) {
-  .hero-grid { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "copy pic"; column-gap: 3rem; align-items: center; text-align: left; }
-  .hero-copy { display: grid; gap: 1.5rem; grid-area: copy; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "copy pic"; column-gap: calc(var(--spacing) * 12); align-items: center; text-align: left; }
+  .hero-copy { display: grid; gap: calc(var(--spacing) * 6); grid-area: copy; }
   .hero-copy > .hero-title, .hero-copy > .hero-sub { grid-area: auto; }
   .hero-sub { font-size: 1.5rem; }
   .hero-pic { width: 12rem; }
@@ -81,7 +81,7 @@ p, li, figcaption { text-wrap: pretty; }
 }
 @media (min-width: 1024px) { .hero-pic { width: 17rem; } }
 @media (min-width: 1240px) { .hero-pic { width: 21rem; } }
-.eyebrow { font-family: var(--font-heading); color: var(--primary); font-size: 1.5rem; line-height: 1.2; margin: 0 0 0.5rem; }
+.eyebrow { font-family: var(--font-heading); color: var(--primary); font-size: 1.5rem; line-height: 1.2; margin: 0 0 calc(var(--spacing) * 2); }
 @media (min-width: 768px) { .eyebrow { font-size: 1.75rem; } }
 /* The page's one h1 is never smaller than the section headings under it (3rem from 768px, 4rem from 1024px).
    Every text size on the page is one of nine steps: 0.875, 1, 1.125, 1.25, 1.5, 1.75, 2.25, 3 and 4rem. */
@@ -89,15 +89,15 @@ p, li, figcaption { text-wrap: pretty; }
 @media (min-width: 640px) { .hero h1 { font-size: 3rem; } }
 @media (min-width: 1024px) { .hero h1 { font-size: 4rem; } }
 /* A hero without a grid (the 404 page). */
-.hero-solo > .hero-title + *, .hero-solo > .hero-sub + * { margin-top: 1.5rem; }
-.portrait-img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 1rem; border: 1px solid var(--border); }
+.hero-solo > .hero-title + *, .hero-solo > .hero-sub + * { margin-top: calc(var(--spacing) * 6); }
+.portrait-img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius-xl); border: 1px solid var(--border); }
 
-.cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.cta-row { display: flex; gap: calc(var(--spacing) * 3); flex-wrap: wrap; }
 
 /* ── Cards: open sections, not boxes; each piece of work sits under a rule ── */
-.cards { display: grid; gap: 3rem; margin-top: 2.5rem; }
-@media (min-width: 768px) { .cards { margin-top: 3rem; } }
-.card { display: grid; gap: 1rem; align-content: start; padding: 2rem 0 0; border-top: 1px solid var(--border); min-width: 0; }
+.cards { display: grid; gap: calc(var(--spacing) * 12); margin-top: calc(var(--spacing) * 10); }
+@media (min-width: 768px) { .cards { margin-top: calc(var(--spacing) * 12); } }
+.card { display: grid; gap: calc(var(--spacing) * 4); align-content: start; padding: calc(var(--spacing) * 8) 0 0; border-top: 1px solid var(--border); min-width: 0; }
 /* From 1024px a split card puts its picture beside its text. */
 @media (min-width: 1024px) {
   .card-split { grid-template-columns: var(--split-cols-wide); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); }
@@ -105,34 +105,34 @@ p, li, figcaption { text-wrap: pretty; }
   .card-split > :not(.card-figure) { grid-column: 2; }
 }
 /* A picture ends on a hard edge: a rounded frame with a rule, never a fade. */
-.card-figure { margin: 0 0 0.25rem; border-radius: 0.9rem; overflow: hidden; border: 1px solid var(--border); background: var(--card); }
+.card-figure { margin: 0 0 calc(var(--spacing) * 1); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); background: var(--card); }
 .card-media img { width: 100%; height: 100%; object-fit: cover; }
 .card-media.media-natural img { height: auto; }
 .card-media.media-white { background: #ffffff; }
 .dark .card-media.media-white img { filter: brightness(0.88); }
 /* A capture cropped close to its own rounded cards sits on a white mat, so the frame's curve never meets theirs. At
    night the mat dims with the picture's white. */
-.card-media.media-inset { padding: 0 1rem 1rem; }
+.card-media.media-inset { padding: 0 calc(var(--spacing) * 4) calc(var(--spacing) * 4); }
 .dark .card-media.media-inset { background: #e0e0e0; }
 .card-media picture { display: block; }
 /* A phone crop keeps its own white margins, so its mat drops the side padding and the words get the column's width. */
-@media (max-width: 639.98px) { .card-media.media-inset.media-phone-crop { padding: 0 0 0.5rem; } }
-.card-caption { margin: 0; padding: 0.6rem 0.9rem; font-size: 0.875rem; color: var(--muted-foreground); background: var(--background); border-top: 1px solid var(--border); }
+@media (max-width: 639.98px) { .card-media.media-inset.media-phone-crop { padding: 0 0 calc(var(--spacing) * 2); } }
+.card-caption { margin: 0; padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4); font-size: 0.875rem; color: var(--muted-foreground); background: var(--background); border-top: 1px solid var(--border); }
 .card-title { font-size: 1.75rem; line-height: 1.05; margin: 0; color: var(--foreground); }
 @media (min-width: 768px) { .card-title { font-size: 2.25rem; } }
-.card-title-mark { display: flex; align-items: center; gap: 0.75rem; }
+.card-title-mark { display: flex; align-items: center; gap: calc(var(--spacing) * 3); }
 .card-title-mark img, .card-title-mark svg { display: block; flex: none; width: 2.5rem; height: 2.5rem; object-fit: contain; }
 .card-body { margin: 0; color: var(--ink-soft); }
 .card-body > p { margin: 0; }
-.card-body > p + p { margin-top: 0.9rem; }
-.card-links { display: flex; gap: 0.25rem 1.5rem; flex-wrap: wrap; align-items: center; font-weight: 500; margin: 0.25rem 0 0; }
+.card-body > p + p { margin-top: calc(var(--spacing) * 4); }
+.card-links { display: flex; gap: calc(var(--spacing) * 1) calc(var(--spacing) * 6); flex-wrap: wrap; align-items: center; font-weight: 500; margin: calc(var(--spacing) * 1) 0 0; }
 
 /* Ouro UI leads the work, with a pot of tea to make from live Ouro HX components: an invitation, then one stage. The
    cups are a Carousel of teas; beside them (under them on a phone) the steps to drag into order, Brew, and what came
    of it. On the page itself, no frame round the cups. */
-.showcase-figure { margin: 0.5rem 0 0.25rem; display: grid; gap: 1.25rem; }
+.showcase-figure { margin: calc(var(--spacing) * 2) 0 calc(var(--spacing) * 1); display: grid; gap: calc(var(--spacing) * 5); }
 /* The invitation, then its link, which wraps to a line of its own rather than stretch a line with its touch target. */
-.showcase-caption { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 0.75rem; color: var(--ink-soft); font-size: 1rem; }
+.showcase-caption { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 calc(var(--spacing) * 3); color: var(--ink-soft); font-size: 1rem; }
 html:not(.js) .when-script, html.js .when-no-script { display: none; }
 /* Without script nothing can be swiped, dragged or brewed, so only the first tea's cups show. */
 html:not(.js) .showcase-work { display: none; }
@@ -140,7 +140,7 @@ html:not(.js) .showcase-work { display: none; }
   /* Porcelain in both themes: warm white by day, a softer bone at night, lit from the left. */
   --porcelain-hi: #fffdf8; --porcelain-lo: #eee6d8; --porcelain-shade: #d8ccb8; --porcelain-edge: #c7bba6;
   --porcelain-band: color-mix(in oklab, var(--primary) 70%, transparent); --steam: rgb(120 108 92 / 0.55); --shadow: rgb(70 50 25 / 0.16);
-  display: grid; gap: 2rem 4rem; grid-template-columns: minmax(0, 1fr); align-items: center;
+  display: grid; gap: calc(var(--spacing) * 8) calc(var(--spacing) * 16); grid-template-columns: minmax(0, 1fr); align-items: center;
 }
 .dark .showcase { --porcelain-hi: #efe9dd; --porcelain-lo: #cbc2b2; --porcelain-shade: #9f9586; --porcelain-edge: #8a8274; --steam: rgb(236 230 218 / 0.5); --shadow: rgb(0 0 0 / 0.5); }
 @media (prefers-color-scheme: dark) { html:not(.js) .showcase { --porcelain-hi: #efe9dd; --porcelain-lo: #cbc2b2; --porcelain-shade: #9f9586; --porcelain-edge: #8a8274; --steam: rgb(236 230 218 / 0.5); --shadow: rgb(0 0 0 / 0.5); } }
@@ -164,8 +164,8 @@ html:not(.js) .showcase-work { display: none; }
 /* The stage: the cups are the Carousel's slides, as large as their space allows, each tea's name under its cups. When
    the tea is ready, Celebrate bursts across the whole stage, not from a chip. */
 .showcase-stage { position: relative; min-width: 0; }
-.showcase-slide { display: grid; justify-items: center; gap: 0.25rem; padding: 0.5rem 0 0.25rem; text-align: center; }
-.showcase-cups { position: relative; display: flex; justify-content: center; align-items: flex-end; gap: 0.25rem; width: 100%; margin-bottom: 0.75rem; }
+.showcase-slide { display: grid; justify-items: center; gap: calc(var(--spacing) * 1); padding: calc(var(--spacing) * 2) 0 calc(var(--spacing) * 1); text-align: center; }
+.showcase-cups { position: relative; display: flex; justify-content: center; align-items: flex-end; gap: calc(var(--spacing) * 1); width: 100%; margin-bottom: calc(var(--spacing) * 3); }
 .showcase-cup { flex: 0 1 17rem; min-width: 0; height: auto; overflow: visible; }
 .showcase-tea-name { margin: 0; font-family: var(--font-heading); font-size: 1.75rem; line-height: 1.1; color: var(--foreground); }
 .showcase-tea-line { margin: 0; font-size: 1rem; color: var(--muted-foreground); }
@@ -175,14 +175,14 @@ html:not(.js) .showcase-work { display: none; }
 @media (min-width: 48rem) { .showcase-tea-name.showcase-ready { font-size: 3rem; } }
 
 /* Where you act: what to do (or what came of it), the steps, and Brew. */
-.showcase-work { display: grid; gap: 1rem; min-width: 0; }
+.showcase-work { display: grid; gap: calc(var(--spacing) * 4); min-width: 0; }
 .showcase-hint { margin: 0; min-height: 3.3rem; font-size: 1rem; line-height: 1.6rem; color: var(--ink-soft); }
 .showcase-off { font-weight: 600; color: var(--foreground); }
-.showcase-brew { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin-top: 0.25rem; }
+.showcase-brew { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--spacing) * 2) calc(var(--spacing) * 4); margin-top: calc(var(--spacing) * 1); }
 .showcase-doing { margin: 0; font-size: 1rem; color: var(--muted-foreground); }
 .showcase-tick circle { fill: var(--primary); }
 .showcase-tick path { stroke: var(--primary-foreground); }
-.showcase-now { display: block; width: 0.75rem; height: 0.75rem; margin-inline: 0.3rem; border-radius: 50%; background: var(--primary); }
+.showcase-now { display: block; width: 0.75rem; height: 0.75rem; margin-inline: calc(var(--spacing) * 1); border-radius: 50%; background: var(--primary); }
 
 @media (prefers-reduced-motion: no-preference) {
   /* The tea is poured: it rises from the bottom of the cup. Calm, no bounce. */
@@ -224,33 +224,33 @@ html:not(.js) .showcase-work { display: none; }
 .ouro-tools { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
 /* ── Timeline ── */
-.story-grid { display: grid; gap: 2.5rem; }
+.story-grid { display: grid; gap: calc(var(--spacing) * 10); }
 /* The supper scene sits between the story's intro and its timeline. On a sharp screen it is never wider than its
    1536px master holds: its own width at 1x and half of it at 2x; in dark it dims with its mat, like the Spoonjoy capture. */
 .story-art { margin: 0; width: min(100%, 1536px); }
 @media (min-resolution: 2dppx) { .story-art { width: min(100%, 768px); } }
 .story-art img { width: 100%; aspect-ratio: 3 / 2; }
 .dark .story-art img { filter: brightness(0.88); }
-.story-link { margin: 2rem 0 0; padding-left: calc(7px + 1.75rem); }
-.timeline { list-style: none; margin: 0; padding: 0 0 0 7px; }
-.beat { position: relative; padding: 0 0 2rem 1.75rem; border-left: 2px solid color-mix(in srgb, var(--primary) 45%, transparent); }
+.story-link { margin: calc(var(--spacing) * 8) 0 0; padding-left: calc(var(--spacing) * 9); }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 calc(var(--spacing) * 2); }
+.beat { position: relative; padding: 0 0 calc(var(--spacing) * 8) calc(var(--spacing) * 7); border-left: 2px solid color-mix(in srgb, var(--primary) 45%, transparent); }
 .beat:last-child { padding-bottom: 0; border-left-color: transparent; }
 .beat::before { content: ""; position: absolute; left: -7px; top: 0.6rem; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); }
-.beat-when { font-size: 1.5rem; margin: 0 0 0.35rem; color: var(--foreground); }
+.beat-when { font-size: 1.5rem; margin: 0 0 calc(var(--spacing) * 1); color: var(--foreground); }
 .beat p { margin: 0; color: var(--ink-soft); }
 /* Each era of Spoonjoy shows its own screen, running again from its old code. */
-.beat-figure { margin: 1rem 0 0; width: min(100%, 44rem); }
+.beat-figure { margin: calc(var(--spacing) * 4) 0 0; width: min(100%, 44rem); }
 /* On a sharp screen a picture is never shown wider than its pixels hold at 2x: the timeline's 1280px captures at
    640px, Sulis and the RedwoodJS homepage (1200px) at 600px. A 1x screen, such as most 4K displays, shows them at
    the full 44rem. */
 @media (min-resolution: 2dppx) { .beat-figure { width: min(100%, 640px); } }
 
 /* ── About ── */
-.about-media { display: grid; gap: 1.5rem; margin-top: 2.5rem; align-items: start; }
+.about-media { display: grid; gap: calc(var(--spacing) * 6); margin-top: calc(var(--spacing) * 10); align-items: start; }
 @media (min-width: 768px) { .about-media { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
 .about-figure { margin: 0; }
 .about-figure img, .video-poster { aspect-ratio: 16 / 9; object-fit: cover; }
-.figure-links { margin-top: 1.5rem; }
+.figure-links { margin-top: calc(var(--spacing) * 6); }
 /* On a desktop the RAPID story sits beside its photo and video, stacked, with the RAPID links under them. */
 @media (min-width: 1024px) {
   .about-grid { display: grid; grid-template-columns: var(--split-cols-wide); grid-template-rows: auto auto 1fr; column-gap: var(--split-gap); align-items: start; }
@@ -262,29 +262,29 @@ html:not(.js) .showcase-work { display: none; }
 
 /* The RAPID demo: its title frame with a Play button in the corner, clear of the logo in the middle, until the
    visitor asks for the video. The frame ends on a hard edge; the button sits on it as a solid control. */
-.video { position: relative; margin: 0; border: 1px solid var(--border); border-radius: 0.9rem; overflow: hidden; background: var(--card); }
+.video { position: relative; margin: 0; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; background: var(--card); }
 .video-poster { width: 100%; }
 /* The Play button sits in a band under the title frame, as a caption does under a photo, never over the picture. */
-.video-bar { display: flex; align-items: center; padding: 0.6rem 0.9rem; background: var(--background); border-top: 1px solid var(--border); }
+.video-bar { display: flex; align-items: center; padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4); background: var(--background); border-top: 1px solid var(--border); }
 .video iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; display: block; }
 
 /* ── Earlier ── */
-.earlier-grid { display: grid; gap: 2.5rem; margin-top: 2.5rem; }
-@media (min-width: 768px) { .earlier-grid { gap: 3.5rem; margin-top: 3rem; } }
-.earlier-item .card-title { margin-bottom: 0.8rem; }
-.earlier-item p { margin: 0 0 1rem; color: var(--ink-soft); }
+.earlier-grid { display: grid; gap: calc(var(--spacing) * 10); margin-top: calc(var(--spacing) * 10); }
+@media (min-width: 768px) { .earlier-grid { gap: calc(var(--spacing) * 14); margin-top: calc(var(--spacing) * 12); } }
+.earlier-item .card-title { margin-bottom: calc(var(--spacing) * 3); }
+.earlier-item p { margin: 0 0 calc(var(--spacing) * 4); color: var(--ink-soft); }
 /* A picture keeps the same readable size as the timeline's, under the full-width text. */
-.earlier-figure { margin: 1.25rem 0 0; width: min(100%, 44rem); }
+.earlier-figure { margin: calc(var(--spacing) * 5) 0 0; width: min(100%, 44rem); }
 @media (min-resolution: 2dppx) { .earlier-figure { width: min(100%, 600px); } }
 
 /* ── Contact ── */
 .contact { background: var(--card); }
-.contact-line { font-size: 1.25rem; margin: 1.25rem 0 1rem; color: var(--ink-soft); }
+.contact-line { font-size: 1.25rem; margin: calc(var(--spacing) * 5) 0 calc(var(--spacing) * 4); color: var(--ink-soft); }
 
 /* ── Footer: the site's own line, then the family footer with the site's own links ── */
 .site-footer { border-top: 1px solid var(--border); }
-.footer-band { padding-top: 3rem; padding-bottom: 2.5rem; }
-@media (min-width: 768px) { .footer-band { padding-top: 4.5rem; padding-bottom: 3.5rem; } }
+.footer-band { padding-top: calc(var(--spacing) * 12); padding-bottom: calc(var(--spacing) * 10); }
+@media (min-width: 768px) { .footer-band { padding-top: calc(var(--spacing) * 18); padding-bottom: calc(var(--spacing) * 14); } }
 .footer-line { font-family: var(--font-heading); font-size: 1.75rem; line-height: 1.25; color: var(--foreground); margin: 0; text-wrap: balance; }
 @media (min-width: 768px) { .footer-line { font-size: 2.25rem; } }
 .footer-line span { display: inline-block; }
@@ -296,7 +296,7 @@ html:not(.js) .showcase-work { display: none; }
 }
 
 /* The wordmark in the navbar: the way home, in the display face. */
-.wordmark { display: inline-flex; margin-inline-end: 1.25rem; align-items: center; min-height: 2.75rem; font-family: var(--font-heading); font-size: 1.5rem; line-height: 1; color: var(--foreground); text-decoration: none; border-radius: 0.375rem; }
+.wordmark { display: inline-flex; margin-inline-end: calc(var(--spacing) * 5); align-items: center; min-height: 2.75rem; font-family: var(--font-heading); font-size: 1.5rem; line-height: 1; color: var(--foreground); text-decoration: none; border-radius: var(--radius-sm); }
 .wordmark:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 
 /* Without script the phone menu and the light or dark menu cannot open, so they are not shown. */
@@ -308,12 +308,12 @@ main:focus { outline: none; }
 @media (width < 40rem) { .family-bar-wrap { display: none; } }
 
 /* The phone menu: the site's sections, then the Ouro family under its own heading, this site marked in words. */
-.phone-menu { display: grid; gap: 1rem; }
+.phone-menu { display: grid; gap: calc(var(--spacing) * 4); }
 .phone-menu-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.125rem; }
-.phone-menu-link { align-items: center; gap: 0.75rem; min-height: 2.75rem; padding: 0 0.75rem; font-size: 1.125rem; font-weight: 500; }
-.phone-menu-family { border-top: 1px solid var(--border); padding-top: 0.75rem; }
-.phone-menu-heading { margin: 0; padding: 0.25rem 0.75rem; font-family: inherit; font-size: 0.875rem; font-weight: 500; line-height: 1.25rem; color: var(--muted-foreground); }
+.phone-menu-link { align-items: center; gap: calc(var(--spacing) * 3); min-height: 2.75rem; padding: 0 calc(var(--spacing) * 3); font-size: 1.125rem; font-weight: 500; }
+.phone-menu-family { border-top: 1px solid var(--border); padding-top: calc(var(--spacing) * 3); }
+.phone-menu-heading { margin: 0; padding: calc(var(--spacing) * 1) calc(var(--spacing) * 3); font-family: inherit; font-size: 0.875rem; font-weight: 500; line-height: 1.25rem; color: var(--muted-foreground); }
 .phone-menu-site { font-size: 1rem; }
 .phone-menu-site[aria-current="true"] { font-weight: 600; }
-.phone-menu-row { display: flex; align-items: center; gap: 0.25rem; }
+.phone-menu-row { display: flex; align-items: center; gap: calc(var(--spacing) * 1); }
 .phone-menu-here { font-size: 0.875rem; font-weight: 500; color: var(--muted-foreground); }
