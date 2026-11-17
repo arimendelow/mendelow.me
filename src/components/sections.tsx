@@ -275,7 +275,11 @@ export function Earlier() {
               That led the Core Team to invite me to join them. On the team I moderated the community, shipped the <Link href="https://github.com/redwoodjs/graphql/pull/10064">framework package that moved Storybook onto Vite</Link> in <Link href="https://community.redwoodjs.com/t/storybook-in-redwood-is-moving-to-vite/7212">version 7.7</Link>, and built a <Link href="https://github.com/spoonjoy/redwoodjs-dbauth-oauth">dbAuth OAuth plugin</Link>. The moderation is the part I point to first. Keeping other builders unstuck in the forum is its own kind of product work. Redwood has since <Link href="https://community.redwoodjs.com/t/the-future-of-redwood-launches-today/7938">wound down</Link>.
             </p>
             <figure className="card-figure earlier-figure">
-              <div className="card-media media-natural media-white" data-ouro-allow="dark-miss off-theme" data-ouro-allow-why={WHITE_BACKDROP_WHY}>
+              <div
+                className="card-media media-natural media-dim"
+                data-ouro-allow="dark-miss"
+                data-ouro-allow-why="This capture of the old homepage keeps its own light page, which dark mode dims with the picture rather than repainting."
+              >
                 <img src="/assets/redwoodjs-homepage.webp" width="1200" height="600" loading="lazy" decoding="async" alt="The original RedwoodJS homepage: 'The JS App Framework for Startups' beside the Redwood logo, with buttons to start the tutorial and read the docs." />
               </div>
               <figcaption className="card-caption">
