@@ -32,6 +32,6 @@
     "typescript": "^5.9.3"
   },
   "imports": {
-    "#ouro-ax/*": "./src/lib/ouro/ax/*"
+    "#ouro-ax/*": "./lib/ouro/ax/*"
   }
 }
