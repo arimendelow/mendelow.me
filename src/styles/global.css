@@ -56,8 +56,8 @@
   --border: rgb(31 106 55 / 0.2);
   --input: #8f8466;
   --ring: #1f6a37;
-  /* The site's own: the second voice of the text, and the hover green. */
-  --ink-soft: #3d4839;
+  /* The site's own: the second voice of the text, between the theme's muted text and its foreground, and the hover green. */
+  --ink-soft: color-mix(in oklab, var(--muted-foreground) 50%, var(--foreground));
   --primary-hover: #14502a;
   --destructive-foreground: #ffffff;
   --success: #157d3c;
@@ -121,7 +121,6 @@
   --border: rgb(54 164 82 / 0.22);
   --input: #4f7a5a;
   --ring: #4ae36c;
-  --ink-soft: #c9d4cb;
   --primary-hover: #4ae36c;
   --destructive-foreground: #000000;
   --success: #4ade80;
@@ -165,7 +164,6 @@
     --border: rgb(54 164 82 / 0.22);
     --input: #4f7a5a;
     --ring: #4ae36c;
-    --ink-soft: #c9d4cb;
     --primary-hover: #4ae36c;
   }
 }

@@ -159,7 +159,11 @@ export function Work({ showcase }: { showcase?: ReactNode }) {
               data-ouro-allow="first-content"
               data-ouro-allow-why="Far below a phone's first screen, this capture draws only when Ouro check scrolls to it, after the page has loaded. A reader's first content is the hero portrait, drawn in about 0.1 s."
             >
-              <div className="card-media">
+              <div
+                className="card-media"
+                data-ouro-allow="off-theme"
+                data-ouro-allow-why="In light mode this box is the colour of Spoonjoy's own page in the capture, so the capture shows no seam; dark mode takes the theme's card."
+              >
                 <img src="/assets/spoonjoy-recipe.webp" width="1440" height="1200" loading="lazy" decoding="async" alt="Ari's Mushroom Risotto recipe page on Spoonjoy: three bowls of risotto topped with parmesan and green onion." />
               </div>
               <figcaption className="card-caption">
@@ -251,7 +255,11 @@ export function Earlier() {
               I cofounded Sulis as its Chief Design Officer, working across branding, CAD, manufacturing, and product design for a solar water-sanitization device. It was for communities in India that had water, just not clean water, and designed so nobody had to change their habits. I pitched it in competitions and funding meetings: we <Link href="https://www.rutgers.edu/news/rutgers-teams-advance-hult-prize-competition-after-regional-victories">won the 2018 Hult Prize Boston Regional</Link>, went through its <Link href="https://honorscollege.rutgers.edu/features/team-sulis-shares-india-pilot-progress-and-finishes-first-week-hult-prize-accelerator-program">accelerator in the UK</Link>, and raised $45k. The work took us to <Link href="https://honorscollege.rutgers.edu/features/team-sulis-shares-india-pilot-progress-and-finishes-first-week-hult-prize-accelerator-program">India for customer discovery and prototype testing</Link>, and eventually to {patent}, which I'm a co-inventor on.
             </p>
             <figure className="card-figure earlier-figure">
-              <div className="card-media media-natural media-white" data-ouro-allow="dark-miss" data-ouro-allow-why={WHITE_BACKDROP_WHY}>
+              <div
+                className="card-media media-natural media-dim"
+                data-ouro-allow="dark-miss"
+                data-ouro-allow-why="This render and its drawings sit on their own light backdrop, which dark mode dims with the picture rather than repainting."
+              >
                 <img src="/assets/sulis.png" width="1200" height="495" loading="lazy" decoding="async" alt="A render of the Sulis solar water-sanitization device beside line drawings from its US patent." />
               </div>
               <figcaption className="card-caption">The Sulis device twice over: in CAD, and in the drawings of {patent}.</figcaption>
@@ -267,7 +275,11 @@ export function Earlier() {
               That led the Core Team to invite me to join them. On the team I moderated the community, shipped the <Link href="https://github.com/redwoodjs/graphql/pull/10064">framework package that moved Storybook onto Vite</Link> in <Link href="https://community.redwoodjs.com/t/storybook-in-redwood-is-moving-to-vite/7212">version 7.7</Link>, and built a <Link href="https://github.com/spoonjoy/redwoodjs-dbauth-oauth">dbAuth OAuth plugin</Link>. The moderation is the part I point to first. Keeping other builders unstuck in the forum is its own kind of product work. Redwood has since <Link href="https://community.redwoodjs.com/t/the-future-of-redwood-launches-today/7938">wound down</Link>.
             </p>
             <figure className="card-figure earlier-figure">
-              <div className="card-media media-natural media-white" data-ouro-allow="dark-miss" data-ouro-allow-why={WHITE_BACKDROP_WHY}>
+              <div
+                className="card-media media-natural media-dim"
+                data-ouro-allow="dark-miss"
+                data-ouro-allow-why="This capture of the old homepage keeps its own light page, which dark mode dims with the picture rather than repainting."
+              >
                 <img src="/assets/redwoodjs-homepage.webp" width="1200" height="600" loading="lazy" decoding="async" alt="The original RedwoodJS homepage: 'The JS App Framework for Startups' beside the Redwood logo, with buttons to start the tutorial and read the docs." />
               </div>
               <figcaption className="card-caption">
@@ -284,7 +296,9 @@ export function Earlier() {
 type PhoneCrop = { src: string; width: number; height: number };
 
 // The white backdrop a light-theme capture is drawn on. Dark mode dims these pictures rather than repainting the backdrop.
-const WHITE_BACKDROP_WHY = "These captures were drawn on a white backdrop, which dark mode dims with the picture rather than repainting.";
+const WHITE_BACKDROP_WHY = "These captures were drawn on a white backdrop, which this box matches so the capture shows no seam, and which dark mode dims with the picture rather than repainting.";
+// An inset capture sits on a mat: white like its backdrop, and in the dark theme the grey that white dims to with the picture.
+const INSET_MAT_WHY = "This capture sits on a mat the white of its own backdrop; in the dark theme the mat is the grey that white dims to with the picture, so the two still meet without a seam.";
 
 // A capture too wide to read in a phone's column can name a phone crop: below 640px the figure shows that crop instead,
 // at a size its words read.
@@ -294,8 +308,8 @@ function Shot({ src, width, height, alt, caption, inset = false, phone }: { src:
     <figure className="card-figure beat-figure">
       <div
         className={`card-media media-natural media-white${inset ? " media-inset" : ""}${phone ? " media-phone-crop" : ""}`}
-        data-ouro-allow="dark-miss"
-        data-ouro-allow-why={WHITE_BACKDROP_WHY}
+        data-ouro-allow="dark-miss off-theme"
+        data-ouro-allow-why={inset ? INSET_MAT_WHY : WHITE_BACKDROP_WHY}
       >
         {phone ? (
           <picture>
@@ -416,7 +430,11 @@ export function AgentsStory() {
           </h2>
           <p className="dek">The way I work with agents came from Slugger, my OpenClaw agent, and the to-do list he wrote himself.</p>
         </div>
-        <figure className="card-figure story-art">
+        <figure
+          className="card-figure story-art"
+          data-ouro-allow="dark-art"
+          data-ouro-allow-why="Only a 4K screen's first view reaches this illustration, and only its top edge; it has one version, drawn to read in both themes."
+        >
           <picture>
             <source type="image/avif" srcSet="/assets/supper-768.avif 768w, /assets/supper-1152.avif 1152w, /assets/supper-1536.avif 1536w" sizes="min(100vw, 1536px)" />
             <img
