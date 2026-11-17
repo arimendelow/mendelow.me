@@ -9,7 +9,7 @@
     "dev": "astro dev",
     "build": "rm -rf dist && node scripts/build-site.mjs dist",
     "check": "node scripts/check-fades.mjs && node --test 'tests/*.test.mjs' && node scripts/check-hx.mjs dist",
-    "check:screens": "node lib/ouro/check/check.ts dist --sizes 390x844,1440x900,3840x2160 --out ouro-check"
+    "check:screens": "node scripts/ouro/check/check.ts dist --sizes 390x844,1440x900,3840x2160 --out ouro-check"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
@@ -30,5 +30,8 @@
     "node-html-parser": "^9.0.7",
     "playwright": "^1.65.0",
     "typescript": "^5.9.3"
+  },
+  "imports": {
+    "#ouro-ax/*": "./src/lib/ouro/ax/*"
   }
 }
