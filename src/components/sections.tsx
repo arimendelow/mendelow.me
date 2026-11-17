@@ -255,7 +255,11 @@ export function Earlier() {
               I cofounded Sulis as its Chief Design Officer, working across branding, CAD, manufacturing, and product design for a solar water-sanitization device. It was for communities in India that had water, just not clean water, and designed so nobody had to change their habits. I pitched it in competitions and funding meetings: we <Link href="https://www.rutgers.edu/news/rutgers-teams-advance-hult-prize-competition-after-regional-victories">won the 2018 Hult Prize Boston Regional</Link>, went through its <Link href="https://honorscollege.rutgers.edu/features/team-sulis-shares-india-pilot-progress-and-finishes-first-week-hult-prize-accelerator-program">accelerator in the UK</Link>, and raised $45k. The work took us to <Link href="https://honorscollege.rutgers.edu/features/team-sulis-shares-india-pilot-progress-and-finishes-first-week-hult-prize-accelerator-program">India for customer discovery and prototype testing</Link>, and eventually to {patent}, which I'm a co-inventor on.
             </p>
             <figure className="card-figure earlier-figure">
-              <div className="card-media media-natural media-white" data-ouro-allow="dark-miss off-theme" data-ouro-allow-why={WHITE_BACKDROP_WHY}>
+              <div
+                className="card-media media-natural"
+                data-ouro-allow="dark-miss"
+                data-ouro-allow-why="This render and its drawings sit on their own light backdrop, which dark mode dims with the picture rather than repainting."
+              >
                 <img src="/assets/sulis.png" width="1200" height="495" loading="lazy" decoding="async" alt="A render of the Sulis solar water-sanitization device beside line drawings from its US patent." />
               </div>
               <figcaption className="card-caption">The Sulis device twice over: in CAD, and in the drawings of {patent}.</figcaption>
@@ -289,6 +293,8 @@ type PhoneCrop = { src: string; width: number; height: number };
 
 // The white backdrop a light-theme capture is drawn on. Dark mode dims these pictures rather than repainting the backdrop.
 const WHITE_BACKDROP_WHY = "These captures were drawn on a white backdrop, which this box matches so the capture shows no seam, and which dark mode dims with the picture rather than repainting.";
+// An inset capture sits on a mat: white like its backdrop, and in the dark theme the grey that white dims to with the picture.
+const INSET_MAT_WHY = "This capture sits on a mat the white of its own backdrop; in the dark theme the mat is the grey that white dims to with the picture, so the two still meet without a seam.";
 
 // A capture too wide to read in a phone's column can name a phone crop: below 640px the figure shows that crop instead,
 // at a size its words read.
@@ -299,7 +305,7 @@ function Shot({ src, width, height, alt, caption, inset = false, phone }: { src:
       <div
         className={`card-media media-natural media-white${inset ? " media-inset" : ""}${phone ? " media-phone-crop" : ""}`}
         data-ouro-allow="dark-miss off-theme"
-        data-ouro-allow-why={WHITE_BACKDROP_WHY}
+        data-ouro-allow-why={inset ? INSET_MAT_WHY : WHITE_BACKDROP_WHY}
       >
         {phone ? (
           <picture>
