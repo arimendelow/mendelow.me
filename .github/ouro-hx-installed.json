@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.241",
-  "tagCommit": "10aa00b9874575a413befd4128f7c5bf92e491d0",
+  "tag": "v1.3.242",
+  "tagCommit": "27c122deaefe7ebeb25e96a41be2079e82b8ba7d",
   "files": {
     "lib/ouro/ax/checks.ts": "10d083a6f4f6b2149880b0fec7bfcead76e77de9a21dea578dafe1e1699ca3a3",
     "lib/ouro/ax/cli.ts": "4c9ca264c12890003fa9eb103d0a5bdd61f99b9306f6c541b9c4f288fc180f41",
@@ -30,7 +30,7 @@
     "lib/ouro/check/text-check.ts": "6bfeddf9f3669a6d741f10baf62d94c0be80db620a4d55163187312c57df8934",
     "lib/ouro/check/theme-check.ts": "286349d9802d6a6f852af452746d2db763bbcb95b593c5ca75a1227365788226",
     "lib/ouro/check/wrap-check.ts": "474c9b7a08be766c7479931b3f0f0cb6678efcd10918d0047270f3e6fccda918",
-    "src/components/ouro/button/button.tsx": "9e6194492ef8b0a3657aeddc52eba47b1d83495fdc58579e3d1b57d9f2221fe5",
+    "src/components/ouro/button/button.tsx": "986d3c1458b37357c417a305049a116df8dac0dc243659bb2953ef79c500958e",
     "src/components/ouro/carousel/carousel-styles.ts": "1b0e3f91780b6d565c210faa8535b12655600691788220cca351e0ceca0ea2a0",
     "src/components/ouro/carousel/carousel.tsx": "78bf5a33c4ffe9b987abd478de24a275223db0d0850e721eed695d9bd50b5e0a",
     "src/components/ouro/celebrate/celebrate.tsx": "e71bf6405c7059c0d084a7cd0ed38ccb7f896718b83be333c8f2d3b1ecb7fb18",
@@ -62,7 +62,7 @@
     "src/lib/ouro/color-scheme-script.ts": "566070853fde3e6df760f18c98a838b3c3ba56afc5d99a00738d5225dfbc4eb7",
     "src/lib/ouro/color-scheme.ts": "a2a7841be3dd3cb8ddc79e0de76c633b6cf06f61161fc74d574962a8b3264981",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "ca6f3fd26c55141c0407fc2b08f1e1c7f66b5ec288eb9c43d1d39fdd19919367",
+    "src/lib/ouro/dev.ts": "3dd3cdf2fe6af43cab7db9867f75fd869491d71c760abaa289e16f9489a7c404",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "9117d16302a5901a87bfc8ad3babc43a9c08ea518ef04eff46862f2259cf1671",
     "src/lib/ouro/key-shortcuts.ts": "fd2d1311d04ac773de046112b2c0455769360eaab37f26d2c2e483ff6bd894ee",
