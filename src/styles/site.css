@@ -109,7 +109,7 @@ p, li, figcaption { text-wrap: pretty; }
 .card-media img { width: 100%; height: 100%; object-fit: cover; }
 .card-media.media-natural img { height: auto; }
 .card-media.media-white { background: #ffffff; }
-.dark .card-media.media-white img { filter: brightness(0.88); }
+.dark .card-media:is(.media-white, .media-dim) img { filter: brightness(0.88); }
 /* A capture cropped close to its own rounded cards sits on a white mat, so the frame's curve never meets theirs. At
    night the mat dims with the picture's white. */
 .card-media.media-inset { padding: 0 calc(var(--spacing) * 4) calc(var(--spacing) * 4); }

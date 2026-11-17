@@ -256,7 +256,7 @@ export function Earlier() {
             </p>
             <figure className="card-figure earlier-figure">
               <div
-                className="card-media media-natural"
+                className="card-media media-natural media-dim"
                 data-ouro-allow="dark-miss"
                 data-ouro-allow-why="This render and its drawings sit on their own light backdrop, which dark mode dims with the picture rather than repainting."
               >
