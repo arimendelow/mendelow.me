@@ -1,0 +1,8 @@
+{
+  "waive": {
+    "**": {
+      "off-theme": "A rule new in Ouro UI v1.3.249: the site's own palette (--ink, --ink-soft and the rest in src/styles/global.css) reports without failing while it moves onto the theme's tokens.",
+      "off-scale": "A rule new in Ouro UI v1.3.249: the site's hand-tuned rem spacing (--gutter and the section padding) reports without failing while it moves to Tailwind's spacing steps."
+    }
+  }
+}
