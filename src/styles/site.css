@@ -127,24 +127,25 @@ p, li, figcaption { text-wrap: pretty; }
 .card-body > p + p { margin-top: calc(var(--spacing) * 4); }
 .card-links { display: flex; gap: calc(var(--spacing) * 1) calc(var(--spacing) * 6); flex-wrap: wrap; align-items: center; font-weight: 500; margin: calc(var(--spacing) * 1) 0 0; }
 
-/* Ouro UI leads the work, with a pot of tea to make from live Ouro HX components: an invitation, then one stage. The
-   cups are a Carousel of teas; beside them (under them on a phone) the steps to drag into order, Brew, and what came
-   of it. On the page itself, no frame round the cups. */
-.showcase-figure { margin: calc(var(--spacing) * 2) 0 calc(var(--spacing) * 1); display: grid; gap: calc(var(--spacing) * 5); }
+/* Ouro UI leads the work, with a pot of tea to make from live Ouro HX components: an invitation, then one compact
+   stage. The cups are a Carousel of teas; beside them (under them on a phone) the steps, an ordered Checklist that says
+   when a step comes too early. On the page itself, no frame round the cups. */
+.showcase-figure { margin: calc(var(--spacing) * 2) 0 calc(var(--spacing) * 1); display: grid; gap: calc(var(--spacing) * 4); }
 /* The invitation, then its link, which wraps to a line of its own rather than stretch a line with its touch target. */
 .showcase-caption { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 calc(var(--spacing) * 3); color: var(--ink-soft); font-size: 1rem; }
 html:not(.js) .when-script, html.js .when-no-script { display: none; }
-/* Without script nothing can be swiped, dragged or brewed, so only the first tea's cups show. */
+/* Without script nothing can be swiped or ticked, so only the first tea's cups show. */
 html:not(.js) .showcase-work { display: none; }
 .showcase {
   /* Porcelain in both themes: warm white by day, a softer bone at night, lit from the left. */
   --porcelain-hi: #fffdf8; --porcelain-lo: #eee6d8; --porcelain-shade: #d8ccb8; --porcelain-edge: #c7bba6;
   --porcelain-band: color-mix(in oklab, var(--primary) 70%, transparent); --steam: rgb(120 108 92 / 0.55); --shadow: rgb(70 50 25 / 0.16);
-  display: grid; gap: calc(var(--spacing) * 8) calc(var(--spacing) * 16); grid-template-columns: minmax(0, 1fr); align-items: center;
+  display: grid; gap: calc(var(--spacing) * 6) calc(var(--spacing) * 12); grid-template-columns: minmax(0, 1fr); align-items: center;
 }
 .dark .showcase { --porcelain-hi: #efe9dd; --porcelain-lo: #cbc2b2; --porcelain-shade: #9f9586; --porcelain-edge: #8a8274; --steam: rgb(236 230 218 / 0.5); --shadow: rgb(0 0 0 / 0.5); }
 @media (prefers-color-scheme: dark) { html:not(.js) .showcase { --porcelain-hi: #efe9dd; --porcelain-lo: #cbc2b2; --porcelain-shade: #9f9586; --porcelain-edge: #8a8274; --steam: rgb(236 230 218 / 0.5); --shadow: rgb(0 0 0 / 0.5); } }
-@media (min-width: 64rem) { .showcase { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } }
+/* Side by side from a tablet's width: the cups and the steps share one band, the steps the wider half. */
+@media (min-width: 48rem) { .showcase { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } }
 .showcase-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 .showcase-stop-hi { stop-color: var(--porcelain-hi); }
 .showcase-stop-lo { stop-color: var(--porcelain-lo); }
@@ -161,48 +162,36 @@ html:not(.js) .showcase-work { display: none; }
 /* Steam only where motion is welcome; with reduced motion the tea's colour says how it came out. */
 .showcase-steam { stroke: var(--steam); opacity: 0; }
 
-/* The stage: the cups are the Carousel's slides, as large as their space allows, each tea's name under its cups. When
-   the tea is ready, Celebrate bursts across the whole stage, not from a chip. */
+/* The stage: the cups are the Carousel's slides, a pair at a teacup's size, each tea's name under its cups. When the
+   tea is ready, Celebrate bursts across the stage. */
 .showcase-stage { position: relative; min-width: 0; }
-.showcase-slide { display: grid; justify-items: center; gap: calc(var(--spacing) * 1); padding: calc(var(--spacing) * 2) 0 calc(var(--spacing) * 1); text-align: center; }
-.showcase-cups { position: relative; display: flex; justify-content: center; align-items: flex-end; gap: calc(var(--spacing) * 1); width: 100%; margin-bottom: calc(var(--spacing) * 3); }
-.showcase-cup { flex: 0 1 17rem; min-width: 0; height: auto; overflow: visible; }
+.showcase-slide { display: grid; justify-items: center; gap: calc(var(--spacing) * 0.5); padding: calc(var(--spacing) * 1) 0 0; text-align: center; }
+.showcase-cups { position: relative; display: flex; justify-content: center; align-items: flex-end; gap: calc(var(--spacing) * 2); width: 100%; margin-bottom: calc(var(--spacing) * 2); }
+.showcase-cup { flex: 0 1 8.5rem; min-width: 0; height: auto; overflow: visible; }
+@media (min-width: 48rem) { .showcase-cup { flex-basis: 10rem; } }
 .showcase-tea-name { margin: 0; font-family: var(--font-heading); font-size: 1.75rem; line-height: 1.1; color: var(--foreground); }
 .showcase-tea-line { margin: 0; font-size: 1rem; color: var(--muted-foreground); }
-.showcase-burst { position: absolute; inset: -1.5rem -1rem; pointer-events: none; }
-/* Ready: the tea's name becomes the news, larger. */
-.showcase-tea-name.showcase-ready { font-size: 2.25rem; }
-@media (min-width: 48rem) { .showcase-tea-name.showcase-ready { font-size: 3rem; } }
+.showcase-burst { position: absolute; inset: -1rem; pointer-events: none; }
 
-/* Where you act: what to do (or what came of it), the steps, and Brew. */
-.showcase-work { display: grid; gap: calc(var(--spacing) * 4); min-width: 0; }
-.showcase-hint { margin: 0; min-height: 3.3rem; font-size: 1rem; line-height: 1.6rem; color: var(--ink-soft); }
-.showcase-off { font-weight: 600; color: var(--foreground); }
-.showcase-brew { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--spacing) * 2) calc(var(--spacing) * 4); margin-top: calc(var(--spacing) * 1); }
-.showcase-doing { margin: 0; font-size: 1rem; color: var(--muted-foreground); }
-.showcase-tick circle { fill: var(--primary); }
-.showcase-tick path { stroke: var(--primary-foreground); }
-.showcase-now { display: block; width: 0.75rem; height: 0.75rem; margin-inline: calc(var(--spacing) * 1); border-radius: 50%; background: var(--primary); }
+/* Where you act: the steps, each with its icon at the end of its row. */
+.showcase-work { min-width: 0; }
+.showcase-step-icon { display: block; }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* The tea is poured: it rises from the bottom of the cup. Calm, no bounce. */
+  /* The tea is poured: it rises from the bottom of the cup with each step done in turn. Calm, no bounce. */
   .showcase-tea { animation: showcase-pour 900ms var(--ouro-ease-out) both; transform-box: view-box; transform-origin: 70px 56px; }
   .showcase-tea-surface { transition: fill var(--ouro-duration-sheet) var(--ouro-ease-out); }
   .showcase-steam { transition: opacity 600ms var(--ouro-ease-out); }
   [data-steaming] .showcase-steam { opacity: 1; }
   /* Steam rises for a few breaths and settles, so the page never repaints at rest. */
-  /* It starts when the tea is poured, not when the page loads. */
+  /* It starts when the tea is ready, not when the page loads. */
   [data-steaming] .showcase-steam path { animation: showcase-steam 3.6s ease-in-out 4 both; transform-box: fill-box; transform-origin: 50% 100%; }
   [data-steaming] .showcase-steam path:nth-child(2) { animation-delay: 1.2s; }
   [data-steaming] .showcase-steam path:nth-child(3) { animation-delay: 2.4s; }
-  .showcase-ready, .showcase-hint > strong { animation: showcase-rise var(--ouro-duration-sheet) var(--ouro-ease-out) both; }
-  .showcase-tick { animation: showcase-tick var(--ouro-duration-slow) var(--ouro-ease-out) both; }
-  .showcase-now { animation: showcase-now var(--showcase-step, 1100ms) ease-in-out infinite; }
+  .showcase-ready { animation: showcase-rise var(--ouro-duration-sheet) var(--ouro-ease-out) both; }
 }
 @keyframes showcase-pour { from { transform: translateY(9px) scale(0.78); opacity: 0.4; } to { transform: none; opacity: 1; } }
 @keyframes showcase-rise { from { opacity: 0; transform: translateY(0.5rem); } to { opacity: 1; transform: none; } }
-@keyframes showcase-tick { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
-@keyframes showcase-now { 0%, 100% { opacity: 0.35; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1); } }
 @keyframes showcase-steam { 0% { opacity: 0; transform: translateY(6px); } 35% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-10px); } }
 /* Under "Selected work", never larger than it. */
 .lead-title { font-size: 2.25rem; }
