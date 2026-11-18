@@ -173,9 +173,8 @@ html:not(.js) .showcase-work { display: none; }
 .showcase-tea-line { margin: 0; font-size: 1rem; color: var(--muted-foreground); }
 .showcase-burst { position: absolute; inset: -1rem; pointer-events: none; }
 
-/* Where you act: the steps, each with its icon at the end of its row. */
+/* Where you act: the steps, each an outlined card with its icon in a tile and a round tick. */
 .showcase-work { min-width: 0; }
-.showcase-step-icon { display: block; }
 
 @media (prefers-reduced-motion: no-preference) {
   /* The tea is poured: it rises from the bottom of the cup with each step done in turn. Calm, no bounce. */
