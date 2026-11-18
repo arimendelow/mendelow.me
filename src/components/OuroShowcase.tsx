@@ -30,7 +30,7 @@ const order: StepId[] = steps.map((step) => step.id);
 // The order the steps are shown in, so there's an order to find.
 const shown: StepId[] = ["leaves", "boil", "steep", "warm", "pour"];
 
-// Each step's icon, drawn in the row's text colour, so it softens with the row once the step is done.
+// Each step's icon, drawn in the soft tile at the start of its row.
 function StepIcon({ id }: { id: StepId }) {
   const paths: Record<StepId, string> = {
     boil: "M6 19h12M7 19l1-8h8l1 8M9 11V9a3 3 0 0 1 6 0v2M17 13l3-2M10 6c0-1 1-1.5 1-2.5M13 6c0-1 1-1.5 1-2.5",
@@ -40,7 +40,7 @@ function StepIcon({ id }: { id: StepId }) {
     steep: "M12 8v4l2.5 2.5M12 21a8 8 0 1 0 0-16a8 8 0 0 0 0 16zM10 2h4",
   };
   return (
-    <svg className="showcase-step-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d={paths[id]} />
     </svg>
   );
@@ -143,10 +143,11 @@ export function OuroShowcase() {
         <Checklist
           label="Steps"
           description="Tick each one in the order you'd do it."
+          variant="outline"
           ordered={order}
           items={shown.map((id) => {
             const step = steps.find((s) => s.id === id)!;
-            return { id, label: step.label, value: <StepIcon id={id} />, checked: done.has(id) };
+            return { id, label: step.label, media: <StepIcon id={id} />, checked: done.has(id) };
           })}
           onCheckedChange={(id, checked) =>
             setDone((now) => {
