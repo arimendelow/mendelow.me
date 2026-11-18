@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.281",
-  "tagCommit": "8f8c452a7e584405df31b1dc7d472e62409aa51d",
+  "tag": "v1.3.284",
+  "tagCommit": "cb1251256f813a4a8841162f3711d54a1456c4dd",
   "files": {
     "lib/ouro/ax/checks.ts": "10d083a6f4f6b2149880b0fec7bfcead76e77de9a21dea578dafe1e1699ca3a3",
     "lib/ouro/ax/cli.ts": "ad1a7a04e77d407dba61279d0be810929559591ca6a9cb2e698077109c699e97",
@@ -79,7 +79,7 @@
     "src/lib/ouro/color-scheme-script.ts": "566070853fde3e6df760f18c98a838b3c3ba56afc5d99a00738d5225dfbc4eb7",
     "src/lib/ouro/color-scheme.ts": "a2a7841be3dd3cb8ddc79e0de76c633b6cf06f61161fc74d574962a8b3264981",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "6ba84e96ec974c230939af6d15b9148dabf30bc7fb976c3ca61c758cbf43e0e7",
+    "src/lib/ouro/dev.ts": "789db67952000acdb89dab2ec8f6a3aa964e9c74a35c4bb6af8080c24011282f",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "4c723c3a6c385e516f649b9ebbdcf6cb6302fd95d3f0cc782d33ba5f9172a7a1",
     "src/lib/ouro/key-shortcuts.ts": "fd2d1311d04ac773de046112b2c0455769360eaab37f26d2c2e483ff6bd894ee",
@@ -100,7 +100,7 @@
     "src/lib/ouro/use-dev-messages.ts": "c4ee9471b23df236296d3ebe5ec802e75ee509602d0e40e60224ef9781ff09d4",
     "src/lib/ouro/use-drag.ts": "926f47115c4aaa0b46cb4cb01970f420e91adb3a5eaa17a556b8945eba3d02f9",
     "src/lib/ouro/use-keyboard-scrollable.ts": "2c99ec640a322e038108d4cf765f89a8b9be179c324e0ed567132abac53ceed8",
-    "src/lib/ouro/use-media-query.ts": "2bb00660a16cde0846df9a1955851dea2ddb8465bc8d604d951c4d1ef9eb6cb3",
+    "src/lib/ouro/use-media-query.ts": "2164423036a63b3672664918604111f9659ed5eaebb944d0bb0a569bd36b7570",
     "src/lib/ouro/use-ouro.ts": "d49e64712c98e849dd9089444b3a2eba18bdeacd59120cc5123c9b9fb78c5331",
     "src/lib/ouro/use-platform.ts": "7c86d4891f0727fe2fe30f2250f6d697d5f41428307ce400e44d8d09fabe12a5",
     "src/lib/ouro/use-reduced-motion.ts": "be3cf24c0576eaa57410d194b12c303de88269df2260409a6eda7b2c1760af4d",
