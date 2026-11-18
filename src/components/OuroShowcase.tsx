@@ -1,14 +1,13 @@
 // The Ouro UI entry's showcase: a pot of tea to make, built from real Ouro HX components. The cups are a Carousel: swipe
-// to change the tea. The steps are a Reorderable: drag them into order, then Brew, and the list ticks off each step in
-// turn. The order matters: a wrong one makes the tea gently wrong, and says why. A right one fills the cups, and
-// Celebrate bursts over them. An island that hydrates when it scrolls into view (client:visible), so the rest of the
-// page ships no extra script; its server HTML is the whole scene in its starting state.
-import { useEffect, useState, type CSSProperties } from "react";
-import { Button } from "@/components/ouro/button/button";
+// to change the tea. The steps are a Checklist that knows their order: tick them as you'd make tea, and the pot gets
+// stronger with each step done in turn. A step ticked too early turns amber and says which step comes first, and turns
+// right on its own once that one is done. All five fill the cups, and Celebrate bursts over them. An island that
+// hydrates when it scrolls into view (client:visible), so the rest of the page ships no extra script; its server HTML
+// is the whole scene in its starting state.
+import { useState } from "react";
 import { Carousel } from "@/components/ouro/carousel/carousel";
 import { Celebrate } from "@/components/ouro/celebrate/celebrate";
-import { Item } from "@/components/ouro/item/item";
-import { Reorderable } from "@/components/ouro/reorderable/reorderable";
+import { Checklist } from "@/components/ouro/checklist/checklist";
 
 const teas = [
   { id: "breakfast", name: "English breakfast", line: "Malty and bold", tea: "#5a2a0e" },
@@ -18,39 +17,20 @@ const teas = [
   { id: "chamomile", name: "Chamomile", line: "Golden and calm", tea: "#d6a83f" },
 ] as const;
 
+// The steps in the order they're done, which is the order the checklist holds them to.
 const steps = [
-  { id: "boil", label: "Boil the water", doing: "Boiling the water" },
-  { id: "warm", label: "Warm the pot", doing: "Warming the pot" },
-  { id: "leaves", label: "Add the leaves", doing: "Adding the leaves" },
-  { id: "pour", label: "Pour on the water", doing: "Pouring on the water" },
-  { id: "steep", label: "Let it steep", doing: "Steeping" },
+  { id: "boil", label: "Boil the water" },
+  { id: "warm", label: "Warm the pot" },
+  { id: "leaves", label: "Add the leaves" },
+  { id: "pour", label: "Pour on the water" },
+  { id: "steep", label: "Let it steep" },
 ] as const;
 type StepId = (typeof steps)[number]["id"];
-// The order the steps start in, so there's something to put right.
-const shuffled: StepId[] = ["leaves", "boil", "steep", "warm", "pour"];
-// How long each step takes as the list ticks it off.
-const STEP_MS = 1100;
+const order: StepId[] = steps.map((step) => step.id);
+// The order the steps are shown in, so there's an order to find.
+const shown: StepId[] = ["leaves", "boil", "steep", "warm", "pour"];
 
-interface Brew {
-  /** How much of the tea's colour comes through, out of 100. */
-  strength: number;
-  hot: boolean;
-  /** What went wrong, kindly, or nothing when the order was right. */
-  note: string | null;
-}
-
-// The first thing the order got wrong, from the start of the brew, and what it did to the tea.
-function brew(order: readonly StepId[]): Brew {
-  const at = (id: StepId) => order.indexOf(id);
-  if (at("pour") < at("boil")) return { strength: 30, hot: false, note: "The water went in before it boiled, so the tea is weak and cool." };
-  if (at("warm") < at("boil")) return { strength: 85, hot: false, note: "The pot was warmed before the water boiled, so the tea is lukewarm." };
-  if (at("pour") < at("leaves")) return { strength: 45, hot: true, note: "The water went in before the leaves, so the tea came out thin." };
-  if (at("leaves") < at("warm")) return { strength: 70, hot: true, note: "The leaves went into a cold pot, so the tea is a little weak." };
-  if (at("steep") < at("pour")) return { strength: 40, hot: true, note: "It steeped before the water was in, so the tea is thin." };
-  return { strength: 100, hot: true, note: null };
-}
-
-// Each step's icon, drawn in the text colour: a kettle, a teapot, a leaf, a pour and a timer.
+// Each step's icon, drawn in the row's text colour, so it softens with the row once the step is done.
 function StepIcon({ id }: { id: StepId }) {
   const paths: Record<StepId, string> = {
     boil: "M6 19h12M7 19l1-8h8l1 8M9 11V9a3 3 0 0 1 6 0v2M17 13l3-2M10 6c0-1 1-1.5 1-2.5M13 6c0-1 1-1.5 1-2.5",
@@ -60,22 +40,9 @@ function StepIcon({ id }: { id: StepId }) {
     steep: "M12 8v4l2.5 2.5M12 21a8 8 0 1 0 0-16a8 8 0 0 0 0 16zM10 2h4",
   };
   return (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg className="showcase-step-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d={paths[id]} />
     </svg>
-  );
-}
-
-// Where a step stands in the brew: a tick once done, a soft pulse while it's the one under way.
-function StepMark({ state }: { state: "done" | "now" | "todo" }) {
-  if (state === "todo") return null;
-  return state === "done" ? (
-    <svg className="showcase-tick" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-      <circle cx="12" cy="12" r="11" />
-      <path d="m7 12.5 3.2 3.2L17 9" fill="none" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  ) : (
-    <span className="showcase-now" aria-hidden="true" />
   );
 }
 
@@ -141,115 +108,57 @@ function Cup({ tea, pour }: { tea: string; pour: number }) {
 
 export function OuroShowcase() {
   const [tea, setTea] = useState(0);
-  const [order, setOrder] = useState<StepId[]>(shuffled);
-  // While brewing, the list ticks off `step`; each tea keeps the result of its own last brew, so a swipe shows each
-  // tea as it is: unbrewed, not quite right, or ready.
-  const [brewing, setBrewing] = useState<number | null>(null);
-  const [step, setStep] = useState(0);
-  const [results, setResults] = useState<Record<number, Brew>>({});
-  const [pours, setPours] = useState(0);
-
-  // The brew: each step in the list's order is under way for STEP_MS, then ticked; after the last, the tea is poured
-  // into the cups of the tea it was started for.
-  useEffect(() => {
-    if (brewing === null) return;
-    if (step < order.length) {
-      const next = window.setTimeout(() => setStep((n) => n + 1), STEP_MS);
-      return () => window.clearTimeout(next);
-    }
-    setResults((now) => ({ ...now, [brewing]: brew(order) }));
-    setPours((n) => n + 1);
-    setBrewing(null);
-  }, [brewing, step, order]);
-
-  const start = () => {
-    setResults(({ [tea]: _, ...rest }) => rest);
-    setStep(0);
-    setBrewing(tea);
-  };
-  // A new order is a new plan: every tea goes back to unbrewed, so no list shows ticks for steps it didn't take.
-  const reorder = (ids: string[]) => {
-    setOrder(ids as StepId[]);
-    setResults({});
-  };
-
-  const result = results[tea];
-  const ready = result?.note === null;
-  // The cups hold a hint of each tea until it's brewed; then the brew's strength, poured fresh.
-  const colour = (index: number) => `color-mix(in oklab, ${teas[index]!.tea} ${results[index]?.strength ?? 22}%, #f6efe2)`;
-  const doing = brewing !== null && step < order.length ? steps.find((s) => s.id === order[step])!.doing : null;
+  const [done, setDone] = useState<ReadonlySet<StepId>>(new Set());
+  // The steps done in turn: the pot is as strong as the run of steps from the first with none skipped.
+  const inTurn = order.findIndex((id) => !done.has(id));
+  const brewed = inTurn === -1 ? order.length : inTurn;
+  const ready = brewed === order.length;
+  // The cups hold a hint of each tea, and fill toward its full colour as the steps are done in turn.
+  const strength = 22 + Math.round((78 * brewed) / order.length);
+  const colour = (index: number) => `color-mix(in oklab, ${teas[index]!.tea} ${strength}%, #f6efe2)`;
   const name = teas[tea]!.name;
 
   return (
-    <div className="showcase" data-ready={ready ? "" : undefined} style={{ "--showcase-step": `${STEP_MS}ms` } as CSSProperties}>
+    <div className="showcase" data-ready={ready ? "" : undefined}>
       <CupDefs />
       <div className="showcase-stage">
         <Carousel label="Teas" slideLabel="{n} of {total}" onIndexChange={setTea}>
-          {teas.map((t, index) => {
-            const own = results[index];
-            const good = own?.note === null;
-            return (
-              <div key={t.id} className="showcase-slide" data-steaming={own?.hot ? "" : undefined}>
-                <div className="showcase-cups" role="img" aria-label={`Two cups of ${t.name}${good ? ", ready" : own ? ", not quite right" : ""}.`}>
-                  <Cup tea={colour(index)} pour={own ? pours : 0} />
-                  <Cup tea={colour(index)} pour={own ? pours : 0} />
-                  {/* The payoff bursts from the cups themselves, across their whole width, once, when this tea comes out right. */}
-                  <span className="showcase-burst">
-                    <Celebrate show={good} message={`Your ${t.name} is ready`} hideMessage className="absolute inset-0" />
-                  </span>
-                </div>
-                {good ? (
-                  <>
-                    <p className="showcase-tea-name showcase-ready">Your {t.name} is ready.</p>
-                    <p className="showcase-tea-line">Fresh from the pot.</p>
-                  </>
-                ) : (
-                  <>
-                    <p className="showcase-tea-name">{t.name}</p>
-                    <p className="showcase-tea-line">{own ? "Not quite right this time." : t.line}</p>
-                  </>
-                )}
+          {teas.map((t, index) => (
+            <div key={t.id} className="showcase-slide" data-steaming={ready ? "" : undefined}>
+              <div className="showcase-cups" role="img" aria-label={`Two cups of ${t.name}${ready ? ", ready" : ""}.`}>
+                <Cup tea={colour(index)} pour={brewed} />
+                <Cup tea={colour(index)} pour={brewed} />
               </div>
-            );
-          })}
+              <p className={ready ? "showcase-tea-name showcase-ready" : "showcase-tea-name"}>{ready ? `Your ${t.name} is ready` : t.name}</p>
+              <p className="showcase-tea-line">{ready ? "Fresh from the pot." : t.line}</p>
+            </div>
+          ))}
         </Carousel>
+        {/* The payoff bursts over the cups, once, when every step is done in turn. */}
+        <span className="showcase-burst">
+          <Celebrate show={ready} message={`Your ${name} is ready`} hideMessage className="absolute inset-0" />
+        </span>
       </div>
       <div className="showcase-work">
-        <p className="showcase-hint" id="showcase-hint">
-          {ready ? (
-            "Just right. Swipe to try another tea, or brew again."
-          ) : result ? (
-            <>
-              <strong className="showcase-off">Not quite.</strong> {result.note} Drag the steps and brew again.
-            </>
-          ) : (
-            "Swipe to choose a tea, drag the steps into order, then brew."
-          )}
-        </p>
-        <Reorderable
+        <Checklist
           label="Steps"
-          disabled={brewing !== null}
-          items={order.map((id, index) => {
-            const s = steps.find((x) => x.id === id)!;
-            const state = brewing !== null ? (index < step ? "done" : index === step ? "now" : "todo") : result ? "done" : "todo";
-            return {
-              id,
-              label: s.label,
-              content: <Item variant="outline" size="sm" className="my-1" media={<StepIcon id={id} />} mediaSize="icon" title={s.label} actions={<StepMark state={state} />} data-state={state} />,
-            };
+          description="Tick each one in the order you'd do it."
+          ordered={order}
+          items={shown.map((id) => {
+            const step = steps.find((s) => s.id === id)!;
+            return { id, label: step.label, value: <StepIcon id={id} />, checked: done.has(id) };
           })}
-          onReorder={reorder}
+          onCheckedChange={(id, checked) =>
+            setDone((now) => {
+              const next = new Set(now);
+              if (checked) next.add(id as StepId);
+              else next.delete(id as StepId);
+              return next;
+            })
+          }
+          onClearChecked={() => setDone(new Set())}
+          clearLabel="Start over"
         />
-        <div className="showcase-brew">
-          <Button size="lg" loading={brewing !== null} loadingLabel="Brewing" onClick={start} aria-describedby="showcase-hint">
-            {result ? `Brew the ${name} again` : `Brew the ${name}`}
-          </Button>
-          <p className="showcase-doing" aria-live="polite">
-            {doing ? `${doing}…` : ""}
-            {/* Celebrate says when it's ready; a tea that came out wrong says so here. */}
-            <span className="sr-only">{brewing === null && result?.note ? `Not quite. ${result.note}` : ""}</span>
-          </p>
-        </div>
       </div>
     </div>
   );
