@@ -44,6 +44,8 @@ jobs:
         run: node scripts/ouro/check/check.ts _site --sizes 390x844,1440x900,1920x1080,3840x2160 --out ouro-check
       - name: Play the tea in a browser (the scene follows the steps, and the finished pot ends on the hand-off)
         run: node scripts/check-tea.mjs _site
+      - name: Open lost addresses (the 404 page guesses the place an address meant)
+        run: node scripts/check-lost.mjs _site
       - name: Check that no picture fades (Ouro check's fade check, over the source)
         run: node scripts/check-fades.mjs
       - uses: actions/upload-artifact@v4

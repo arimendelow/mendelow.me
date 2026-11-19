@@ -10,6 +10,7 @@
     "build": "rm -rf dist && node scripts/build-site.mjs dist",
     "check": "node scripts/check-fades.mjs && node --test 'tests/*.test.mjs' && node scripts/check-hx.mjs dist",
     "check:tea": "node scripts/check-tea.mjs dist",
+    "check:lost": "node scripts/check-lost.mjs dist",
     "check:screens": "node scripts/ouro/check/check.ts dist --sizes 390x844,1440x900,1920x1080,3840x2160 --out ouro-check"
   },
   "dependencies": {

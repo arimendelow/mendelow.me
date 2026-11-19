@@ -1,7 +1,6 @@
 // The page's content, rendered to static HTML at build time: no component here ships script. Every link and button
 // is an Ouro HX component; the islands that need script (the navigation and the RAPID video) are in their own files.
 import type { ReactNode } from "react";
-import { Button } from "@/components/ouro/button/button";
 import { Item } from "@/components/ouro/item/item";
 import { ItemGroup } from "@/components/ouro/item/item-group";
 import { Link } from "@/components/ouro/link/link";
@@ -497,15 +496,5 @@ export function Contact() {
         </div>
       </div>
     </section>
-  );
-}
-
-export function GoHome() {
-  return (
-    <div className="cta-row">
-      <Button href="/" size="lg">
-        Go home
-      </Button>
-    </div>
   );
 }
