@@ -3,6 +3,7 @@
 import "@/styles/global.css";
 import { SkipLink } from "@/components/ouro/skip-link/skip-link";
 import { colorSchemeScript } from "@/lib/ouro/color-scheme-script";
+import { fragmentFocusScript } from "@/lib/ouro/fragment-focus-script";
 import { SiteFamilyBar, SiteFooter } from "@/components/Family";
 import { SiteNav } from "@/components/SiteNav";
 import { schemeKey } from "@/site";
@@ -37,6 +38,8 @@ const headScript = `document.documentElement.classList.add("js");${colorSchemeSc
 <script is:inline set:html={headScript}></script>
 </head>
 <body>
+{/* First in body, so Safari keeps focus where a person is on a page opened at a place on it (/#contact) as later styles load. */}
+<script is:inline set:html={fragmentFocusScript()}></script>
 <SkipLink />
 <SiteFamilyBar />
 <SiteNav client:load />
