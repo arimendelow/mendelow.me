@@ -1,7 +1,1 @@
-{
-  "known": {
-    "fragment-focus": [
-      "Safari takes focus as stylesheets load, on this page opened at a place on it, without fragmentFocusScript"
-    ]
-  }
-}
+{}

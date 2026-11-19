@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { Item } from "@/components/ouro/item/item";
 import { ItemGroup } from "@/components/ouro/item/item-group";
+import { AppWindow } from "@/components/ouro/app-window/app-window";
 import { Link } from "@/components/ouro/link/link";
 
 const up = <span aria-hidden="true">&nbsp;&#8599;</span>;
@@ -107,9 +108,12 @@ export function Work({ showcase, xray }: { showcase?: ReactNode; xray?: ReactNod
               <figcaption className="showcase-caption">
                 <span className="when-script">Make a pot of tea. Every cup, step and button here is a live Ouro HX component.</span>
                 <span className="when-no-script">This little tea set is made of live Ouro HX components, and it needs JavaScript to play.</span> <Out href="https://ui.ouroboros.bot/docs/">See them all</Out>
-                <span className="when-script">{xray}</span>
               </figcaption>
-              {showcase}
+              {/* The tea framed as an app's window, as the Nautilus frames its compositions: its file and X-ray in the bar,
+                  the Ouro HX components it is built from along its foot. */}
+              <AppWindow title="tea.tsx" actions={<span className="when-script">{xray}</span>} builtWith={["Carousel", "Checklist", "Celebrate", "CopyButton", "Button"]}>
+                <div className="showcase-body">{showcase}</div>
+              </AppWindow>
             </figure>
             <div className="card-links">
               <Out href="https://ui.ouroboros.bot/">Explore Ouro UI</Out>
