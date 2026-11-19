@@ -3,6 +3,7 @@ import Base from "@/layouts/Base.astro";
 import { AboutStory, AgentsStory, Contact, Earlier, Hero, Now, RapidLinks, RapidPhoto, SpoonjoyStory, Work } from "@/components/sections";
 import { RapidVideo } from "@/components/RapidVideo";
 import { XrayToggle } from "@/components/XrayToggle";
+import { CopyEmail } from "@/components/CopyEmail";
 import { OuroShowcase } from "@/components/OuroShowcase";
 
 const title = "Ari Mendelow | Working with agents, and building for them";
@@ -63,7 +64,9 @@ const jsonLd = {
 
   <Earlier />
   <SpoonjoyStory />
-  <Contact />
+  <Contact>
+    <CopyEmail slot="copy" address="hello@mendelow.me" client:visible />
+  </Contact>
 
   <Fragment slot="end">
     <!-- Cloudflare Web Analytics, loaded only on the live site, so local and CI builds make no request to Cloudflare. -->

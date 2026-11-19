@@ -14,7 +14,8 @@ if (!folder) {
 const server = await serve(folder);
 const browser = await chromium.launch();
 try {
-  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, permissions: ["clipboard-read", "clipboard-write"] });
+  const page = await context.newPage();
   await page.goto(`${server.origin}/#ouro-ui`);
   const tea = page.locator("#ouro-ui");
   await tea.locator(".showcase").scrollIntoViewIfNeeded();
@@ -65,7 +66,14 @@ try {
   for (const item of ["/docs/checklist/", "/docs/carousel/", "/docs/button/", "/docs/link/", "/docs/navbar/"]) assert.ok(tags.includes(item), `X-ray tags ${item} (tags: ${tags.join(", ")})`);
   await tea.getByRole("button", { name: "Hide the parts" }).click();
   await assert.doesNotReject(page.locator('[data-ouro="inspector"]').waitFor({ state: "detached", timeout: 10_000 }), "X-ray turns off");
-  console.log("PASS: the tea follows the steps done in turn, fills when poured, and ends on the hand-off; Show me the parts X-rays the page.");
+  // Say hello!'s address copies with one press, for someone whose mail lives in a browser, and Copy says so on itself.
+  const contact = page.locator("#contact");
+  await contact.scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => document.querySelector('#contact astro-island[component-export="CopyEmail"]')?.hasAttribute("ssr") === false);
+  await contact.getByRole("button", { name: "Copy address" }).click();
+  assert.equal(await page.evaluate(() => navigator.clipboard.readText()), "hello@mendelow.me");
+  await assert.doesNotReject(contact.getByRole("button", { name: /Copied/ }).waitFor({ timeout: 10_000 }), "Copy says Copied on itself");
+  console.log("PASS: the tea follows the steps done in turn, fills when poured, and ends on the hand-off; Show me the parts X-rays the page; the email address copies.");
 } finally {
   await browser.close();
   await server.close();
