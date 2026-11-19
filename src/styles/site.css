@@ -92,6 +92,11 @@ p, li, figcaption { text-wrap: pretty; }
 .hero h1 { font-size: 2.25rem; line-height: 1; letter-spacing: -0.02em; margin: 0; color: var(--foreground); }
 @media (min-width: 640px) { .hero h1 { font-size: 3rem; } }
 @media (min-width: 1024px) { .hero h1 { font-size: 4rem; } }
+/* The 404 page's guess, when the address names a place on the home page: a line and the way there, above Go home. */
+/* The island draws no box (display: contents), so the way on keeps its own room whether or not a guess shows. */
+.lost-guess { display: grid; gap: calc(var(--spacing) * 4); margin-top: calc(var(--spacing) * 6); }
+.hero-solo > .cta-row { margin-top: calc(var(--spacing) * 6); }
+.lost-guess-line { margin: 0; font-size: 1.125rem; color: var(--ink-soft); }
 /* A hero without a grid (the 404 page). */
 .hero-solo > .hero-title + *, .hero-solo > .hero-sub + * { margin-top: calc(var(--spacing) * 6); }
 .portrait-img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius-xl); border: 1px solid var(--border); }
