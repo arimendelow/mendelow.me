@@ -21,3 +21,10 @@ test("the theme choice is applied before paint and offered in the navigation", (
 test("a light look beats :root, so choosing it changes the page", () => {
   assert.doesNotMatch(read("src/styles/themes.css"), /^\[data-theme=/m);
 });
+
+test("the tea hand-off is Ouro's AgentHandoff, with no hand-rolled copy of it", () => {
+  const tea = read("src/components/OuroShowcase.tsx");
+  const css = read("src/styles/site.css");
+  assert.match(tea, /<AgentHandoff /);
+  assert.doesNotMatch(css, /\.showcase-handoff/);
+});

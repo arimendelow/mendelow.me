@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Carousel } from "@/components/ouro/carousel/carousel";
 import { Celebrate } from "@/components/ouro/celebrate/celebrate";
 import { Checklist } from "@/components/ouro/checklist/checklist";
-import { CopyButton } from "@/components/ouro/copy-button/copy-button";
+import { AgentHandoff } from "@/components/ouro/agent-handoff/agent-handoff";
 
 const teas = [
   { id: "breakfast", name: "English breakfast", line: "Malty and bold", tea: "#5a2a0e" },
@@ -172,15 +172,7 @@ export function OuroShowcase() {
           clearLabel="Start over"
         />
         {ready ? (
-          <div className="showcase-handoff showcase-ready" role="group" aria-labelledby="showcase-handoff-label">
-            <p id="showcase-handoff-label" className="showcase-handoff-label">
-              Like the tea? Hand Ouro UI to your coding agent.
-            </p>
-            <div className="showcase-handoff-row">
-              <p className="showcase-handoff-prompt">{handOff}</p>
-              <CopyButton value={handOff} variant="soft" failedMessage="The browser blocked copying. Select the line and copy it yourself." />
-            </div>
-          </div>
+          <AgentHandoff className="showcase-ready mt-4" label="Like the tea? Hand Ouro UI to your coding agent." prompt={handOff} />
         ) : null}
       </div>
     </div>
