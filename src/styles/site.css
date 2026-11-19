@@ -177,8 +177,13 @@ html:not(.js) .showcase-work { display: none; }
 .showcase-tea-line { margin: 0; font-size: 1rem; color: var(--muted-foreground); }
 .showcase-burst { position: absolute; inset: -1rem; pointer-events: none; }
 
-/* Where you act: the steps, each an outlined card with its icon in a tile and a round tick. */
-.showcase-work { min-width: 0; }
+/* Where you act: the steps, each an outlined card with its icon in a tile and a round tick. Once the pot is ready, the
+   hand-off under them: the line to paste into a coding agent, with Copy beside it (under it on a phone). */
+.showcase-work { min-width: 0; display: grid; gap: calc(var(--spacing) * 6); align-content: start; }
+.showcase-handoff { display: grid; gap: calc(var(--spacing) * 2); padding-top: calc(var(--spacing) * 4); border-top: 1px solid var(--border); }
+.showcase-handoff-label { margin: 0; font-size: 1rem; font-weight: 500; color: var(--foreground); }
+.showcase-handoff-row { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--spacing) * 3); }
+.showcase-handoff-prompt { flex: 1 1 20rem; min-width: 0; margin: 0; padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3); font-size: 1rem; line-height: 1.5; color: var(--foreground); background: var(--muted); border-radius: var(--radius-md); overflow-wrap: anywhere; }
 
 @media (prefers-reduced-motion: no-preference) {
   /* The tea is poured: it rises from the bottom of the cup with each step done in turn. Calm, no bounce. */

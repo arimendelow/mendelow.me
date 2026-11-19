@@ -106,7 +106,7 @@ export function Work({ showcase }: { showcase?: ReactNode }) {
             </div>
             <figure className="showcase-figure">
               <figcaption className="showcase-caption">
-                <span className="when-script">Make a pot of tea: every control here is a live Ouro HX component, so go ahead and play.</span>
+                <span className="when-script">Make a pot of tea. Every cup, step and button here is a live Ouro HX component.</span>
                 <span className="when-no-script">This little tea set is made of live Ouro HX components, and it needs JavaScript to play.</span> <Out href="https://ui.ouroboros.bot/docs/">See them all</Out>
               </figcaption>
               {showcase}
