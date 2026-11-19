@@ -35,12 +35,7 @@ img { max-width: 100%; height: auto; display: block; }
 h1, h2, h3 { font-family: var(--font-heading); font-weight: 400; font-style: normal; line-height: 1.08; letter-spacing: -0.01em; text-wrap: pretty; }
 p, li, figcaption { text-wrap: pretty; }
 
-/* Content is 72rem wide, with the gutters outside it, as on ouroboros.bot. */
-.wrap { width: 100%; max-width: calc(var(--maxw) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
-
-/* ── Section ── */
-.section { padding: calc(var(--spacing) * 14) 0; border-top: 1px solid var(--border); }
-@media (min-width: 768px) { .section { padding: calc(var(--spacing) * 24) 0; } }
+/* The column and the section rhythm are Ouro's PageShell and PageSection. --maxw and --gutter stay for the full-width bars. */
 
 .heading-section { font-size: 2.25rem; line-height: 1.02; letter-spacing: -0.015em; margin: 0; color: var(--foreground); text-wrap: balance; }
 @media (min-width: 768px) { .heading-section { font-size: 3rem; } }
@@ -317,7 +312,7 @@ main:focus { outline: none; }
 
 /* The phone menu: the site's sections, then the Ouro family under its own heading, this site marked in words. */
 .phone-menu { display: grid; gap: calc(var(--spacing) * 4); }
-.phone-menu-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.125rem; }
+.phone-menu-list { list-style: none; margin: 0; padding: 0; display: grid; gap: calc(var(--spacing) * 1); }
 .phone-menu-link { align-items: center; gap: calc(var(--spacing) * 3); min-height: 2.75rem; padding: 0 calc(var(--spacing) * 3); font-size: 1.125rem; font-weight: 500; }
 .phone-menu-family { border-top: 1px solid var(--border); padding-top: calc(var(--spacing) * 3); }
 .phone-menu-heading { margin: 0; padding: calc(var(--spacing) * 1) calc(var(--spacing) * 3); font-family: inherit; font-size: 0.875rem; font-weight: 500; line-height: 1.25rem; color: var(--muted-foreground); }

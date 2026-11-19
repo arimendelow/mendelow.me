@@ -1,6 +1,7 @@
 @import "tailwindcss";
 /* The site's own layout, under Tailwind's utilities so an Ouro HX component's classes always win. */
 @import "./site.css" layer(components);
+@import "./themes.css";
 
 /* Ouro HX switches schemes with the .dark class on <html> (lib/ouro/color-scheme). */
 @custom-variant dark (&:is(.dark *));

@@ -4,10 +4,19 @@
 import { useId } from "react";
 import { ColorSchemeToggle } from "@/components/ouro/color-scheme-toggle/color-scheme-toggle";
 import { Link } from "@/components/ouro/link/link";
+import { ThemePicker } from "@/components/ouro/theme-picker/theme-picker";
 import { Navbar } from "@/components/ouro/navbar/navbar";
 import family from "@/family.json";
 import { ColorSchemeProvider } from "@/lib/ouro/color-scheme";
 import { gutters, schemeKey } from "@/site";
+
+const presets = [
+  { name: "ouroboros", label: "Ouroboros", mood: "Warm paper by day, a serpent's night by dark" },
+  { name: "pearl", label: "Pearl", mood: "Clean white, soft glass and one clear blue" },
+  { name: "abyss", label: "Abyss", mood: "Pale aqua, then a cyan glow in the dark" },
+  { name: "brass", label: "Brass", mood: "Ivory, walnut and polished brass" },
+  { name: "coral", label: "Coral", mood: "Warm sand, kelp and coral" },
+];
 
 const items = [
   { label: "Agents", href: "/#working-with-agents" },
@@ -21,6 +30,7 @@ function PhoneMenu() {
   const heading = useId();
   return (
     <div className="phone-menu">
+      <ThemePicker presets={presets} defaultPreset="ouroboros" />
       <ul className="phone-menu-list">
         {items.map((item) => (
           <li key={item.href}>
@@ -71,7 +81,12 @@ export function SiteNav() {
         }
         items={items}
         menu={<PhoneMenu />}
-        actions={<ColorSchemeToggle label="Light, dark or system" />}
+        actions={
+          <>
+            <ThemePicker presets={presets} defaultPreset="ouroboros" className="hidden sm:inline-flex" />
+            <ColorSchemeToggle label="Light, dark or system" />
+          </>
+        }
       />
     </ColorSchemeProvider>
   );

@@ -5,6 +5,7 @@ import { Item } from "@/components/ouro/item/item";
 import { ItemGroup } from "@/components/ouro/item/item-group";
 import { AppWindow } from "@/components/ouro/app-window/app-window";
 import { Link } from "@/components/ouro/link/link";
+import { PageSection, PageShell } from "@/components/ouro/page-shell/page-shell";
 
 const up = <span aria-hidden="true">&nbsp;&#8599;</span>;
 
@@ -20,7 +21,7 @@ function Out({ href, children }: { href: string; children: ReactNode }) {
 export function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-heading">
-      <div className="wrap hero-grid">
+      <PageShell className="hero-grid">
         <div className="hero-copy">
           <div className="hero-title">
             <p className="eyebrow">Hello!! I'm Ari.</p>
@@ -45,15 +46,15 @@ export function Hero() {
             fetchPriority="high"
           />
         </figure>
-      </div>
+      </PageShell>
     </section>
   );
 }
 
 export function Now() {
   return (
-    <section className="section now" aria-labelledby="now-heading">
-      <div className="wrap stack">
+    <PageSection className="now" aria-labelledby="now-heading">
+      <PageShell className="stack">
         <h2 className="heading-section" id="now-heading">
           Now
         </h2>
@@ -65,8 +66,8 @@ export function Now() {
             The rest is building for agents: helping them stay oriented, organizing the work around them, and measuring whether the new way of working is better. I run my own work that way every day, on <Link href="https://ouroboros.bot/desk/">Desk</Link>, and my team runs on Crew, the shared workspace I built on top of it for us and our agents. I share how I do it in <Link href="https://ouroboros.bot/approach/">How I work</Link>, and how it started in <Link href="https://ouroboros.bot/blog/stop-being-the-glue/">Stop being the glue</Link>.
           </p>
         </div>
-      </div>
-    </section>
+      </PageShell>
+    </PageSection>
   );
 }
 
@@ -90,8 +91,8 @@ function ToolArt({ art }: { art: string }) {
 // The Ouro UI entry's showcase and its X-ray toggle are islands the page passes in (client:visible), so this stays static HTML.
 export function Work({ showcase, xray }: { showcase?: ReactNode; xray?: ReactNode }) {
   return (
-    <section className="section work" id="work" aria-labelledby="work-heading">
-      <div className="wrap">
+    <PageSection className="work" id="work" aria-labelledby="work-heading">
+      <PageShell>
         <h2 className="heading-section" id="work-heading">
           Selected work
         </h2>
@@ -199,8 +200,8 @@ export function Work({ showcase, xray }: { showcase?: ReactNode; xray?: ReactNod
             </div>
           </article>
         </div>
-      </div>
-    </section>
+      </PageShell>
+    </PageSection>
   );
 }
 
@@ -247,8 +248,8 @@ const patent = (
 
 export function Earlier() {
   return (
-    <section className="section earlier" id="earlier" aria-labelledby="earlier-heading">
-      <div className="wrap">
+    <PageSection className="earlier" id="earlier" aria-labelledby="earlier-heading">
+      <PageShell>
         <h2 className="heading-section" id="earlier-heading">
           Earlier
         </h2>
@@ -284,8 +285,8 @@ export function Earlier() {
             </figure>
           </article>
         </div>
-      </div>
-    </section>
+      </PageShell>
+    </PageSection>
   );
 }
 
@@ -323,8 +324,8 @@ function Shot({ src, width, height, alt, caption, inset = false, phone }: { src:
 
 export function SpoonjoyStory() {
   return (
-    <section className="section story" id="spoonjoy-story" aria-labelledby="story-heading">
-      <div className="wrap story-grid">
+    <PageSection className="story" id="spoonjoy-story" aria-labelledby="story-heading">
+      <PageShell className="story-grid">
         <div className="story-intro">
           <h2 className="heading-section" id="story-heading">
             Spoonjoy, from the start
@@ -427,15 +428,15 @@ export function SpoonjoyStory() {
             <Out href="https://ouroboros.bot">How I build with agents</Out>
           </div>
         </div>
-      </div>
-    </section>
+      </PageShell>
+    </PageSection>
   );
 }
 
 export function AgentsStory() {
   return (
-    <section className="section story" id="working-with-agents" aria-labelledby="agents-story-heading">
-      <div className="wrap story-grid">
+    <PageSection className="story" id="working-with-agents" aria-labelledby="agents-story-heading">
+      <PageShell className="story-grid">
         <div className="story-intro">
           <h2 className="heading-section" id="agents-story-heading">
             My agent's to-do list took over
@@ -505,15 +506,15 @@ export function AgentsStory() {
             <Out href="https://ouroboros.bot/lab/how-desk-started/">The whole story</Out>
           </div>
         </div>
-      </div>
-    </section>
+      </PageShell>
+    </PageSection>
   );
 }
 
 export function Contact({ copy }: { copy?: ReactNode }) {
   return (
-    <section className="section contact" id="contact" aria-labelledby="contact-heading">
-      <div className="wrap stack">
+    <PageSection className="contact" id="contact" aria-labelledby="contact-heading">
+      <PageShell className="stack">
         <h2 className="heading-section" id="contact-heading">
           Say hello!
         </h2>
@@ -528,7 +529,7 @@ export function Contact({ copy }: { copy?: ReactNode }) {
             <Link href="https://www.linkedin.com/in/arimendelow">LinkedIn</Link>
           </div>
         </div>
-      </div>
-    </section>
+      </PageShell>
+    </PageSection>
   );
 }
