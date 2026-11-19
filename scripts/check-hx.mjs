@@ -29,7 +29,7 @@ assert.equal(text(lead.querySelector('h3')), 'Ouro UI');
 for (const href of ['https://ui.ouroboros.bot/', 'https://github.com/ourostack/ouro-ui']) assert.ok(hrefs(lead).includes(href), `Ouro UI links to ${href}`);
 // Ari, 2026-11-09: not a giant photo but a live showcase of Ouro HX's components, an island that hydrates only when
 // it scrolls into view, so the rest of the page ships no extra script. Its server HTML is the whole scene.
-const island = lead.querySelector('astro-island');
+const island = lead.querySelector('astro-island[component-export="OuroShowcase"]');
 assert.ok(island, 'The Ouro UI showcase is an island');
 assert.equal(island.getAttribute('client'), 'visible', 'The showcase hydrates only when it scrolls into view');
 assert.equal(lead.querySelectorAll('figure img').length, 0, 'No photo in the Ouro UI entry');
