@@ -97,6 +97,7 @@
     "src/lib/ouro/dev.ts": "e10c32dbb566a711f6969fd229e37686c2a72ef0ed4956ab2dac87e584ab5ae6",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "4c723c3a6c385e516f649b9ebbdcf6cb6302fd95d3f0cc782d33ba5f9172a7a1",
+    "src/lib/ouro/fragment-focus-script.ts": "ff725ffb57e7abc0d244cf651537649b22ba0b1d81501c9a5dcb2237a41ece46",
     "src/lib/ouro/key-shortcuts.ts": "fd2d1311d04ac773de046112b2c0455769360eaab37f26d2c2e483ff6bd894ee",
     "src/lib/ouro/open-mode.ts": "f39f0c2c5f38b3a5ae17c4e17bcf92b28871ee4a5a376314bd92ea5e8a1a1d36",
     "src/lib/ouro/ouro-provider.tsx": "c71d040406b5b382ceb3d44f11cafa661db6534ca6cff5e02ae2bd2c5c3beafc",
