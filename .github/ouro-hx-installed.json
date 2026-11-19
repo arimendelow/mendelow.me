@@ -62,6 +62,7 @@
     "src/components/ouro/checklist/checklist-styles.ts": "7d6aad9461fee9f5bcf95fdcc1ad2c2e8d7282aeb9a04e0695942eed3542c39c",
     "src/components/ouro/checklist/checklist.tsx": "790dfab550f52e2aa999872f7d2da93fb7d64d44944b6bac1f1923d16435d3e8",
     "src/components/ouro/color-scheme-toggle/color-scheme-toggle.tsx": "508043519eabac30fc3601c1d02c1a66e1dcce57c69f1cd3554fd2814b40ef14",
+    "src/components/ouro/copy-button/copy-button.tsx": "1b2682f6f0f9d46cbf04c19f8938c30d04c3ede4d130f498d766f4ffc43c003e",
     "src/components/ouro/family-bar/family-bar-styles.ts": "41f3142e82dbc25bafaf76089c679bde4bc8191e81bed47210fb99ca8768c7f4",
     "src/components/ouro/family-bar/family-bar.tsx": "7321be5b6ec3a3c42d807807dd7afdb43ea02e46af1d1517d425440ddad77a84",
     "src/components/ouro/family-bar/family-footer.tsx": "030ce456a08fd51d9fa9f6b6d5c442e8399098fd0b9bfd2f2dc88bc37ed2c572",

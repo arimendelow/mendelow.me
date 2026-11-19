@@ -1,13 +1,16 @@
 // The Ouro UI entry's showcase: a pot of tea to make, built from real Ouro HX components. The cups are a Carousel: swipe
-// to change the tea. The steps are a Checklist that knows their order: tick them as you'd make tea, and the pot gets
-// stronger with each step done in turn. A step ticked too early turns amber and says which step comes first, and turns
-// right on its own once that one is done. All five fill the cups, and Celebrate bursts over them. An island that
-// hydrates when it scrolls into view (client:visible), so the rest of the page ships no extra script; its server HTML
-// is the whole scene in its starting state.
+// to change the tea. The steps are a Checklist that knows their order: tick them as you'd make tea, and the scene follows
+// the steps done in turn. The line under the tea says where the pot is, the cups stay empty until the water is poured,
+// and the tea darkens once it has steeped. A step ticked too early turns amber and says which step comes first, and
+// turns right on its own once that one is done. When the pot is ready the cups steam, Celebrate bursts over them (at
+// most once a day, so a second pot is calm), and the hand-off offers the line to paste into a coding agent. An island
+// that hydrates when it scrolls into view (client:visible), so the rest of the page ships no extra script; its server
+// HTML is the whole scene in its starting state.
 import { useState } from "react";
 import { Carousel } from "@/components/ouro/carousel/carousel";
 import { Celebrate } from "@/components/ouro/celebrate/celebrate";
 import { Checklist } from "@/components/ouro/checklist/checklist";
+import { CopyButton } from "@/components/ouro/copy-button/copy-button";
 
 const teas = [
   { id: "breakfast", name: "English breakfast", line: "Malty and bold", tea: "#5a2a0e" },
@@ -27,6 +30,13 @@ const steps = [
 ] as const;
 type StepId = (typeof steps)[number]["id"];
 const order: StepId[] = steps.map((step) => step.id);
+// Where the pot is after each run of steps done in turn: none, then each step, the last when it's ready.
+const stage = ["", "The kettle's on.", "The pot is warm.", "Leaves in. Water next.", "Poured. Now let it steep.", "Fresh from the pot."] as const;
+// The cups fill when the water is poured (the fourth step) and darken when the tea has steeped (the fifth).
+const poured = 4;
+// What to do with Ouro UI once you've seen it: the line ui.ouroboros.bot hands to a coding agent.
+const handOff = "Build this app's interface with Ouro UI. Read https://ui.ouroboros.bot/llms.txt first and follow it.";
+
 // The order the steps are shown in, so there's an order to find.
 const shown: StepId[] = ["leaves", "boil", "steep", "warm", "pour"];
 
@@ -76,8 +86,8 @@ function CupDefs() {
   );
 }
 
-// A porcelain cup on its saucer, seen from a little above, with the tea's surface inside its rim.
-function Cup({ tea, pour }: { tea: string; pour: number }) {
+// A porcelain cup on its saucer, seen from a little above, with the tea's surface inside its rim once it's poured.
+function Cup({ tea, pour }: { tea: string | null; pour: number }) {
   return (
     <svg className="showcase-cup" viewBox="0 0 140 120" aria-hidden="true" focusable="false">
       <g className="showcase-steam" filter="url(#tea-steam-blur)" fill="none" strokeLinecap="round" strokeWidth="3.5">
@@ -96,12 +106,14 @@ function Cup({ tea, pour }: { tea: string; pour: number }) {
       <path className="showcase-band" d="M27 56c10 6 26 9 43 9s33-3 43-9" fill="none" strokeWidth="1.6" />
       <ellipse cx="70" cy="44" rx="46" ry="11" className="showcase-rim showcase-edge" />
       <ellipse cx="70" cy="45" rx="42" ry="9" fill="url(#tea-inside)" />
-      <g clipPath="url(#tea-opening)">
-        <g className="showcase-tea" key={pour}>
-          <ellipse cx="70" cy="48" rx="40" ry="7.6" className="showcase-tea-surface" style={{ fill: tea }} />
-          <ellipse cx="60" cy="46.5" rx="15" ry="2" fill="#ffffff" opacity="0.22" />
+      {tea ? (
+        <g clipPath="url(#tea-opening)">
+          <g className="showcase-tea" key={pour}>
+            <ellipse cx="70" cy="48" rx="40" ry="7.6" className="showcase-tea-surface" style={{ fill: tea }} />
+            <ellipse cx="60" cy="46.5" rx="15" ry="2" fill="#ffffff" opacity="0.22" />
+          </g>
         </g>
-      </g>
+      ) : null}
     </svg>
   );
 }
@@ -113,9 +125,8 @@ export function OuroShowcase() {
   const inTurn = order.findIndex((id) => !done.has(id));
   const brewed = inTurn === -1 ? order.length : inTurn;
   const ready = brewed === order.length;
-  // The cups hold a hint of each tea, and fill toward its full colour as the steps are done in turn.
-  const strength = 22 + Math.round((78 * brewed) / order.length);
-  const colour = (index: number) => `color-mix(in oklab, ${teas[index]!.tea} ${strength}%, #f6efe2)`;
+  // Empty until the water is poured, pale while it steeps, the tea's full colour once it has.
+  const colour = (index: number) => (brewed < poured ? null : `color-mix(in oklab, ${teas[index]!.tea} ${ready ? 100 : 45}%, #f6efe2)`);
   const name = teas[tea]!.name;
 
   return (
@@ -125,24 +136,24 @@ export function OuroShowcase() {
         <Carousel label="Teas" slideLabel="{n} of {total}" onIndexChange={setTea}>
           {teas.map((t, index) => (
             <div key={t.id} className="showcase-slide" data-steaming={ready ? "" : undefined}>
-              <div className="showcase-cups" role="img" aria-label={`Two cups of ${t.name}${ready ? ", ready" : ""}.`}>
+              <div className="showcase-cups" role="img" aria-label={brewed < poured ? `Two empty cups, waiting for ${t.name}.` : `Two cups of ${t.name}${ready ? ", ready" : ", steeping"}.`}>
                 <Cup tea={colour(index)} pour={brewed} />
                 <Cup tea={colour(index)} pour={brewed} />
               </div>
               <p className={ready ? "showcase-tea-name showcase-ready" : "showcase-tea-name"}>{ready ? `Your ${t.name} is ready` : t.name}</p>
-              <p className="showcase-tea-line">{ready ? "Fresh from the pot." : t.line}</p>
+              <p className="showcase-tea-line">{brewed === 0 ? t.line : stage[brewed]}</p>
             </div>
           ))}
         </Carousel>
         {/* The payoff bursts over the cups, once, when every step is done in turn. */}
         <span className="showcase-burst">
-          <Celebrate show={ready} message={`Your ${name} is ready`} hideMessage className="absolute inset-0" />
+          <Celebrate show={ready} message={`Your ${name} is ready`} hideMessage cap={{ times: 1, per: "day" }} capKey="mendelow-tea-ready" className="absolute inset-0" />
         </span>
       </div>
       <div className="showcase-work">
         <Checklist
           label="Steps"
-          description="Tick each one in the order you'd do it."
+          description="Do them in order. The pot will notice."
           variant="outline"
           ordered={order}
           items={shown.map((id) => {
@@ -160,6 +171,17 @@ export function OuroShowcase() {
           onClearChecked={() => setDone(new Set())}
           clearLabel="Start over"
         />
+        {ready ? (
+          <div className="showcase-handoff showcase-ready" role="group" aria-labelledby="showcase-handoff-label">
+            <p id="showcase-handoff-label" className="showcase-handoff-label">
+              Like the tea? Hand Ouro UI to your coding agent.
+            </p>
+            <div className="showcase-handoff-row">
+              <p className="showcase-handoff-prompt">{handOff}</p>
+              <CopyButton value={handOff} variant="soft" failedMessage="The browser blocked copying. Select the line and copy it yourself." />
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );
