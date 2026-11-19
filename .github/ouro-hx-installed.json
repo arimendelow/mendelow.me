@@ -52,6 +52,8 @@
     "scripts/ouro/check/theme-check.ts": "286349d9802d6a6f852af452746d2db763bbcb95b593c5ca75a1227365788226",
     "scripts/ouro/check/token-check.ts": "cd634298586268d3377ae17ec0b803677ea1a7b8e1638a88ef270b07394f6694",
     "scripts/ouro/check/wrap-check.ts": "474c9b7a08be766c7479931b3f0f0cb6678efcd10918d0047270f3e6fccda918",
+    "src/components/ouro/app-window/app-window.tsx": "4bbbd5dd1d284bf93367395e4e41c4c93f1dd4f31709bc28b3eb7d9a06ed9ac5",
+    "src/components/ouro/badge/badge.tsx": "588a9b5acaed5c31bb3a89e4f4c904fe9fe318acc28b00344343736266d96f53",
     "src/components/ouro/button/button.tsx": "74c75f0b2b36c4cad4f96966ca089dcc36a46b8f2c5ff983d70254bd359bfaa6",
     "src/components/ouro/carousel/carousel-styles.ts": "aa15cb33824e787ed05d74f1acf2240e2f42c503da9b825f9c27851a7de86aeb",
     "src/components/ouro/carousel/carousel.tsx": "78bf5a33c4ffe9b987abd478de24a275223db0d0850e721eed695d9bd50b5e0a",

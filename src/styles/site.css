@@ -136,13 +136,15 @@ p, li, figcaption { text-wrap: pretty; }
 .card-body > p + p { margin-top: calc(var(--spacing) * 4); }
 .card-links { display: flex; gap: calc(var(--spacing) * 1) calc(var(--spacing) * 6); flex-wrap: wrap; align-items: center; font-weight: 500; margin: calc(var(--spacing) * 1) 0 0; }
 
-/* Ouro UI leads the work, with a pot of tea to make from live Ouro HX components: an invitation, then one compact
-   stage. The cups are a Carousel of teas; beside them (under them on a phone) the steps, an ordered Checklist that says
-   when a step comes too early. On the page itself, no frame round the cups. */
+/* Ouro UI leads the work, with a pot of tea to make from live Ouro HX components: an invitation, then the tea framed as
+   an app's window (Ouro HX's AppWindow, as the Nautilus frames its compositions). The cups are a Carousel of teas;
+   beside them (under them on a phone) the steps, an ordered Checklist that says when a step comes too early. */
 .showcase-figure { margin: calc(var(--spacing) * 2) 0 calc(var(--spacing) * 1); display: grid; gap: calc(var(--spacing) * 4); }
 /* The invitation, then its link, which wraps to a line of its own rather than stretch a line with its touch target. */
 .showcase-caption { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 calc(var(--spacing) * 3); color: var(--ink-soft); font-size: 1rem; }
 html:not(.js) .when-script, html.js .when-no-script { display: none; }
+/* The window's room around the tea, above and below; AppWindow pads its sides. */
+.showcase-body { padding-block: calc(var(--spacing) * 6); }
 /* Without script nothing can be swiped or ticked, so only the first tea's cups show. */
 html:not(.js) .showcase-work { display: none; }
 .showcase {
