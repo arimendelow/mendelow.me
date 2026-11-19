@@ -1,0 +1,102 @@
+{
+  "files": [
+    "public/assets/ari-portrait-night.jpg",
+    "public/assets/ari-portrait-night-600.jpg",
+    "public/assets/ari-portrait-night-800.jpg"
+  ],
+  "method": "A deterministic photographic grade of the real photograph, rebuilt by scripts/grade-night.py. No image model was used: it never touched his face, body or likeness. The script cuts him out with GrabCut, grades the background toward blue hour, gives the figure a softer warm key from the upper left, and draws seven small warm points of light on the far shore (not generated scenery, and none near him).",
+  "command": "python3 scripts/grade-night.py   (numpy, opencv-python, Pillow)",
+  "script": "scripts/grade-night.py",
+  "source": "public/assets/ari-portrait.jpg",
+  "source_sha256": "5ce5f5fbc61e8340521c4ea09d01b2731bc76edb57a18117f9f35f66a807fbf3",
+  "output_sha256": {
+    "public/assets/ari-portrait-night.jpg": "3dd122790051abef4aeb19c65368bb1b49296464c4c93e7995b679488aded1ad",
+    "public/assets/ari-portrait-night-600.jpg": "fbc604d0e1f02d4e81bcc06cdae487701a28ecdb4c4c1a0057c1a656a636b635",
+    "public/assets/ari-portrait-night-800.jpg": "a52089a3686217da0521d22928d720a60635dc878d0e726de971ab69aaca9069"
+  },
+  "parameters": {
+    "grabcut_rect": [
+      235,
+      350,
+      940,
+      1648
+    ],
+    "grabcut_iters": 8,
+    "feather_px": 1.5,
+    "bg_exposure": 0.22,
+    "bg_sky_extra": 0.82,
+    "bg_foot_dark": 0.45,
+    "bg_navy": [
+      0.38,
+      0.85,
+      1.2
+    ],
+    "bg_mono_mix": 0.65,
+    "bg_wb": [
+      0.52,
+      0.92,
+      1.2
+    ],
+    "bg_tint": [
+      0.0006,
+      0.006,
+      0.012
+    ],
+    "bg_floor": 1.0,
+    "fg_exposure": 0.56,
+    "fg_wb": [
+      1.07,
+      1.0,
+      0.94
+    ],
+    "key_center": [
+      330,
+      520
+    ],
+    "key_radius": 900,
+    "key_strength": 0.5,
+    "vignette": 0.3,
+    "lights": [
+      [
+        1052,
+        352
+      ],
+      [
+        1088,
+        360
+      ],
+      [
+        1121,
+        347
+      ],
+      [
+        1150,
+        366
+      ],
+      [
+        1172,
+        355
+      ],
+      [
+        1010,
+        372
+      ],
+      [
+        905,
+        381
+      ]
+    ],
+    "light_color": [
+      1.0,
+      0.52,
+      0.18
+    ],
+    "light_radius": 1.1,
+    "light_glow": 4.0,
+    "light_gain": 0.6,
+    "dither": 1.4,
+    "seed": 20261119,
+    "quality_full": 88,
+    "quality_small": 80
+  }
+}

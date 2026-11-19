@@ -37,4 +37,6 @@ To move Ouro HX to a newer release, add every installed item again at the new ta
 - **Production:** `.github/workflows/pages.yml` builds, checks and deploys `master` to GitHub Pages. Pull requests run every check without deploying. Pages must be set to deploy from GitHub Actions (Settings → Pages → Source).
 - **Preview:** `scripts/deploy-preview.sh` builds a noindex copy and deploys it to <https://mendelow-me-preview.mendelow-studio.workers.dev> (needs `npx wrangler login`).
 
+`scripts/grade-night.py` rebuilds the hero portrait's dusk twin (`public/assets/ari-portrait-night*.jpg`, shown in dark mode) from `ari-portrait.jpg`. It is a deterministic photo grade, not a generated image, and `art/ari-portrait-night/provenance.json` records the source hash and every parameter. Run it with `python3 scripts/grade-night.py` (needs numpy, opencv-python and Pillow); its output is deterministic on the same library versions.
+
 `scripts/build-assets.sh` regenerates the favicons from `public/assets/favicon-source.jpg`.

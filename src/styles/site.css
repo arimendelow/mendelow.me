@@ -95,6 +95,15 @@ p, li, figcaption { text-wrap: pretty; }
 /* A hero without a grid (the 404 page). */
 .hero-solo > .hero-title + *, .hero-solo > .hero-sub + * { margin-top: calc(var(--spacing) * 6); }
 .portrait-img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius-xl); border: 1px solid var(--border); }
+/* The hero photo has a day print and a dusk print (scripts/grade-night.py). The page's dark scheme is the .dark class, or the
+   system setting while script has not run, so one of the two shows at a time. */
+.portrait-night { display: none; }
+.dark .portrait-day { display: none; }
+.dark .portrait-night { display: block; }
+@media (prefers-color-scheme: dark) {
+  html:not(.js) .portrait-day { display: none; }
+  html:not(.js) .portrait-night { display: block; }
+}
 
 .cta-row { display: flex; gap: calc(var(--spacing) * 3); flex-wrap: wrap; }
 
