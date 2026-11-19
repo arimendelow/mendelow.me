@@ -25,7 +25,7 @@ try {
   };
   // Hydrated: the steps answer a press.
   await assert.doesNotReject(tea.getByRole("checkbox", { name: "Boil the water" }).waitFor());
-  await page.waitForFunction(() => document.querySelector("#ouro-ui astro-island")?.hasAttribute("ssr") === false);
+  await page.waitForFunction(() => document.querySelector('#ouro-ui astro-island[component-export="OuroShowcase"]')?.hasAttribute("ssr") === false);
   assert.equal(await line.textContent(), "Malty and bold");
   assert.equal(await slide.locator(".showcase-tea-surface").count(), 0, "The cups start empty");
 
@@ -56,6 +56,7 @@ try {
   await assert.doesNotReject(handOff.waitFor({ state: "detached", timeout: 10_000 }), "Start over puts the hand-off away");
   // "Show me the parts" turns on X-ray over the whole page: an outline and a tag on every Ouro HX component, the
   // Checklist pointed out first, and the button turns it off again.
+  await page.waitForFunction(() => document.querySelector('#ouro-ui astro-island[component-export="XrayToggle"]')?.hasAttribute("ssr") === false);
   const showMe = tea.getByRole("button", { name: "Show me the parts" });
   await showMe.click();
   await assert.doesNotReject(page.locator('[data-ouro="inspector"]').first().waitFor({ timeout: 10_000 }), "X-ray turns on");
