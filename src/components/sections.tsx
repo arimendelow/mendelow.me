@@ -86,8 +86,8 @@ function ToolArt({ art }: { art: string }) {
   return <img src={`/assets/${art}-128.webp`} srcSet={`/assets/${art}-128.webp 1x, /assets/${art}-256.webp 2x`} width="40" height="40" alt="" loading="lazy" decoding="async" />;
 }
 
-// The Ouro UI entry's showcase is an island the page passes in (client:visible), so this stays static HTML.
-export function Work({ showcase }: { showcase?: ReactNode }) {
+// The Ouro UI entry's showcase and its X-ray toggle are islands the page passes in (client:visible), so this stays static HTML.
+export function Work({ showcase, xray }: { showcase?: ReactNode; xray?: ReactNode }) {
   return (
     <section className="section work" id="work" aria-labelledby="work-heading">
       <div className="wrap">
@@ -107,6 +107,7 @@ export function Work({ showcase }: { showcase?: ReactNode }) {
               <figcaption className="showcase-caption">
                 <span className="when-script">Make a pot of tea. Every cup, step and button here is a live Ouro HX component.</span>
                 <span className="when-no-script">This little tea set is made of live Ouro HX components, and it needs JavaScript to play.</span> <Out href="https://ui.ouroboros.bot/docs/">See them all</Out>
+                {xray}
               </figcaption>
               {showcase}
             </figure>

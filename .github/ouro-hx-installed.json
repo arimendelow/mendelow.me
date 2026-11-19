@@ -69,6 +69,8 @@
     "src/components/ouro/field/field-parts.tsx": "b2acc6fa65803da2d837f4c10a5ce63ef4520583a41d0a8b6dc060a42cf03787",
     "src/components/ouro/field/field-styles.ts": "7dd1158b6b0c894a9fe7ec8235bc48f73858842f24fe5be272b322393cb27ca0",
     "src/components/ouro/field/field.tsx": "3d4f8b2a9c2935ec80b45fbd3908de486d0812a6bfca2c11fe948ee9814ac13a",
+    "src/components/ouro/inspector/inspector-styles.ts": "83a3bdb8b0ef7a8dcc727e61ce77e8a248e4d38e9b8164162757a013422b8c17",
+    "src/components/ouro/inspector/inspector.tsx": "fcaab047768a45ef3c51e180ac5d8566bd685f77545581d3abdce0befe3f574f",
     "src/components/ouro/item/item-group.tsx": "dfa273fcdee22f1a213a56f5040cfde236b18bc31f7783b3a4e2517c2d0d591b",
     "src/components/ouro/item/item.tsx": "cc990c90df43672e9e3749dcd0d52cc91e35f89a7376fee0c1d3c62b22e9a1f6",
     "src/components/ouro/kbd/kbd.tsx": "1ae7429296990ac1cfb874e1ca90b35903812b12f7fb2a7b923afa447d75f5e8",
