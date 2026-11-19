@@ -13,16 +13,20 @@
 @media (min-width: 640px) { :root { --gutter: 1.5rem; } }
 @media (min-width: 768px) { :root { --gutter: 3rem; } }
 @media (min-width: 1024px) { :root { --gutter: 4rem; } }
-/* And from 2000px the container grows from 72rem to 84rem, so a 4K display holds about half its width in content. */
+/* And from 2000px the container grows from 72rem to 84rem, so a 4K display holds about 44% of its width in content. */
 @media (min-width: 2000px) { :root { --maxw: 84rem; } }
 
 html { -webkit-text-size-adjust: 100%; scroll-padding-top: 4.5rem; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 /* Nothing may pan the page sideways. clip, unlike hidden, keeps sticky positioning working. */
 html, body { overflow-x: clip; }
-/* Wide screens: from 1600px the root size grows with the viewport, so the container, the type and the spacing
-   scale together. 16px at 1600px, about 20px at 2560px, capped at 24px. Shared with ouroboros.bot. */
-@media (min-width: 1600px) { html { font-size: min(calc(0.45vw + 8.8px), 24px); } }
+/* A very wide screen at 1x (a 4K display at 100%) reads at a laptop's size: the root steps to 112.5% from 150rem
+   (2400px) and to 125% (20px) from 200rem (3200px), then stops, so the type, the container and the spacing grow a
+   little and never past 20px. It used to grow with the window to 24px, which drew the body text at 27px on a 4K
+   display. The same step as Ouro UI's ouro-base.css (ourostack/ouro-ui#2257); once ouro-base carries it, this rule
+   can go. */
+@media (width >= 150rem) { html { font-size: 112.5%; } }
+@media (width >= 200rem) { html { font-size: 125%; } }
 
 body { margin: 0; font-size: 1.125rem; line-height: 1.65; -webkit-font-smoothing: antialiased; }
 
