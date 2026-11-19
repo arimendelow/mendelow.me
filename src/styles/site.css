@@ -281,6 +281,8 @@ html:not(.js) .showcase-work { display: none; }
 
 /* ── Contact ── */
 .contact { background: var(--card); }
+/* The address and its Copy, kept together on one line when the links wrap. */
+.contact-email { display: inline-flex; align-items: center; gap: calc(var(--spacing) * 1); }
 .contact-line { font-size: 1.25rem; margin: calc(var(--spacing) * 5) 0 calc(var(--spacing) * 4); color: var(--ink-soft); }
 
 /* ── Footer: the site's own line, then the family footer with the site's own links ── */

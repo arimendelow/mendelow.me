@@ -480,7 +480,7 @@ export function AgentsStory() {
   );
 }
 
-export function Contact() {
+export function Contact({ copy }: { copy?: ReactNode }) {
   return (
     <section className="section contact" id="contact" aria-labelledby="contact-heading">
       <div className="wrap stack">
@@ -490,7 +490,10 @@ export function Contact() {
         <div>
           <p className="contact-line">If anything I'm working on resonates with you, let's chat :)</p>
           <div className="card-links">
-            <Link href="mailto:hello@mendelow.me">hello@mendelow.me</Link>
+            <span className="contact-email">
+              <Link href="mailto:hello@mendelow.me">hello@mendelow.me</Link>
+              <span className="when-script">{copy}</span>
+            </span>
             <Link href="https://github.com/arimendelow">GitHub</Link>
             <Link href="https://www.linkedin.com/in/arimendelow">LinkedIn</Link>
           </div>
