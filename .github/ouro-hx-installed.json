@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.313",
-  "tagCommit": "2a074c502da2b712a0ee840ff9441728785255bc",
+  "tag": "v1.3.314",
+  "tagCommit": "9c40a19136ad184aeca989f8833b3c0b86111dd2",
   "files": {
     "lib/ouro/ax/checks.ts": "21f7f2dd63a86ce58447c7af3b02dc00069df43620bee53c71b0faa3697a0ff4",
     "lib/ouro/ax/cli.ts": "1cbaf0a683321b6343c3f45a77934c138d8ea25eac36526d34d688b8ede36234",
@@ -91,7 +91,7 @@
     "src/lib/ouro/color-scheme.ts": "a2a7841be3dd3cb8ddc79e0de76c633b6cf06f61161fc74d574962a8b3264981",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "93fdf03893e3f629af7903412cb6e6272661465331abd0a7601dbf33c3a70a41",
+    "src/lib/ouro/dev.ts": "18136f70d863a16189c3004857ecbdd7c49be7b8144d4d14ef1f57dc16082361",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "4c723c3a6c385e516f649b9ebbdcf6cb6302fd95d3f0cc782d33ba5f9172a7a1",
     "src/lib/ouro/key-shortcuts.ts": "fd2d1311d04ac773de046112b2c0455769360eaab37f26d2c2e483ff6bd894ee",
@@ -104,7 +104,7 @@
     "src/lib/ouro/refs.ts": "7e31ecde6b3b78404391e1c5fe04e35e1a790cf86bc38c2184cf77be5f4e16a1",
     "src/lib/ouro/router-link.ts": "b4ebc9021f70fff0bbab81f1caaba542aa8ae4b89bc6395950c8fcbd7cbef966",
     "src/lib/ouro/scroll-fade.ts": "1b77029489ae63a330154d6adb0ee1a96928ceb7256c4b93dbd10a1bb34b0718",
-    "src/lib/ouro/stretched-link.ts": "8fb0607d3c79093e42cb02e89d925c51e5f577a547becb0f533b2b0401c8ad01",
+    "src/lib/ouro/stretched-link.ts": "95ea3e7d08ff728ca3b3f266ade21e2e9e662380e345880aa2568c41e852fb47",
     "src/lib/ouro/tones.ts": "22ef28371ff315f7ed8975d330036c073885e226856f7059e47c80d9fd06f72b",
     "src/lib/ouro/touch-target.tsx": "fd70ffb45a1627849eef2652c3513a35963dfd15b5a9896a010054f8352447fb",
     "src/lib/ouro/use-backdrop-anchor.ts": "ccddf5e08193737597a6b111d875ec19e30db6a6c6afcd280b9aeaef31bec51a",
