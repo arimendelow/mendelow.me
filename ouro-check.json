@@ -1,1 +1,7 @@
-{}
+{
+  "known": {
+    "narrow-text": [
+      "This paragraph wraps at 1280px in a 1920px column, leaving the rest empty. Let it use the width it has: remove `.wrap { max-width: calc(var(--maxw) + 2 * var(--gutter)) }`. If the design sets a measure on purpose, declare it at 40ch or wider: read the max-width from a --measure-* token, add data-ouro-measure to the text, or set \"measure\" in ouro-check.json."
+    ]
+  }
+}
