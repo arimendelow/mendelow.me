@@ -35,7 +35,7 @@ export function Hero() {
             className="portrait-img"
             src="/assets/ari-portrait.jpg"
             srcSet="/assets/ari-portrait-600.jpg 600w, /assets/ari-portrait-800.jpg 800w, /assets/ari-portrait.jpg 1200w"
-            sizes="(min-width: 1600px) min(calc(9.45vw + 185px), 504px), (min-width: 1240px) 336px, (min-width: 1024px) 272px, (min-width: 768px) 192px, (min-width: 640px) min(600px, calc(100vw - 3rem)), calc(100vw - 2.5rem)"
+            sizes="(min-width: 3200px) 420px, (min-width: 2400px) 378px, (min-width: 1240px) 336px, (min-width: 1024px) 272px, (min-width: 768px) 192px, (min-width: 640px) min(600px, calc(100vw - 3rem)), calc(100vw - 2.5rem)"
             width="1200"
             height="1648"
             alt="Ari Mendelow, smiling, in a navy blazer on a grassy overlook above a river gorge."
