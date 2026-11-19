@@ -333,8 +333,10 @@ export function SpoonjoyStory() {
         </div>
         <div className="story-body">
           <ol className="timeline">
-            <li className="beat">
-              <h3 className="beat-when">June 2019, Philly.</h3>
+            <li className="beat" id="spoonjoy-june-2019">
+              <h3 className="beat-when">
+                <Link href="#spoonjoy-june-2019" tone="secondary">June 2019, Philly.</Link>
+              </h3>
               <p>
                 Two friends and I spent a weekend on a <Link href="https://thoughtbot.com/blog/you-should-take-a-codecation">codecation</Link> to build a recipe app we called <Link href="https://github.com/shmobs/recipejoiner">RecipeJoiner</Link>. It turned out only one of us could code, so he spent the weekend teaching the other two of us React and Express.
               </p>
@@ -346,8 +348,10 @@ export function SpoonjoyStory() {
                 caption="RecipeJoiner, booted back up from the codecation code and stocked with sample recipes. The real ones kept their photos on an image host that has since moved on, so paint swatches are filling in."
               />
             </li>
-            <li className="beat">
-              <h3 className="beat-when">2020, the Rails version.</h3>
+            <li className="beat" id="spoonjoy-2020">
+              <h3 className="beat-when">
+                <Link href="#spoonjoy-2020" tone="secondary">2020, the Rails version.</Link>
+              </h3>
               <p>
                 I genuinely wanted RecipeJoiner to exist, so I tried again with a Rails API and a <Link href="https://github.com/spoonjoy/rj-website">Next.js site</Link>. I scoped so much up front, from search to a social feed, that I burned out before it ever launched.
               </p>
@@ -359,18 +363,24 @@ export function SpoonjoyStory() {
                 caption="The 2020 feed, stocked with sample recipes and chatting with a stand-in for its long-retired API. Every recipe gets the app’s own pizza placeholder."
               />
             </li>
-            <li className="beat">
-              <h3 className="beat-when">2021, a new name.</h3>
+            <li className="beat" id="spoonjoy-2021">
+              <h3 className="beat-when">
+                <Link href="#spoonjoy-2021" tone="secondary">2021, a new name.</Link>
+              </h3>
               <p>The app became Spoonjoy. Meanwhile I'd gotten really into cooking, and formed real opinions about how a recipe should be structured, starting with putting each ingredient in the step that uses it.</p>
             </li>
-            <li className="beat">
-              <h3 className="beat-when">September 2022, RedwoodJS.</h3>
+            <li className="beat" id="spoonjoy-september-2022">
+              <h3 className="beat-when">
+                <Link href="#spoonjoy-september-2022" tone="secondary">September 2022, RedwoodJS.</Link>
+              </h3>
               <p>
                 I wanted Rails for JavaScript and found RedwoodJS. My <Link href="https://github.com/spoonjoy/spoonjoy/commit/7dbd8438e71eec5d03c58b189c7c9ade39a6c10c">first commit</Link> called it “attempt 3.” I'd finally learned enough about shipping software to ship something, and a month later Spoonjoy <Link href="https://community.redwoodjs.com/t/webauthn-cryptically-not-working-in-production-but-works-perfectly-in-development/4206/19">went live</Link>.
               </p>
             </li>
-            <li className="beat">
-              <h3 className="beat-when">2023, a first model.</h3>
+            <li className="beat" id="spoonjoy-2023">
+              <h3 className="beat-when">
+                <Link href="#spoonjoy-2023" tone="secondary">2023, a first model.</Link>
+              </h3>
               <p>
                 Spoonjoy learned to import recipes from websites, with a model I fine-tuned to parse ingredients. I wrote up how I <Link href="https://community.redwoodjs.com/t/full-guide-on-using-capacitorjs-to-build-a-native-ios-app/4665">wrapped it as an iPhone app</Link>, and pulled its sign-in out into a <Link href="https://github.com/spoonjoy/redwoodjs-dbauth-oauth">plugin</Link> other Redwood apps could use.
               </p>
@@ -388,20 +398,26 @@ export function SpoonjoyStory() {
                 caption="The 2023 Redwood version, booted back up with a sample cookbook. Its cards were built around food photos, so soft color washes are standing in."
               />
             </li>
-            <li className="beat">
-              <h3 className="beat-when">2024 to 2025, quiet.</h3>
+            <li className="beat" id="spoonjoy-2024-to-2025">
+              <h3 className="beat-when">
+                <Link href="#spoonjoy-2024-to-2025" tone="secondary">2024 to 2025, quiet.</Link>
+              </h3>
               <p>
                 <Link href="https://community.redwoodjs.com/t/the-future-of-redwood-launches-today/7938">Redwood wound down</Link>, and Spoonjoy sat unmaintained. A port to Cloudflare stalled on a database migration.
               </p>
             </li>
-            <li className="beat">
-              <h3 className="beat-when">January 2026.</h3>
+            <li className="beat" id="spoonjoy-january-2026">
+              <h3 className="beat-when">
+                <Link href="#spoonjoy-january-2026" tone="secondary">January 2026.</Link>
+              </h3>
               <p>
                 One of the first things I tried with <Link href="https://ouroboros.bot/lab/story/">Slugger</Link>, my new OpenClaw agent, was handing it the whole rebuild. It researched which framework an agent would work best in, <Link href="https://github.com/spoonjoy/spoonjoy-v2">rebuilt Spoonjoy</Link> on React Router and Cloudflare, and had it running. Its first commit landed on January 23, and two days later the app had sign-in, recipes, cookbooks, and a shopping list. I still haven't read a single line of the new code.
               </p>
             </li>
-            <li className="beat">
-              <h3 className="beat-when">May 2026 to now.</h3>
+            <li className="beat" id="spoonjoy-may-2026-to-now">
+              <h3 className="beat-when">
+                <Link href="#spoonjoy-may-2026-to-now" tone="secondary">May 2026 to now.</Link>
+              </h3>
               <p>
                 The recipe form I'd handbuilt on Redwood didn't make sense anymore. Writing up a recipe should just go to an agent, so Spoonjoy got an MCP server that Claude or ChatGPT can drive, and the new version took over spoonjoy.app. It became my first real playground for working with agents on long-running work. In June it got a <Link href="https://github.com/spoonjoy/spoonjoy-apple">native app</Link> for iPhone, iPad, and Mac, and on November 9 it went live on the <Link href="https://apps.apple.com/us/app/spoonjoy-recipes-cookbooks/id6787505444">App Store</Link>.
               </p>
@@ -448,30 +464,40 @@ export function AgentsStory() {
         </figure>
         <div className="story-body">
           <ol className="timeline">
-            <li className="beat">
-              <h3 className="beat-when">January 2026, a raccoon with a to-do list.</h3>
+            <li className="beat" id="desk-january-2026">
+              <h3 className="beat-when">
+                <Link href="#desk-january-2026" tone="secondary">January 2026, a raccoon with a to-do list.</Link>
+              </h3>
               <p>Slugger spent his first week on my Grubhub orders, HomeKit, flight status, and my iMessage group chats, and on his first afternoon he drew himself a raccoon for an icon. Right after he rebuilt Spoonjoy, he opened a to-do list for it: tests for 27 components. The next morning he wrote a README called “How Slugger manages work,” and two days later he split his tasks into planning docs and doing docs. My agents still write both.</p>
             </li>
-            <li className="beat">
-              <h3 className="beat-when">February 2026, to work and back.</h3>
+            <li className="beat" id="desk-february-2026">
+              <h3 className="beat-when">
+                <Link href="#desk-february-2026" tone="secondary">February 2026, to work and back.</Link>
+              </h3>
               <p>
                 Slugger and I turned his system into two agents for my day job: a planner that won't write a doing doc until I sign off, and a doer that commits after every step. Meanwhile I moved his rules out of prompts and into code, then moved him out of OpenClaw entirely and into <Link href="https://ouroboros.bot/lab/story/">Ouroboros</Link>, a harness I wrote for him.
               </p>
             </li>
-            <li className="beat">
-              <h3 className="beat-when">March to May 2026, the first desk.</h3>
+            <li className="beat" id="desk-march-to-may-2026">
+              <h3 className="beat-when">
+                <Link href="#desk-march-to-may-2026" tone="secondary">March to May 2026, the first desk.</Link>
+              </h3>
               <p>
                 The planner and doer became shared skills. At work I gave my agents a Git repository for their tasks, and their first entries were complaints about juggling GitHub accounts. That was the first desk. In May I split it into <Link href="https://ouroboros.bot/desk/">Desk</Link>, which anyone can use, and MS Desk, the Microsoft layer on top.
               </p>
             </li>
-            <li className="beat">
-              <h3 className="beat-when">June to September 2026, Crew.</h3>
+            <li className="beat" id="desk-june-to-september-2026">
+              <h3 className="beat-when">
+                <Link href="#desk-june-to-september-2026" tone="secondary">June to September 2026, Crew.</Link>
+              </h3>
               <p>
                 My team at Microsoft set up a shared workspace, our first crew, and in July I spun the crew skills out into Crew. Everyone reads everything, and each person's agents write only in their own desk. In September Desk and Crew moved into <Link href="https://github.com/ourostack/desk">their own repository</Link>.
               </p>
             </li>
-            <li className="beat">
-              <h3 className="beat-when">October 2026 to now.</h3>
+            <li className="beat" id="desk-october-2026-to-now">
+              <h3 className="beat-when">
+                <Link href="#desk-october-2026-to-now" tone="secondary">October 2026 to now.</Link>
+              </h3>
               <p>Since June I've run three desks: my own, my solo work desk, and my team's crew. On October 14 CIT got a shared repository, and now it runs on Crew too. By mid-November that's about 35,000 commits and 13,000 merged pull requests since January, not counting the desks, and under all of it sits Slugger's to-do list.</p>
             </li>
           </ol>
