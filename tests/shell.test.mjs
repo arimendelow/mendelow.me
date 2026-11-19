@@ -14,6 +14,10 @@ test("the page column and section rhythm are Ouro's PageShell and PageSection, n
 });
 
 test("the theme choice is applied before paint and offered in the navigation", () => {
-  assert.match(read("src/layouts/Base.astro"), /themePresetScript\(/);
+  assert.match(read("src/layouts/Base.astro"), /themePresetScript\(presetNames, /);
   assert.match(read("src/components/SiteNav.tsx"), /<ThemePicker /);
+});
+
+test("a light look beats :root, so choosing it changes the page", () => {
+  assert.doesNotMatch(read("src/styles/themes.css"), /^\[data-theme=/m);
 });

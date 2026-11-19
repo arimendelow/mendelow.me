@@ -7,7 +7,7 @@ import { colorSchemeScript } from "@/lib/ouro/color-scheme-script";
 import { fragmentFocusScript } from "@/lib/ouro/fragment-focus-script";
 import { SiteFamilyBar, SiteFooter } from "@/components/Family";
 import { SiteNav } from "@/components/SiteNav";
-import { schemeKey } from "@/site";
+import { presetNames, schemeKey } from "@/site";
 
 interface Props {
   title: string;
@@ -16,7 +16,7 @@ interface Props {
 }
 const { title, description, noindex = false } = Astro.props;
 // Marks that script runs, so the stylesheet's no-script dark fallback steps aside, then sets the scheme before paint.
-const headScript = `document.documentElement.classList.add("js");${colorSchemeScript({ storageKey: schemeKey })};${themePresetScript({ defaultPreset: "ouroboros" })}`;
+const headScript = `document.documentElement.classList.add("js");${colorSchemeScript({ storageKey: schemeKey })};${themePresetScript(presetNames, { defaultPreset: "ouroboros" })}`;
 ---
 <!doctype html>
 <html lang="en">
