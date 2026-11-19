@@ -108,8 +108,8 @@ const handmade = doc.querySelectorAll('a[href], button').filter(el => !isOuro(el
 assert.deepEqual(handmade.map(el => el.toString().slice(0, 120)), [], 'Every link and button is an Ouro HX component');
 console.log('PASS: every link and button is an Ouro HX component.');
 
-// Pictures end on hard edges: no inline style fades one.
-assert.equal(doc.querySelectorAll('[style]').filter(el => /mask|gradient/i.test(el.getAttribute('style'))).length, 0, 'No inline style fades a picture');
+// Pictures end on hard edges: no inline style fades one. The theme picker's swatches are two hard-edged halves, not a fade.
+assert.equal(doc.querySelectorAll('[style]').filter(el => el.getAttribute('data-theme') === undefined && /mask|gradient/i.test(el.getAttribute('style'))).length, 0, 'No inline style fades a picture');
 
 // The favicon is unchanged.
 assert.ok(doc.querySelector('head link[rel="icon"][href="/favicon.ico"]'), 'The page links /favicon.ico');

@@ -1,16 +1,17 @@
 ---
 import Base from "@/layouts/Base.astro";
+import { PageShell } from "@/components/ouro/page-shell/page-shell";
 import { LostGuess } from "@/components/LostGuess";
 ---
 <Base title="Not found | Ari Mendelow" noindex>
   <section class="hero">
-    <div class="wrap hero-solo">
+    <PageShell className="hero-solo">
       <div class="hero-title">
         <p class="eyebrow">Hello!!</p>
         <h1>That page moved on.</h1>
       </div>
       <p class="hero-sub">Nothing lives at this address. The good stuff is back on the home page.</p>
       <LostGuess client:load />
-    </div>
+    </PageShell>
   </section>
 </Base>
