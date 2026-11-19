@@ -27,6 +27,8 @@ try {
     ["/lost/Ouro-UI.html", "Take me to the tea set", "/#ouro-ui"],
     ["/lost/about", "Take me to About", "/#about"],
     ["/lost/qwxzv", null, null],
+    ["/lost/team", null, null],
+    ["/lost/100%", null, null],
   ];
   for (const [path, button, href] of cases) {
     await page.goto(`${server.origin}${path}`);
@@ -39,7 +41,11 @@ try {
     } else {
       assert.equal(await guess.count(), 0, `${path} names no place, so nothing is guessed`);
     }
-    assert.ok(await page.getByRole("link", { name: "Go home" }).isVisible(), `${path} still offers Go home`);
+    const home = page.getByRole("link", { name: "Go home" });
+    assert.ok(await home.isVisible(), `${path} still offers Go home`);
+    // Go home keeps its room under the line above it, guess or not.
+    const gap = await home.evaluate((link) => link.getBoundingClientRect().top - document.querySelector(".hero-sub").getBoundingClientRect().bottom);
+    assert.ok(gap >= 20, `${path}: Go home sits ${gap}px under the line above it`);
   }
   console.log("PASS: a lost address that names a place on the home page offers the way there, and one that names nothing offers Go home.");
 } finally {

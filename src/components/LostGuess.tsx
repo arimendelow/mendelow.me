@@ -39,12 +39,21 @@ function edits(a: string, b: string): number {
   return row[b.length]!;
 }
 
+/** An address as a person typed it; a broken escape (`/100%`) is left as it is rather than thrown. */
+function decoded(path: string): string {
+  try {
+    return decodeURIComponent(path);
+  } catch {
+    return path;
+  }
+}
+
 /**
- * The place an address most likely meant, from its last part: an exact word, or one within an edit for every four of
- * its letters (one edit at least, and none for a word of two letters, so /me isn't read as /ax).
+ * The place an address most likely meant, from its last part: an exact word, or, from five letters, one within an edit
+ * for every four of its letters, so /spoonjoyy finds Spoonjoy and /team finds nothing.
  */
 export function guess(path: string): Place | undefined {
-  const last = plain(decodeURIComponent(path).split("/").filter(Boolean).at(-1)?.replace(/\.html?$/, "") ?? "");
+  const last = plain(decoded(path).split("/").filter(Boolean).at(-1)?.replace(/\.html?$/, "") ?? "");
   if (!last) return undefined;
   let best: { place: Place; distance: number } | undefined;
   for (const place of PLACES) {
@@ -53,7 +62,7 @@ export function guess(path: string): Place | undefined {
       if (!best || distance < best.distance) best = { place, distance };
     }
   }
-  const allowed = last.length <= 2 ? 0 : Math.max(1, Math.floor(last.length / 4));
+  const allowed = last.length < 5 ? 0 : Math.floor(last.length / 4);
   return best && best.distance <= allowed ? best.place : undefined;
 }
 
@@ -65,7 +74,7 @@ export function LostGuess() {
   const place = path ? guess(path) : undefined;
   if (!place) {
     return (
-      <div className="cta-row">
+      <div className="cta-row lost-way">
         <Button href="/" size="lg">
           Go home
         </Button>
