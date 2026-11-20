@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.353",
-  "tagCommit": "98906bba9655e3451b1ad47a8b6d9bade3c38ef7",
+  "tag": "v1.3.354",
+  "tagCommit": "ebe581e8fb700276ed45a6ad84fc5e1c29d6639a",
   "files": {
     "lib/ouro/ax/checks.ts": "21f7f2dd63a86ce58447c7af3b02dc00069df43620bee53c71b0faa3697a0ff4",
     "lib/ouro/ax/cli.ts": "1cbaf0a683321b6343c3f45a77934c138d8ea25eac36526d34d688b8ede36234",
@@ -96,7 +96,7 @@
     "src/lib/ouro/color-scheme.ts": "a2a7841be3dd3cb8ddc79e0de76c633b6cf06f61161fc74d574962a8b3264981",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "8c6f96f6202fe429eb33e00fa8e8824e4f0e3c52433280efd132a7ee530aa2de",
+    "src/lib/ouro/dev.ts": "29d773b56dab1c6f83d902b5c7cca84e6f84399dd68fa7494329fb8e63219ed4",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "4c723c3a6c385e516f649b9ebbdcf6cb6302fd95d3f0cc782d33ba5f9172a7a1",
     "src/lib/ouro/fragment-focus-script.ts": "ff725ffb57e7abc0d244cf651537649b22ba0b1d81501c9a5dcb2237a41ece46",
