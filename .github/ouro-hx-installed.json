@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.373",
-  "tagCommit": "81015f20a37435881a0de1487410c678cb4d73f8",
+  "tag": "v1.3.374",
+  "tagCommit": "0d44f1a947ba5f67cbb5966c3732e74b61bb77d5",
   "files": {
     "lib/ouro/ax/checks.ts": "21f7f2dd63a86ce58447c7af3b02dc00069df43620bee53c71b0faa3697a0ff4",
     "lib/ouro/ax/cli.ts": "1cbaf0a683321b6343c3f45a77934c138d8ea25eac36526d34d688b8ede36234",
@@ -49,7 +49,7 @@
     "scripts/ouro/check/serve.ts": "eaf5b495eb10615a73d5e3f7f2cc3caa52ed3f527a6124c510d704c8855eceb3",
     "scripts/ouro/check/size-check.ts": "a2ed6e07d3c8faf34dc4e816e2aa1ef929a1355a7f1469e2f4f4676abbc3e275",
     "scripts/ouro/check/text-check.ts": "6bfeddf9f3669a6d741f10baf62d94c0be80db620a4d55163187312c57df8934",
-    "scripts/ouro/check/theme-check.ts": "d6dcb2d57bf7651f3c7c3c7c934bc8cad32e8831f22106aa8f40af2303ce398a",
+    "scripts/ouro/check/theme-check.ts": "a69cec97e9ddc05bd13824ab88c3e194957c65e0500ec767363d5b33666bb8f0",
     "scripts/ouro/check/token-check.ts": "cd634298586268d3377ae17ec0b803677ea1a7b8e1638a88ef270b07394f6694",
     "scripts/ouro/check/wrap-check.ts": "474c9b7a08be766c7479931b3f0f0cb6678efcd10918d0047270f3e6fccda918",
     "src/components/ouro/app-window/app-window.tsx": "4bbbd5dd1d284bf93367395e4e41c4c93f1dd4f31709bc28b3eb7d9a06ed9ac5",
@@ -96,7 +96,7 @@
     "src/lib/ouro/color-scheme.ts": "a2a7841be3dd3cb8ddc79e0de76c633b6cf06f61161fc74d574962a8b3264981",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "542f2c126a607bcb21d58810cad05bb3da2344db7824386448f4a122bf3d2b6a",
+    "src/lib/ouro/dev.ts": "e67d5a087a735efde482c654a278b53c714d4bf5ef42a886f825b4ecc0cc24c7",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "4c723c3a6c385e516f649b9ebbdcf6cb6302fd95d3f0cc782d33ba5f9172a7a1",
     "src/lib/ouro/fragment-focus-script.ts": "ff725ffb57e7abc0d244cf651537649b22ba0b1d81501c9a5dcb2237a41ece46",
