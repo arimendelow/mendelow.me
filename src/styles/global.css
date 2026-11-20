@@ -575,6 +575,11 @@
     border: var(--ouro-sq-w, 0px) solid var(--ouro-bd, transparent);
     border-radius: calc(var(--ouro-sq-m) * 0.57 + var(--ouro-sq-w, 0px));
   }
+  [data-card-backdrop] {
+    inset: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
 }
 
 @supports (clip-path: shape(from 0 0, close)) {
