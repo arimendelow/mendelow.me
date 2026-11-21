@@ -61,10 +61,6 @@
   /* The site's own: the second voice of the text, between the theme's muted text and its foreground, and the hover green. */
   --ink-soft: color-mix(in oklab, var(--muted-foreground) 50%, var(--foreground));
   --primary-hover: #14502a;
-    --ouro-shadow-sheet-bottom: 0 -1px 0 color-mix(in oklab, var(--border) 60%, transparent), 0 -8px 32px rgb(0 0 0 / 0.12);
-    --ouro-shadow-sheet-top: 0 1px 0 color-mix(in oklab, var(--border) 60%, transparent), 0 8px 32px rgb(0 0 0 / 0.12);
-    --ouro-shadow-sheet-left: 8px 0 32px rgb(0 0 0 / 0.12);
-    --ouro-shadow-sheet-right: -8px 0 32px rgb(0 0 0 / 0.12);
     --ouro-glass-blur: 6px;
     --ouro-scrim-max: 0.1;
 }
@@ -137,13 +133,6 @@
   --color-destructive: var(--destructive);
   --color-border: var(--border);
   --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
   --color-avatar-8: var(--avatar-8);
   --color-avatar-7: var(--avatar-7);
   --color-avatar-6: var(--avatar-6);
