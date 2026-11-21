@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.425",
-  "tagCommit": "3e677c26f0c380bd734a2d812e582d9850aae000",
+  "tag": "v1.3.427",
+  "tagCommit": "0d7fcc6a9ad3ed1e6f2c5c126d77a0fc27f25b1f",
   "files": {
     "lib/ouro/ax/ax-command.ts": "c96277de9e73a9633e166dfd6b5990b47dda32d08fe132b90e7de2933ca3f21f",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -100,7 +100,7 @@
     "src/lib/ouro/color-scheme.ts": "a2a7841be3dd3cb8ddc79e0de76c633b6cf06f61161fc74d574962a8b3264981",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "0a25842ed54cc87a48fcc975f7d0371ed6860e6e34de405de0e5ed650ed5f5d2",
+    "src/lib/ouro/dev.ts": "cd1e09e646f7ef4e45cce5983ee4e7b8127042704046198322468a6cdcee2df4",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "4c723c3a6c385e516f649b9ebbdcf6cb6302fd95d3f0cc782d33ba5f9172a7a1",
