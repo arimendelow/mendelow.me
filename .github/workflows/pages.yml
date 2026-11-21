@@ -32,6 +32,10 @@ jobs:
         run: node --test 'tests/*.test.mjs'
       - name: Type check
         run: npx tsc --noEmit
+      # The stylesheet against ouro-base at the Ouro UI release .github/ouro-hx-installed.json pins: an old copy of an
+      # ouro-base rule, or an override .github/ouro-base-overrides.json doesn't name, fails this job.
+      - name: Check the stylesheet against ouro-base at the pinned Ouro UI release
+        run: node scripts/ouro/check/base-check.ts
       - name: Build, generate the social card and check share metadata
         run: node scripts/build-site.mjs _site
       - name: Check the page's structure (Ouro UI, the Ouro list, the family links, Ouro HX controls, no text caps)
