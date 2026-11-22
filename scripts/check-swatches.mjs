@@ -1,7 +1,8 @@
 // node scripts/check-swatches.mjs <built folder | https://address>: opens the page in light and dark, chooses each look
 // in the header's theme picker, and checks that every dot previews its own look in the current scheme, whatever look
 // is chosen: its --background and --primary are the ones the page shows when that look is chosen, and the five dots
-// differ. Needs Playwright's Chromium.
+// differ. It also checks the kept look is applied before the islands load, and that without script the picker is hidden.
+// Needs Playwright's Chromium.
 import assert from "node:assert/strict";
 import { chromium } from "playwright";
 import { serve } from "./ouro/check/serve.ts";
@@ -65,9 +66,20 @@ try {
         assert.deepEqual(shown[name], expected[name], `${scheme}, ${chosen} chosen: the ${name} dot shows ${name}, not ${JSON.stringify(shown[name])}`);
       }
     }
-    // The choice is kept for the next visit.
+    // The choice is kept, and the head script applies it on the next visit before any island loads.
     assert.equal(await page.evaluate(() => localStorage.getItem("ouro-theme-preset")), names.at(-1));
+    await page.route("**/_astro/*.js", (route) => route.abort());
+    await page.reload();
+    assert.equal(await page.evaluate(() => document.documentElement.getAttribute("data-theme")), names.at(-1), `${scheme}: the kept look is applied before the islands load`);
     await context.close();
+
+    // Without script the picker can't work, so it is not shown.
+    const still = await browser.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: scheme, javaScriptEnabled: false });
+    const bare = await still.newPage();
+    await bare.goto(`${origin}/`);
+    const shown = await bare.locator('[data-ouro="theme-picker"]').evaluateAll((pickers) => pickers.filter((el) => getComputedStyle(el).display !== "none").length);
+    assert.equal(shown, 0, `${scheme}, no script: the theme picker is hidden`);
+    await still.close();
   }
   console.log("PASS: in light and dark, every theme dot previews its own look whichever look is chosen.");
 } finally {

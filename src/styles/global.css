@@ -90,6 +90,10 @@
   --primary-hover: #4ae36c;
 }
 
+/* Without script the phone menu, the light or dark menu and the theme picker cannot work, so they are not shown. Out of
+   site.css's layer, so it beats the utilities that show them (sm:inline-flex). */
+html:not(.js) :is([data-ouro-navbar-menu], [data-ouro="color-scheme-toggle"], [data-ouro="theme-picker"]) { display: none; }
+
 /* Without script the head never sets .dark, so the system's dark setting applies here instead. */
 @media (prefers-color-scheme: dark) {
   html:not(.js) {
