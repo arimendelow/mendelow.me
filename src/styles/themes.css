@@ -1,5 +1,7 @@
 /* Looks the ThemePicker offers besides the default (mendelow.me's own palette in global.css): the Ouro presets' colours, radius and shadows, copied from ui.ouroboros.bot. Headings keep Cormorant in every look. */
-:root[data-theme="pearl"] {
+/* Each light look keys on <html> and on any element inside it, so a theme picker dot (span[data-theme]) previews its own look whatever look the page has chosen; the .dark rules below come later at the same weight, so they win in dark. */
+:root[data-theme="pearl"],
+:root [data-theme="pearl"] {
   --radius: 1.125rem;
   --background: #ffffff;
   --foreground: #1d1d1f;
@@ -83,7 +85,8 @@
   --ouro-backdrop-color: #000000;
 }
 
-:root[data-theme="abyss"] {
+:root[data-theme="abyss"],
+:root [data-theme="abyss"] {
   --radius: 1rem;
   --background: oklch(0.975 0.016 200);
   --foreground: oklch(0.22 0.04 230);
@@ -167,7 +170,8 @@
   --ouro-backdrop-color: oklch(0.06 0.02 235);
 }
 
-:root[data-theme="brass"] {
+:root[data-theme="brass"],
+:root [data-theme="brass"] {
   --radius: 0.25rem;
   --background: oklch(0.972 0.014 85);
   --foreground: oklch(0.25 0.035 50);
@@ -251,7 +255,8 @@
   --ouro-backdrop-color: oklch(0.1 0.02 50);
 }
 
-:root[data-theme="coral"] {
+:root[data-theme="coral"],
+:root [data-theme="coral"] {
   --radius: 1.25rem;
   --background: oklch(0.975 0.018 75);
   --foreground: oklch(0.27 0.04 30);

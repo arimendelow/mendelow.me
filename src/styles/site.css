@@ -307,8 +307,6 @@ html:not(.js) .showcase-work { display: none; }
 .wordmark { display: inline-flex; margin-inline-end: calc(var(--spacing) * 5); align-items: center; min-height: 2.75rem; font-family: var(--font-heading); font-size: 1.5rem; line-height: 1; color: var(--foreground); text-decoration: none; border-radius: var(--radius-sm); }
 .wordmark:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 
-/* Without script the phone menu and the light or dark menu cannot open, so they are not shown. */
-html:not(.js) [data-ouro-navbar-menu], html:not(.js) [data-ouro="color-scheme-toggle"] { display: none; }
 /* The skip link and the section links land on <main> and the sections without an outline round the whole page. */
 main:focus { outline: none; }
 

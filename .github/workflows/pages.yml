@@ -50,6 +50,8 @@ jobs:
         run: node scripts/check-tea.mjs _site
       - name: Open lost addresses (the 404 page guesses the place an address meant)
         run: node scripts/check-lost.mjs _site
+      - name: Choose each look in light and dark (every theme picker dot previews its own look)
+        run: node scripts/check-swatches.mjs _site
       - name: Check that no picture fades (Ouro check's fade check, over the source)
         run: node scripts/check-fades.mjs
       - uses: actions/upload-artifact@v4

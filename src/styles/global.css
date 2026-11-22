@@ -37,8 +37,10 @@
 
 /* ── Ouro theme tokens, in ouroboros.bot's palette ──
    Light is its warm paper (void, deep, undergrowth, canopy, scale, bone); dark is its night serpent palette.
-   Every text pair passes WCAG AA. */
-:root {
+   Every text pair passes WCAG AA. The Ouroboros look is this palette, so its theme picker dot (data-theme="ouroboros")
+   takes it too, rather than the look the page has chosen. */
+:root,
+[data-theme="ouroboros"] {
   --radius: 0.75rem;
   --background: #f5efe0;
   --foreground: #1a2118;
@@ -65,7 +67,8 @@
     --ouro-scrim-max: 0.1;
 }
 
-.dark {
+.dark,
+.dark [data-theme="ouroboros"] {
   --background: #050a07;
   --foreground: #edf2ee;
   --card: #0d1f13;
@@ -86,6 +89,10 @@
   --ring: #4ae36c;
   --primary-hover: #4ae36c;
 }
+
+/* Without script the phone menu, the light or dark menu and the theme picker cannot work, so they are not shown. Out of
+   site.css's layer, so it beats the utilities that show them (sm:inline-flex). */
+html:not(.js) :is([data-ouro-navbar-menu], [data-ouro="color-scheme-toggle"], [data-ouro="theme-picker"]) { display: none; }
 
 /* Without script the head never sets .dark, so the system's dark setting applies here instead. */
 @media (prefers-color-scheme: dark) {
