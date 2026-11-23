@@ -83,7 +83,7 @@ export function SiteNav() {
         menu={<PhoneMenu />}
         actions={
           <>
-            <ThemePicker presets={presets} defaultPreset="ouroboros" className="hidden sm:inline-flex" />
+            <ThemePicker presets={presets} defaultPreset="ouroboros" size="md" className="hidden sm:grid" />
             <ColorSchemeToggle label="Light, dark or system" />
           </>
         }
