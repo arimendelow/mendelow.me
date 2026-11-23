@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.498",
-  "tagCommit": "0810717b6fd80ca8a6b97658231e84a4e091baf5",
+  "tag": "v1.3.499",
+  "tagCommit": "5f9e5001da71a2d1cc5956902a7b54dec406eda4",
   "files": {
     "lib/ouro/ax/ax-command.ts": "c96277de9e73a9633e166dfd6b5990b47dda32d08fe132b90e7de2933ca3f21f",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -93,7 +93,7 @@
     "src/components/ouro/popover/popover.tsx": "ab4fa434f09aeeccb14f44265aae6ae14c5bcb0fca45afd60c4b90ccffee0517",
     "src/components/ouro/segmented-control/segmented-control-styles.ts": "d8d5ce658ad402aab446c916a25733476756ea7e0070dd8c4962fe1ee982d555",
     "src/components/ouro/segmented-control/segmented-control.tsx": "6117dc4be6de316916a662c6090dd100dfab8aba5b17f714a5a2c28a6433b652",
-    "src/components/ouro/sheet/sheet-parts.tsx": "a675a6cc2a6ca0fb4d2887a609fa87ec362bb4f56e0671f9a2fbed3f5d1c0a12",
+    "src/components/ouro/sheet/sheet-parts.tsx": "ba749c9bb1a111f3aaa81842bb446b0ff0df47acc4e2b56b44c7db9112caf9e2",
     "src/components/ouro/sheet/sheet-styles.ts": "ba027ffdb96d75c1b2d634da07d45afc9e0d899ca260d02612369f9adc38ec49",
     "src/components/ouro/sheet/sheet.tsx": "772e57f270427eb42c3dbaa058d3d7192b5a928147e22460c2efab25d5829077",
     "src/components/ouro/skip-link/skip-link.tsx": "a9dcb70f2dc64123a5a7a41abf44ce73d0df82e37d90f9aa64a7cbdfe65ff3ad",
@@ -108,7 +108,7 @@
     "src/lib/ouro/color-scheme.ts": "a2a7841be3dd3cb8ddc79e0de76c633b6cf06f61161fc74d574962a8b3264981",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "b1cd883fdbb713847d4d192c5a15261d381f2e3ca7ded62ea5368a08c3a073f0",
+    "src/lib/ouro/dev.ts": "2fe7d78ec3bca17423446e452444f13d3e84635aeb46c3928688e33ba0c8ddf7",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
