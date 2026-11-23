@@ -37,9 +37,11 @@ for (const part of ['carousel', 'checklist', 'celebrate', 'button']) assert.ok(i
 const caption = lead.querySelector('figure figcaption');
 assert.ok(caption && hrefs(caption).includes('https://ui.ouroboros.bot/docs/'), 'The showcase links to the live components');
 assert.equal(doc.querySelectorAll('astro-island').map(i => i.getAttribute('client')).filter(c => c !== 'visible').length, 1, 'Only the navigation hydrates on load');
-assert.match(text(lead), /Ouro HX/);
-assert.match(text(lead), /Ouro AX/);
-assert.match(text(lead), /use today/);
+// The launch copy (2026-11-23): Ouro UI is the whole kit, and the entry says why, in Ari's words: a lesson one app
+// teaches reaches every app, and paying stays his.
+assert.match(text(lead), /Ouro UI is my biggest bet, because it touches everything else I make\./);
+assert.match(text(lead), /Through Ouro UI, not once in 32 runs\. Paying stayed mine\./);
+assert.match(text(lead), /live Ouro HX component/);
 assert.doesNotMatch(text(doc.querySelector('main')), /under construction/i, 'Ouro HX is no longer labelled under construction');
 assert.doesNotMatch(text(doc.querySelector('main')), /\b(stable|production[- ]ready)\b/i, 'Nothing is called stable or production-ready');
 assert.equal(doc.querySelectorAll('img').filter(img => /ouro[ -]?ax/i.test(`${img.getAttribute('src')} ${img.getAttribute('alt')}`)).length, 0, 'Ouro AX has no mark');
@@ -47,20 +49,20 @@ assert.equal(hrefs(doc).filter(href => /ouro-ax/.test(href)).length, 0);
 console.log('PASS: Ouro UI leads Selected work with a live showcase that hydrates when seen, both halves and its links, and readiness stays honest.');
 
 // Ouro on the personal site: a description, then every tool in it as one list, each row linking to its own section
-// on ouroboros.bot. Ouro HX carries the same readiness as on ouroboros.bot.
+// on ouroboros.bot. Ouro UI carries the same readiness as on ouroboros.bot.
 const list = doc.querySelector('#ouro #ouro-tools');
 assert.ok(list, 'Missing the list of Ouro tools');
 const rows = list.querySelectorAll('li').map(li => ({ href: li.querySelector('a[href]')?.getAttribute('href'), name: text(li.querySelector('a[href]')), summary: text(li).slice(text(li.querySelector('a[href]')).length).trim(), img: li.querySelector('img')?.getAttribute('src') }));
-assert.deepEqual(rows.map(row => row.name), ['Ouroboros', 'Desk', 'Ouro MD', 'Ouro HX', 'm365crawl', 'Ouro Shepherd', 'Ouro Butler', 'Friends', 'The factory']);
+assert.deepEqual(rows.map(row => row.name), ['Ouroboros', 'Desk', 'Ouro MD', 'Ouro UI', 'm365crawl', 'Ouro Shepherd', 'Ouro Butler', 'Friends', 'The factory']);
 for (const row of rows) {
   assert.match(row.href, /^https:\/\/ouroboros\.bot\/#[a-z0-9-]+$/, `${row.name} links to its section on ouroboros.bot`);
   assert.ok(row.img && served(row.img), `${row.name} shows its art`);
 }
-const hx = rows.find(row => row.name === 'Ouro HX');
+const hx = rows.find(row => row.name === 'Ouro UI');
 assert.equal(hx.href, 'https://ouroboros.bot/#ouro-ui');
-assert.match(hx.summary, /ready to use today$/);
+assert.match(hx.summary, /^For every interface you build, ready to use today$/);
 assert.equal(hx.img, '/assets/ouro-hx-render-128.webp');
-console.log('PASS: Ouro lists every tool with a link to its section, and Ouro HX is ready to use today.');
+console.log('PASS: Ouro lists every tool with a link to its section, and Ouro UI is ready to use today.');
 
 // The family: the same links in the same order at the top and the foot of the page, with this site marked current
 // (aria-current="true"), and the site's own navigation under the family bar.

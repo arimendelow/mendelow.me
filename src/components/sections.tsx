@@ -84,7 +84,7 @@ const ouroTools = [
   { href: "https://ouroboros.bot/#ouroboros", art: "ouro-render", name: "Ouroboros", summary: "The agent harness where it all started" },
   { href: "https://ouroboros.bot/#desk", art: "desk-render", name: "Desk", summary: "Where agents keep their work, with Crew for teams" },
   { href: "https://ouroboros.bot/#ouro-md", art: "ouro-md-icon", name: "Ouro MD", summary: "A Mac Markdown editor for reading what agents write" },
-  { href: "https://ouroboros.bot/#ouro-ui", art: "ouro-hx-render", name: "Ouro HX", summary: "Components for humans and the agents building with them, ready to use today" },
+  { href: "https://ouroboros.bot/#ouro-ui", art: "ouro-hx-render", name: "Ouro UI", summary: "For every interface you build, ready to use today" },
   { href: "https://ouroboros.bot/#m365crawl", art: "m365crawl-render", name: "m365crawl", summary: "Teams chats, mail, and meetings in one archive agents can search" },
   { href: "https://ouroboros.bot/#shepherd", art: "shepherd-render", name: "Ouro Shepherd", summary: "Keeps agents on task" },
   { href: "https://ouroboros.bot/#butler", art: "butler-render", name: "Ouro Butler", summary: "Looks after a home server" },
@@ -111,7 +111,7 @@ export function Work({ showcase, xray }: { showcase?: ReactNode; xray?: ReactNod
             <h3 className="card-title lead-title">Ouro UI</h3>
             <div className="card-body lead-body">
               <p>
-                Ouro UI is how I build interfaces for both sides of the work: Ouro HX, components that feel right to people, and Ouro AX, tools that read clearly to agents. It grew out of <Link href="#redwoodjs">RedwoodUI</Link>. This site is built on Ouro HX, which you can use today.
+                Ouro UI is my biggest bet, because it touches everything else I make. Whenever I learn a way to make an interface better, the screen itself or the tools my agents use to test it, I want that improvement in every corner of my portfolio, not just the app that taught me. So it goes into Ouro UI, and this page, <Link href="#spoonjoy">Spoonjoy</Link>, Ouro MD and my agents' own tools all pick it up. Gatefold's review drivers and Spoonjoy's jank tools, for one, became a check that caught a bug in Gatefold on its first run. My favourite result so far: ten AI models ran an errand that ended "order the groceries and pay." Clicking through a browser, they paid every time. Through Ouro UI, not once in 32 runs. Paying stayed mine.
               </p>
             </div>
             <figure className="showcase-figure">
