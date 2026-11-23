@@ -139,6 +139,7 @@
     "src/lib/ouro/use-ouro.ts": "d49e64712c98e849dd9089444b3a2eba18bdeacd59120cc5123c9b9fb78c5331",
     "src/lib/ouro/use-platform.ts": "7c86d4891f0727fe2fe30f2250f6d697d5f41428307ce400e44d8d09fabe12a5",
     "src/lib/ouro/use-reduced-motion.ts": "be3cf24c0576eaa57410d194b12c303de88269df2260409a6eda7b2c1760af4d",
-    "src/lib/ouro/use-sheet-presentation.ts": "634b3a5858329030962b28a23cdb8d5074a21ece08112fb6369b0f4adfd50f84"
+    "src/lib/ouro/use-sheet-presentation.ts": "634b3a5858329030962b28a23cdb8d5074a21ece08112fb6369b0f4adfd50f84",
+    "src/styles/ouro/ouro-base.css": "33a57fdbd717e933c5befd9d7d20d31d201819df785656f15ddfb07d7243d615"
   }
 }
