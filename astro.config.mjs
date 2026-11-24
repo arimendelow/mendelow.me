@@ -4,10 +4,11 @@
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
+import { squircleCorners } from "./src/lib/ouro/squircle-corners";
 
 export default defineConfig({
   site: "https://mendelow.me",
   integrations: [react()],
-  vite: { plugins: [tailwindcss()] },
+  vite: { css: { postcss: { plugins: [squircleCorners()] } }, plugins: [tailwindcss()] },
   devToolbar: { enabled: false },
 });
