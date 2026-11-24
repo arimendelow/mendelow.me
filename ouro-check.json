@@ -2,6 +2,14 @@
   "known": {
     "narrow-text": [
       "This paragraph wraps at 1280px in a 1920px column, leaving the rest empty. Let it use the width it has: remove `.wrap { max-width: calc(var(--maxw) + 2 * var(--gutter)) }`. If the design sets a measure on purpose, declare it at 40ch or wider: read the max-width from a --measure-* token, add data-ouro-measure to the text, or set \"measure\" in ouro-check.json."
+    ],
+    "near-miss": [
+      "3.5px apart: more than 0 and under the 8px minimum gap, so neither touching nor clearly apart",
+      "5.1px apart: more than 0 and under the 8px minimum gap, so neither touching nor clearly apart",
+      "6.2px apart: more than 0 and under the 10px minimum gap, so neither touching nor clearly apart",
+      "6px apart: more than 0 and under the 8px minimum gap, so neither touching nor clearly apart",
+      "7.5px apart: more than 0 and under the 10px minimum gap, so neither touching nor clearly apart",
+      "7.6px apart: more than 0 and under the 8px minimum gap, so neither touching nor clearly apart"
     ]
   }
 }
