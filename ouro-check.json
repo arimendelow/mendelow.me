@@ -10,6 +10,10 @@
       "6px apart: more than 0 and under the 8px minimum gap, so neither touching nor clearly apart",
       "7.5px apart: more than 0 and under the 10px minimum gap, so neither touching nor clearly apart",
       "7.6px apart: more than 0 and under the 8px minimum gap, so neither touching nor clearly apart"
+    ],
+    "off-centre-text": [
+      "its text sits 4.5px high, by its cap height: even the padding above and below it, and centre it on its cap height, not its line box",
+      "its text sits 6.3px high, by its cap height: even the padding above and below it, and centre it on its cap height, not its line box"
     ]
   }
 }
