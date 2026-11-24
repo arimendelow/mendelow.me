@@ -100,7 +100,7 @@ assert.match(siteNav, /site\.id === "ari"[\s\S]*?aria-current=\{here \? "true"/,
 assert.doesNotMatch(siteNav, /<nav\b/, 'The phone menu adds no landmark of its own');
 // One name, one place: the footer's own GitHub link is Ari's, and says so.
 const footerLinks = doc.querySelector('footer').querySelectorAll('a[href]').map(a => [text(a), a.getAttribute('href')]);
-assert.deepEqual(footerLinks.filter(([label]) => /github/i.test(label)), [['GitHub', 'https://github.com/ourostack'], ['My GitHub', 'https://github.com/arimendelow']], 'The footer names its two GitHub links apart');
+assert.deepEqual(footerLinks.filter(([label]) => /github/i.test(label)), [['GitHub (ourostack)', 'https://github.com/ourostack'], ['My GitHub', 'https://github.com/arimendelow']], 'The footer names its two GitHub links apart');
 console.log("PASS: the family bar and footer carry the family links in order, with Ari Mendelow current, above the site navigation, with the same landmark names as the family's other sites.");
 
 // Every link and button is an Ouro HX component. The one exception is the wordmark in the navbar's brand slot,
