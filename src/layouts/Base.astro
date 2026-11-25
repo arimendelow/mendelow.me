@@ -50,7 +50,7 @@ const headScript = `document.documentElement.classList.add("js");${colorSchemeSc
 </main>
 <footer class="site-footer">
   <SiteFooter />
-  <div class={`wrap footer-theme ${gutters}`}><FooterTheme client:load /></div>
+  <div class={`wrap footer-theme ${gutters}`}><FooterTheme client:visible /></div>
 </footer>
 <slot name="end" />
 </body>
