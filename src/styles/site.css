@@ -310,16 +310,11 @@ html:not(.js) .showcase-work { display: none; }
 /* The skip link and the section links land on <main> and the sections without an outline round the whole page. */
 main:focus { outline: none; }
 
-/* Below 40rem the family bar steps aside and the phone menu lists the family; the family footer stays. */
-@media (width < 40rem) { .family-bar-wrap { display: none; } }
+/* The family strip shows at every width, a phone's too, on the navbar's own surface; the navbar draws the one line under both.
+   Above the sticky navbar (z-40), so a link's 44px target, which runs past the strip on a coarse pointer, still takes a finger. */
+.family-bar-wrap { position: relative; z-index: 41; background: var(--background); }
 
-/* The phone menu: the site's sections, then the Ouro family under its own heading, this site marked in words. */
+/* The phone menu: the site's sections. */
 .phone-menu { display: grid; gap: calc(var(--spacing) * 4); }
 .phone-menu-list { list-style: none; margin: 0; padding: 0; display: grid; gap: calc(var(--spacing) * 1); }
 .phone-menu-link { align-items: center; gap: calc(var(--spacing) * 3); min-height: 2.75rem; padding: 0 calc(var(--spacing) * 3); font-size: 1.125rem; font-weight: 500; }
-.phone-menu-family { border-top: 1px solid var(--border); padding-top: calc(var(--spacing) * 3); }
-.phone-menu-heading { margin: 0; padding: calc(var(--spacing) * 1) calc(var(--spacing) * 3); font-family: inherit; font-size: 0.875rem; font-weight: 500; line-height: 1.25rem; color: var(--muted-foreground); }
-.phone-menu-site { font-size: 1rem; }
-.phone-menu-site[aria-current="true"] { font-weight: 600; }
-.phone-menu-row { display: flex; align-items: center; gap: calc(var(--spacing) * 1); }
-.phone-menu-here { font-size: 0.875rem; font-weight: 500; color: var(--muted-foreground); }
