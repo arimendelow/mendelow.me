@@ -1,12 +1,10 @@
 // The site's own navigation: an island, because its phone menu and the colour scheme switch need script.
-// The links are in the server HTML from 640px up, so they work before it loads. On a phone the family bar is hidden,
-// so the menu lists the family's sites too, under a heading of their own, with this one marked.
-import { useId } from "react";
+// The links are in the server HTML from 640px up, so they work before it loads. The family's sites are the strip above
+// the navbar (Family.tsx), on a phone too, so the menu lists only this site's sections.
 import { ColorSchemeToggle } from "@/components/ouro/color-scheme-toggle/color-scheme-toggle";
 import { Link } from "@/components/ouro/link/link";
 import { ThemePicker } from "@/components/ouro/theme-picker/theme-picker";
 import { Navbar } from "@/components/ouro/navbar/navbar";
-import family from "@/family.json";
 import { ColorSchemeProvider } from "@/lib/ouro/color-scheme";
 import { gutters, schemeKey } from "@/site";
 
@@ -27,7 +25,6 @@ const items = [
 ];
 
 function PhoneMenu() {
-  const heading = useId();
   return (
     <div className="phone-menu">
       <ThemePicker presets={presets} defaultPreset="ouroboros" />
@@ -40,28 +37,6 @@ function PhoneMenu() {
           </li>
         ))}
       </ul>
-      <div className="phone-menu-family">
-        <h3 id={heading} className="phone-menu-heading">
-          Ouro family
-        </h3>
-        <ul className="phone-menu-list" aria-labelledby={heading}>
-          {family.links.map((site) => {
-            const here = site.id === "ari";
-            return (
-              <li key={site.id} className="phone-menu-row">
-                <Link href={site.href} tone="secondary" inline={false} aria-current={here ? "true" : undefined} className="flex pointer-coarse:flex phone-menu-link phone-menu-site">
-                  {site.label}
-                </Link>
-                {here && (
-                  <span className="phone-menu-here" aria-hidden="true">
-                    this site
-                  </span>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
     </div>
   );
 }

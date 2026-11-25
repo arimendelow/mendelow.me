@@ -86,17 +86,14 @@ assert.ok(anchors.indexOf(runs[0].run[0]) < anchors.indexOf(navbar.querySelector
 assert.ok(doc.querySelector('footer')?.querySelectorAll('a[href]').some(a => a === runs[1].run[0]), 'The family footer is the page footer');
 // The same landmarks on every family site: the bar "Sites", the footer "All sites", the site's own nav "Primary".
 assert.deepEqual(doc.querySelectorAll('nav[aria-label]').map(nav => nav.getAttribute('aria-label')), ['Sites', 'Primary', 'All sites'], 'Landmark names are Sites, Primary and All sites');
-// Below 40rem the bar hides with no script (a wrapper and a media query), and the phone menu lists the family under a
-// heading, with this site marked, instead of a second "Sites" landmark. The menu mounts in the browser, so its source
-// is checked here and its rendering in the CI screenshots.
+// The bar shows at every width, a phone's too (a wrapper on the navbar's surface, no desktop-only rule), and the phone
+// menu lists only the site's own sections, repeating no family link. The menu mounts in the browser, so its source is
+// checked here and its rendering in the CI screenshots.
 assert.ok(runs[0].run[0].closest('.family-bar-wrap'), 'The family bar sits in .family-bar-wrap');
-assert.match(read('src/styles/site.css'), /@media \(width < 40rem\) \{ \.family-bar-wrap \{ display: none; \} \}/, 'The family bar hides below 40rem');
+assert.doesNotMatch(read('src/styles/site.css'), /\.family-bar-wrap \{[^}]*display: none/, 'The family bar never hides on a phone');
 const siteNav = read('src/components/SiteNav.tsx');
-assert.match(siteNav, /menu=\{<PhoneMenu \/>\}/, 'The phone menu is the site menu with the family');
-assert.match(siteNav, /family\.links\.map/, 'The phone menu lists every family link');
-assert.match(siteNav, /<h3 id=\{heading\}[\s\S]*?Ouro family/, 'The family links sit under a heading');
-assert.match(siteNav, /aria-labelledby=\{heading\}/);
-assert.match(siteNav, /site\.id === "ari"[\s\S]*?aria-current=\{here \? "true"/, 'Ari Mendelow is marked current in the phone menu');
+assert.match(siteNav, /menu=\{<PhoneMenu \/>\}/, 'The phone menu is the site menu');
+assert.doesNotMatch(siteNav, /family\.(links|json)/, 'The phone menu repeats no family link; the bar carries them');
 assert.doesNotMatch(siteNav, /<nav\b/, 'The phone menu adds no landmark of its own');
 // One name, one place: the footer's own GitHub link is Ari's, and says so.
 const footerLinks = doc.querySelector('footer').querySelectorAll('a[href]').map(a => [text(a), a.getAttribute('href')]);

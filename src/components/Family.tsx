@@ -9,7 +9,7 @@ import { gutters } from "@/site";
 const current = "ari";
 
 export function SiteFamilyBar() {
-  // Hidden below 40rem by the stylesheet, with no script: on a phone the menu lists the family instead.
+  // Shown at every width, with no script: on a phone one row that scrolls sideways, then the sticky navbar.
   return (
     <div className="family-bar-wrap">
       <FamilyBar links={family.links} current={current} label="Sites" className={gutters} />
