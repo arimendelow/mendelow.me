@@ -6,8 +6,9 @@ import { themePresetScript } from "@/lib/ouro/theme-preset-script";
 import { colorSchemeScript } from "@/lib/ouro/color-scheme-script";
 import { fragmentFocusScript } from "@/lib/ouro/fragment-focus-script";
 import { SiteFamilyBar, SiteFooter } from "@/components/Family";
+import { FooterTheme } from "@/components/FooterTheme";
 import { SiteNav } from "@/components/SiteNav";
-import { presetNames, schemeKey } from "@/site";
+import { gutters, presetNames, schemeKey } from "@/site";
 
 interface Props {
   title: string;
@@ -49,6 +50,7 @@ const headScript = `document.documentElement.classList.add("js");${colorSchemeSc
 </main>
 <footer class="site-footer">
   <SiteFooter />
+  <div class={`wrap footer-theme ${gutters}`}><FooterTheme client:load /></div>
 </footer>
 <slot name="end" />
 </body>

@@ -3,18 +3,9 @@
 // the navbar (Family.tsx), on a phone too, so the menu lists only this site's sections.
 import { ColorSchemeToggle } from "@/components/ouro/color-scheme-toggle/color-scheme-toggle";
 import { Link } from "@/components/ouro/link/link";
-import { ThemePicker } from "@/components/ouro/theme-picker/theme-picker";
 import { Navbar } from "@/components/ouro/navbar/navbar";
 import { ColorSchemeProvider } from "@/lib/ouro/color-scheme";
 import { gutters, schemeKey } from "@/site";
-
-const presets = [
-  { name: "ouroboros", label: "Ouroboros", mood: "Warm paper by day, a serpent's night by dark" },
-  { name: "pearl", label: "Pearl", mood: "Clean white, soft glass and one clear blue" },
-  { name: "abyss", label: "Abyss", mood: "Pale aqua, then a cyan glow in the dark" },
-  { name: "brass", label: "Brass", mood: "Ivory, walnut and polished brass" },
-  { name: "coral", label: "Coral", mood: "Warm sand, kelp and coral" },
-];
 
 const items = [
   { label: "Agents", href: "/#working-with-agents" },
@@ -27,7 +18,6 @@ const items = [
 function PhoneMenu() {
   return (
     <div className="phone-menu">
-      <ThemePicker presets={presets} defaultPreset="ouroboros" />
       <ul className="phone-menu-list">
         {items.map((item) => (
           <li key={item.href}>
@@ -56,12 +46,7 @@ export function SiteNav() {
         }
         items={items}
         menu={<PhoneMenu />}
-        actions={
-          <>
-            <ThemePicker presets={presets} defaultPreset="ouroboros" size="md" className="hidden sm:grid" />
-            <ColorSchemeToggle label="Light, dark or system" />
-          </>
-        }
+        actions={<ColorSchemeToggle label="Light, dark or system" />}
       />
     </ColorSchemeProvider>
   );
