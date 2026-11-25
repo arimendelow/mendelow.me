@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.542",
-  "tagCommit": "240cd365c2aed224053e1d9629cd67f8f1b9bc5b",
+  "tag": "v1.3.543",
+  "tagCommit": "753b77ea5ac1cf73bd86bb709a7598333bd7d75e",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -87,7 +87,7 @@
     "src/components/ouro/kbd/kbd.tsx": "1ae7429296990ac1cfb874e1ca90b35903812b12f7fb2a7b923afa447d75f5e8",
     "src/components/ouro/link/link.tsx": "a92366eda6c5162ad4dbb2805079c55eb2be44589abc8491c4b52ca59af7dd28",
     "src/components/ouro/menu/menu-styles.ts": "01188a86e0c39960e5ee53ab84268b2f4dcb71d2197644e62d624a8f53e477d1",
-    "src/components/ouro/menu/menu.tsx": "8b155999c652cfb854d627cbc54b268af68625648eea1c11c4a6383b216d5a0e",
+    "src/components/ouro/menu/menu.tsx": "793a3a9f684931f82290849e029dc92791c79a174e44201f50d99893b8c8fdee",
     "src/components/ouro/navbar/navbar-styles.ts": "86323839d748cc3914f7f80b8ca9bf8f3a995cc37aa9da5409cdcaeafc82f9e8",
     "src/components/ouro/navbar/navbar.tsx": "da8c8cd2d4b5f71567517faadcf59bc368f4a2bd9ecbae0275664aee845fccd6",
     "src/components/ouro/navigation-menu/navigation-menu.tsx": "746c0b40da0de4bdfb44612d1a083ccd1ba114eabc51144743b4723ed8b9a4a7",
@@ -113,7 +113,7 @@
     "src/lib/ouro/color-scheme.ts": "a2a7841be3dd3cb8ddc79e0de76c633b6cf06f61161fc74d574962a8b3264981",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "39803eb29a6273349ceef120b52ee3324f3188a537941a5b8ea61762908f2b15",
+    "src/lib/ouro/dev.ts": "50e8503969a9e77bf0ffc7d4bb04c639664b305be0a7d5f3c0547c8c2f5426be",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
