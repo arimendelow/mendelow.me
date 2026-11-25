@@ -10,5 +10,5 @@ const presets = [
 ];
 
 export function FooterTheme() {
-  return <ThemePicker presets={presets} defaultPreset="ouroboros" />;
+  return <ThemePicker presets={presets} defaultPreset="ouroboros" size="md" />;
 }
