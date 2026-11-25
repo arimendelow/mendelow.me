@@ -9,7 +9,7 @@ const copy = fs.readFileSync(new URL('../src/family.json', import.meta.url));
 
 test('src/family.json lists the family in order, with mendelow.me among them', () => {
   const { links } = JSON.parse(copy.toString('utf8'));
-  assert.deepEqual(links.map(link => link.id), ['ouro', 'ouro-ui', 'ouro-md', 'desk', 'apps', 'ari', 'github']);
+  assert.deepEqual(links.map(link => link.id), ['ouro', 'ouro-ui', 'spoonjoy', 'ari', 'github']);
   assert.equal(links.find(link => link.id === 'ari').href, 'https://mendelow.me/');
 });
 
