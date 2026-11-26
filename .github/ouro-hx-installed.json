@@ -1,6 +1,6 @@
 {
-  "tag": "v1.3.576",
-  "tagCommit": "b4a823efe35830778cbcc8866fbf21414c7050ea",
+  "tag": "v1.3.577",
+  "tagCommit": "131a1b6924dcf8dc6573b78a320e3a173fe66900",
   "files": {
     "lib/ouro/ax/ax-command.ts": "1b55ce39c440b78f21c86b68e3d4bcc57c99d146b0e51ff09527aab24cb9ca8c",
     "lib/ouro/ax/ax-moved.d.ts": "878ff338c7eb2c273854635c354c6bbfc63a8536e33ea5db5b14f770c2353445",
@@ -62,8 +62,8 @@
     "scripts/ouro/check/wrap-check.ts": "474c9b7a08be766c7479931b3f0f0cb6678efcd10918d0047270f3e6fccda918",
     "src/components/ouro/agent-handoff/agent-handoff.tsx": "ac4f273d337a13c3fe3280934e360cb586f778571f8d4954e2b6388382aa019f",
     "src/components/ouro/app-window/app-window.tsx": "bc2058373c4c420a782385310f82e95decf41b797f63719126124850a6134109",
-    "src/components/ouro/badge/badge.tsx": "0a6708e21912f93afc871adc6698f1c60557b381eaaf9652948a5769429da52d",
-    "src/components/ouro/button/button.tsx": "f3d4088bed728da3a1d41561c734d832c1abd8d7e4e5efad3ec789eac47dcd08",
+    "src/components/ouro/badge/badge.tsx": "d214626b4803e39f869fe34c8685c2342b5c842f60c6fbc1c5f4e1a1bf212eca",
+    "src/components/ouro/button/button.tsx": "6125e49b7f0990b4122690aaec9c02d0ac26532088373124f719f6827b2857f1",
     "src/components/ouro/carousel/carousel-styles.ts": "f8894445f8caaca1d95c236dad93bf0735bf469bf87da93857825bfc174be9ed",
     "src/components/ouro/carousel/carousel.tsx": "45af8711c5462c3b754673c349620c46bfb6e3d5c57dad6facf3da075c2eee17",
     "src/components/ouro/celebrate/celebrate.tsx": "d84b0cf640163e5bfde8a77ce210b76da8c5a378c53ac101fb283176d451af9c",
@@ -112,7 +112,7 @@
     "src/lib/ouro/color-scheme.ts": "a2a7841be3dd3cb8ddc79e0de76c633b6cf06f61161fc74d574962a8b3264981",
     "src/lib/ouro/control-ref.ts": "1bbe41198b08459b212158edfc9b0a1068ef0585caa8a5e8e7832495ad3dfe30",
     "src/lib/ouro/current-path.ts": "bbb63ed157c7458ddec1d11ccf615da1f0978a5f224eeffb7c8fe0ab7a2cc3f6",
-    "src/lib/ouro/dev.ts": "d1ea7fc9da4656fc725165ca9491bf05923c15692ebe4ba4da2055380930f718",
+    "src/lib/ouro/dev.ts": "5e8c26736cc1a47a656e8c967fb3c5fe3882f224785614c06ada07c0608e0d92",
     "src/lib/ouro/disabled-reason.tsx": "72737119caf8070444f18b17baacbc7b604368c692046e15e3ebd0236b31a3e0",
     "src/lib/ouro/env.d.ts": "b9b1f9fbff01e0acecd2452110007846804d4d30e159a302f56312d2771fe90c",
     "src/lib/ouro/floating.ts": "c18edc287b48155197c9ee5ff7468e84197e353c5c2423596370d480e8204d4a",
