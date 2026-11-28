@@ -15,6 +15,9 @@
       "its text sits 4.0px high, by its cap height: even the padding above and below it, and centre it on its cap height, not its line box",
       "its text sits 4.5px high, by its cap height: even the padding above and below it, and centre it on its cap height, not its line box",
       "its text sits 6.3px high, by its cap height: even the padding above and below it, and centre it on its cap height, not its line box"
+    ],
+    "cut-off-edge": [
+      "content is clipped at the right and left into the same surface: use a step between theme surface tokens"
     ]
   }
 }
